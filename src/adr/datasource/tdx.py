@@ -117,13 +117,31 @@ class TdxClient:
 
     # --------------------------------------------------- 全市场列表（双市场）
     def list_all_stocks(self) -> pd.DataFrame:
-        """沪深双市场合并，过滤 A股正则，返回 code/name/pre_close。"""
+        """沪深双市场合并，过滤 A股正则，返回 code/name/pre_close。
+
+        关键修正（指数/个股混淆）：mootdx 的 ``stocks(market=1)``（沪市清单）会把一批
+        **指数**误列为「股票」，代码形如 000158=上证环保 / 000300=沪深300 / 000688=科创50 /
+        000016=上证50 / 000010=上证180（含 000xxx/399xxx/880xxx/0009xx）。这些指数代码与
+        深市个股代码（000xxx）碰撞，会在快照合并时与真实深市个股（如 000158 常山北明）互相覆盖，
+        导致「指数被当个股」或「个股被错命名」。
+
+        修复：沪市清单仅保留沪市真实股票前缀（60/68/900）；其余一律视为指数剔除。
+        深市清单本身干净（指数不落 market=0），由 is_a_share 正则兜底。
+        """
         if self._all_stocks is not None:
             return self._all_stocks
         sh = self._q.stocks(market=1)
         sz = self._q.stocks(market=0)
         sh = sh if sh is not None else pd.DataFrame()
         sz = sz if sz is not None else pd.DataFrame()
+
+        # 沪市真实股票代码前缀：600-605 / 688-689 / 900(B股)；其余 000xxx/399xxx/880xxx/0009xx 为指数
+        _SH_STOCK_RE = re.compile(r"^(60\d{4}|68\d{4}|900\d{3})$")
+        if len(sh):
+            sh = sh.copy()
+            sh["code"] = sh["code"].astype(str).str.zfill(6)
+            sh = sh[sh["code"].str.match(_SH_STOCK_RE)].copy()
+
         df = pd.concat([sh, sz], ignore_index=True)
         df["code"] = df["code"].astype(str).str.zfill(6)
         df = df[df["code"].apply(is_a_share)].copy()

@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-01",
+  "weekday": "周二",
+  "mode": "auto",
+  "elapsed_sec": 7.9,
+  "kept": 57,
+  "quality_passed": true,
+  "sh_index": {
+    "code": "999999",
+    "name": "",
+    "price": 3979.89,
+    "pct": -0.16080074254321824
+  },
+  "main_line": "农业/转基因（粮食种植）",
+  "main_line_source": "题材榜(腾讯/Wind)"
+}

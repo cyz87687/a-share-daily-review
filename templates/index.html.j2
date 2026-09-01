@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股每日复盘 · 历史归档</title>
+<style>
+{{ css_vars }}
+* { box-sizing: border-box; }
+body { margin:0; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); font-size:13px; }
+.up { color:var(--up); } .down { color:var(--down); } .flat { color:var(--flat); } .na { color:var(--flat); font-style:italic; }
+.wrap { max-width:1080px; margin:0 auto; padding:16px; }
+h1 { font-size:18px; margin:0 0 4px; }
+.sub { color:var(--text-sub); margin-bottom:10px; }
+.controls { margin-bottom:12px; }
+.controls input { padding:5px 10px; border:1px solid var(--border); border-radius:4px; width:280px; }
+.month { font-size:14px; font-weight:700; margin:14px 0 8px; border-left:3px solid var(--up); padding-left:8px; }
+.grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:10px; }
+.card .date { font-weight:700; font-size:15px; }
+.card .idx { font-size:13px; font-weight:700; margin:4px 0; }
+.card .kept { color:var(--text-sub); font-size:12px; }
+.card .line { color:var(--text-sub); font-size:12px; margin:4px 0; }
+.card .q { font-size:11px; }
+.card .q.ok { color:var(--down); } .card .q.bad { color:var(--up); }
+.card a { display:inline-block; margin-top:6px; color:var(--up); text-decoration:none; font-size:12px; }
+footer { margin-top:20px; color:var(--text-sub); font-size:11px; text-align:center; border-top:1px solid var(--border); padding-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>A股每日复盘 · 历史归档</h1>
+<div class="sub">共 {{ metas|length }} 期 · 覆盖 {% if metas %}{{ metas[-1].date }} ~ {{ metas[0].date }}{% else %}—{% endif %}</div>
+<div class="controls"><input id="q" placeholder="搜索日期 / 板块 / 主线关键词" oninput="search()"></div>
+<div class="grid" id="grid">
+{% set ns = namespace(last='') %}
+{% for m in metas %}
+  {% set ym = m.date[:7] %}
+  {% if ym != ns.last %}
+    </div><div class="month">{{ ym }} 月</div><div class="grid" id="grid">
+    {% set ns.last = ym %}
+  {% endif %}
+  <div class="card" data-text="{{ m.date }} {{ m.main_line or '' }}">
+    <div class="date">{{ m.date[5:] }} <span class="flat">{{ m.weekday }}</span></div>
+    {% if m.sh_index and m.sh_index.pct is not none %}
+    <div class="idx {% if m.sh_index.pct>0 %}up{% elif m.sh_index.pct<0 %}down{% else %}flat{% endif %}">上证 {{ '%+.2f'|format(m.sh_index.pct) }}%</div>
+    {% else %}<div class="idx na">上证 N/A</div>{% endif %}
+    <div class="kept">留存 <b>{{ m.kept }}</b> · 耗时 {{ m.elapsed_sec }}s</div>
+    <div class="line">主线：{{ m.main_line or 'N/A' }}</div>
+    <div class="q {% if m.quality_passed %}ok{% else %}bad{% endif %}">质量门 {% if m.quality_passed %}通过{% else %}未通过{% endif %}</div>
+    <a href="{{ m.date }}/review-{{ m.date }}.html">打开单页 →</a>
+  </div>
+{% endfor %}
+</div>
+</div>
+<footer>【数据截止各期收盘；信号均为待验证假设，非投资建议】</footer>
+<script>
+function search(){
+  var q=document.getElementById('q').value.trim();
+  document.querySelectorAll('#grid .card').forEach(c=>{
+    c.style.display = (q==='' || c.dataset.text.indexOf(q)>=0) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

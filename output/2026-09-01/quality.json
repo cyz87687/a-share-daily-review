@@ -1,0 +1,11 @@
+{
+  "numeric_traceable": true,
+  "all_have_falsify": true,
+  "reconcile_done": true,
+  "no_naked_prediction": true,
+  "holdings_updated": true,
+  "has_data_date": true,
+  "violations": [],
+  "passed": true,
+  "summary": "质量门 6/6 通过"
+}

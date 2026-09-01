@@ -1,0 +1,40 @@
+# A股每日自动复盘工具 · 运行配置（全部参数集中可调）
+# 路径均相对项目根目录（config.yaml 所在目录）；代码中禁止硬编码绝对路径。
+
+# ---------- 筛选参数（对齐上游提示词附录B）----------
+N: 500            # 候选池：当日成交额 Top N
+D: 20             # 次新剔除天数（上市未满 D 个交易日）
+Q_UP: 1.6         # 放量量比阈值
+Q_LOW: 0.55       # 极致缩量量比阈值
+P_TH: 2.5         # 价格异动阈值（%）
+K: 20             # 强势板块 Top K
+M: 60             # 留存标的数（四维筛选后截断至 M）
+
+# ---------- 运行模式 ----------
+mode: prepare     # prepare（导出数据包+提示词，人工粘贴AI）| auto（配 key 后全自动）
+exclude_bj: true  # 排除北交所（A股正则已天然排除 8/4 开头，此处为显式开关）
+batch_size: 80    # quotes() 单批上限（实测 ≤80/批去重；防 tdx 协议限制）
+
+# ---------- 目录（相对项目根）----------
+output_dir: output        # HTML / prompt.txt / datapack.json 输出根
+data_dir: data            # logs / reviews / snapshots / cache 持久化根
+logs_dir: logs            # 运行日志 logs/run-{date}.log
+industry_map_path: config/industry_map.yaml  # 旧版 industry 编码→名称映射（已弃用，保留兼容）
+# sector_map_path: 行业维度可插拔映射。原 data/sector_map.csv 经实测证实为不可信的申万式假设映射
+# （mootdx 自有 industry 编码：如编码1同时覆盖银行/保险/证券、编码18=传媒却标成医药生物），已重命名为
+# data/sector_map.csv.UNVERIFIED_DISABLED 禁用。零幻觉原则下，指向已全注释的 industry_map.yaml → 行业维度统一 N/A，
+# 待以 880xxx 行业指数多日交叉验证、拿到 mootdx 权威 code→name 后方可启用。
+sector_map_path: config/industry_map.yaml
+
+# ---------- 复盘引擎（auto 模式）----------
+# auto 模式默认走「本地复盘引擎」（src/adr/local_review.py）：将提示词定义的单股 8 项复盘 +
+# 市场总结方法论固化为确定性规则，全部输入来自真实行情数据包，零外部 LLM、零 api_key。
+# 因此 auto 模式完全离线自治，可在 CI（GitHub Actions）中每日自动运行，无需配置任何 key。
+# 如需接外部 LLM（可选增强），可在此填入 provider/base_url/api_key 并改造 pipeline；当前未启用。
+llm:
+  provider: local                # local = 本工具内置复盘引擎（无外部调用）
+  base_url: ""
+  model: adr-local-review-engine # 页面页脚/运行配置公示展示用
+  api_key: ""                    # 本地引擎无需 key；留空
+  temperature: 0.3
+  max_tokens: 4096

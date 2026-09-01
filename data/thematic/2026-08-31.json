@@ -1,0 +1,104 @@
+{
+  "date": "2026-08-31",
+  "source": "腾讯自选股(westock) data_sector 概念板块 ranking（changePct/mainNetInflow，date=2026-08-31）；与 Wind 资讯及公开报道（首部 AIGC 长剧《后西游记》8/31 登陆湖南卫视&芒果TV）交叉验证",
+  "source_tool": "mcp__westock-mcp__data_sector (kind=concept)",
+  "main_line": "AI短剧/短剧互动游戏",
+  "main_line_code": "pt02GN2269",
+  "main_line_change_pct": 5.21,
+  "main_line_main_net_inflow_yi": 57.88,
+  "main_line_up": "81/87",
+  "main_line_leader": "中文在线(+20.02%)",
+  "note": "mootdx block_type==2 仅含 20 个宽基/指数板块（含 ST板块），无题材板块名；核心主线改由腾讯/Wind 题材概念榜提供。",
+  "top_thematic": [
+    {
+      "rank": 1,
+      "name": "爱奇艺概念",
+      "code": "pt02031384",
+      "change_pct": 7.71,
+      "up": "10/11",
+      "main_net_inflow_yi": 17.66,
+      "leader": "中文在线(+20.02%)"
+    },
+    {
+      "rank": 2,
+      "name": "Kimi概念",
+      "code": "pt02GN2297",
+      "change_pct": 6.68,
+      "up": "9/9",
+      "main_net_inflow_yi": 6.65,
+      "leader": "华策影视(+15.77%)"
+    },
+    {
+      "rank": 3,
+      "name": "短剧/互动游戏",
+      "code": "pt02GN2269",
+      "change_pct": 5.21,
+      "up": "81/87",
+      "main_net_inflow_yi": 57.88,
+      "leader": "中文在线(+20.02%)"
+    },
+    {
+      "rank": 4,
+      "name": "Sora概念(文生视频)",
+      "code": "pt02GN2290",
+      "change_pct": 5.03,
+      "up": "32/33",
+      "main_net_inflow_yi": 28.98,
+      "leader": "中文在线(+20.02%)"
+    },
+    {
+      "rank": 5,
+      "name": "AI营销",
+      "code": "pt02GN2418",
+      "change_pct": 4.92,
+      "up": "35/36",
+      "main_net_inflow_yi": 19.04,
+      "leader": "芒果超媒(+20.00%)"
+    },
+    {
+      "rank": 6,
+      "name": "影视传媒",
+      "code": "pt02031356",
+      "change_pct": 4.84,
+      "up": "80/88",
+      "main_net_inflow_yi": 46.27,
+      "leader": "中文在线(+20.02%)"
+    },
+    {
+      "rank": 7,
+      "name": "短视频",
+      "code": "pt02071281",
+      "change_pct": 4.66,
+      "up": "30/36",
+      "main_net_inflow_yi": 11.78,
+      "leader": "芒果超媒(+20.00%)"
+    },
+    {
+      "rank": 8,
+      "name": "词元概念",
+      "code": "pt02GN2434",
+      "change_pct": 4.38,
+      "up": "12/14",
+      "main_net_inflow_yi": 26.39,
+      "leader": "中文在线(+20.02%)"
+    },
+    {
+      "rank": 9,
+      "name": "通感一体化",
+      "code": "pt02GN2300",
+      "change_pct": 4.3,
+      "up": "9/9",
+      "main_net_inflow_yi": 5.3,
+      "leader": "爱克股份(+11.44%)"
+    },
+    {
+      "rank": 10,
+      "name": "SRAM(静态随机存取存储器)",
+      "code": "pt02GN2291",
+      "change_pct": 4.3,
+      "up": "7/7",
+      "main_net_inflow_yi": 2.55,
+      "leader": "西测测试(+10.92%)"
+    }
+  ]
+}

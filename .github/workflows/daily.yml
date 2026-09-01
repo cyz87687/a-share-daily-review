@@ -1,0 +1,61 @@
+name: A股每日复盘自动生成
+
+on:
+  schedule:
+    # 每个交易日 16:30 北京时间（= 08:30 UTC）收盘后跑批，仅周一至周五
+    - cron: '30 8 * * 1-5'
+  workflow_dispatch:   # 支持在 Actions 页面手动触发
+
+permissions:
+  contents: write     # 允许 GITHUB_TOKEN 提交每日报告回 main 分支
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install --quiet -r requirements.txt
+
+      - name: Run daily review (auto · 本地复盘引擎 · 零外部 LLM)
+        env:
+          TQDM_DISABLE: '1'
+        run: |
+          set -u
+          DATE=$(TZ=Asia/Shanghai date +%F)
+          echo "交易日: $DATE"
+          MAX_RETRIES=3
+          DELAY=45
+          for i in $(seq 1 $MAX_RETRIES); do
+            echo "--- 尝试 $i/$MAX_RETRIES ---"
+            if python review.py run --date "$DATE" --mode auto; then
+              echo "✅ 运行成功"
+              break
+            fi
+            echo "⚠️ 本次失败（网络抖动 / 行情未就绪），等待重试"
+            [ "$i" -lt "$MAX_RETRIES" ] && sleep $DELAY
+          done
+
+      - name: Commit & Push (若已产出报告)
+        run: |
+          set -u
+          DATE=$(TZ=Asia/Shanghai date +%F)
+          HTML="output/$DATE/review-$DATE.html"
+          if [ -f "$HTML" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add output data/thematic
+            git commit -m "chore: 自动复盘 $DATE" || echo "无变更，跳过提交"
+            git push
+            echo "🚀 已推送 $DATE 复盘"
+          else
+            echo "ℹ️ 当日未产出报告（非交易日 / 行情未就绪），跳过提交"
+          fi

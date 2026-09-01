@@ -1,0 +1,17 @@
+# A股每日自动复盘工具 · 依赖声明（本地 / GitHub Actions 通用）
+# 运行环境：Python 3.13
+# 安装：pip install -r requirements.txt
+
+# 行情接入（在线拉取通达信数据；GitHub Actions 联网运行）
+mootdx==0.11.7
+
+# 计算栈（版本与本地 venv 实测一致，避免 CI 漂移）
+pandas==3.0.3
+numpy==2.4.6
+
+# 模板与配置
+Jinja2>=3.1,<4
+PyYAML>=6.0,<7
+
+# 间接依赖（mootdx 进度条；显式锁定）
+tqdm>=4.60

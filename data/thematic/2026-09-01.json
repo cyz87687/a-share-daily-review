@@ -1,0 +1,104 @@
+{
+  "date": "2026-09-01",
+  "source": "腾讯自选股(westock) data_sector 概念板块 ranking（changePct/mainNetInflow，date=2026-09-01）；与 Wind 资讯及公开报道交叉验证",
+  "source_tool": "mcp__westock-mcp__data_sector (kind=concept)",
+  "main_line": "农业/转基因（粮食种植）",
+  "main_line_code": "pt02011335",
+  "main_line_change_pct": 8.07,
+  "main_line_main_net_inflow_yi": 20.37,
+  "main_line_up": "19/19",
+  "main_line_leader": "神农种业(+20.03%)",
+  "note": "mootdx block_type==2 无题材板块名；核心主线改由腾讯/Wind 题材概念榜提供。2026-09-01 主线由 08-31 的 AI短剧 切换为农业/转基因（政策/灾情驱动）。",
+  "top_thematic": [
+    {
+      "rank": 1,
+      "name": "转基因",
+      "code": "pt02011335",
+      "change_pct": 8.07,
+      "up": "19/19",
+      "main_net_inflow_yi": 20.37,
+      "leader": "神农种业(+20.03%)"
+    },
+    {
+      "rank": 2,
+      "name": "玉米",
+      "code": "pt02GN2073",
+      "change_pct": 7.06,
+      "up": "27/28",
+      "main_net_inflow_yi": 23.25,
+      "leader": "神农种业(+20.03%)"
+    },
+    {
+      "rank": 3,
+      "name": "粮食概念",
+      "code": "pt02GN2154",
+      "change_pct": 6.27,
+      "up": "43/46",
+      "main_net_inflow_yi": 29.18,
+      "leader": "神农种业(+20.03%)"
+    },
+    {
+      "rank": 4,
+      "name": "西安自贸区",
+      "code": "pt02280005",
+      "change_pct": 5.79,
+      "up": "7/7",
+      "main_net_inflow_yi": 4.08,
+      "leader": "*ST西旅(+10.07%)"
+    },
+    {
+      "rank": 5,
+      "name": "昨日连板",
+      "code": "pt02031398",
+      "change_pct": 5.65,
+      "up": "15/18",
+      "main_net_inflow_yi": -12.01,
+      "leader": "新赛股份(+10.07%)"
+    },
+    {
+      "rank": 6,
+      "name": "棉花",
+      "code": "pt02D10003",
+      "change_pct": 4.91,
+      "up": "9/9",
+      "main_net_inflow_yi": 5.5,
+      "leader": "新赛股份(+10.07%)"
+    },
+    {
+      "rank": 7,
+      "name": "大豆",
+      "code": "pt02GN2088",
+      "change_pct": 4.43,
+      "up": "13/15",
+      "main_net_inflow_yi": 5.5,
+      "leader": "农发种业(+10.03%)"
+    },
+    {
+      "rank": 8,
+      "name": "稳定币概念",
+      "code": "pt02GN2376",
+      "change_pct": 4.35,
+      "up": "7/7",
+      "main_net_inflow_yi": 3.99,
+      "leader": "恒宝股份(+10.04%)"
+    },
+    {
+      "rank": 9,
+      "name": "离境退税概念",
+      "code": "pt02GN2368",
+      "change_pct": 4.33,
+      "up": "11/11",
+      "main_net_inflow_yi": 4.23,
+      "leader": "茂业商业(+10.08%)"
+    },
+    {
+      "rank": 10,
+      "name": "水产品",
+      "code": "pt02011358",
+      "change_pct": 4.09,
+      "up": "18/19",
+      "main_net_inflow_yi": 10.26,
+      "leader": "神农种业(+20.03%)"
+    }
+  ]
+}

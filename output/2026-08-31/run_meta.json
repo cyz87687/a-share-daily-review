@@ -1,0 +1,16 @@
+{
+  "date": "2026-08-31",
+  "weekday": "周一",
+  "mode": "prepare",
+  "elapsed_sec": 10.5,
+  "kept": 60,
+  "quality_passed": true,
+  "sh_index": {
+    "code": "999999",
+    "name": "",
+    "price": 3986.298,
+    "pct": -5.01718385572449e-05
+  },
+  "main_line": "AI短剧/短剧互动游戏",
+  "main_line_source": "题材榜(腾讯/Wind)"
+}

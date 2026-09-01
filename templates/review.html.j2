@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股每日复盘 · {{ date }}（{{ weekday }}）</title>
+<style>
+{{ css_vars }}
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+       background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.5; }
+.up { color: var(--up); }
+.down { color: var(--down); }
+.flat { color: var(--flat); }
+.warn { color: var(--warn); }
+.na { color: var(--flat); font-style: italic; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 12px; }
+header { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+h1 { font-size: 18px; margin: 0 0 8px; }
+.sub { color: var(--text-sub); font-size: 12px; }
+.stat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 10px; }
+.stat { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 8px; text-align: center; }
+.stat .k { color: var(--text-sub); font-size: 11px; }
+.stat .v { font-size: 15px; font-weight: 700; margin-top: 2px; }
+.banner { margin: 10px 0; padding: 8px 12px; border-radius: 6px; font-size: 12px; }
+.banner.ok { background: var(--down-bg); color: var(--down); border: 1px solid var(--down); }
+.banner.bad { background: #FFF1F0; color: var(--up); border: 1px solid var(--up); }
+.section { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-top: 12px; }
+.section h2 { font-size: 15px; margin: 0 0 10px; border-left: 3px solid var(--up); padding-left: 8px; }
+.two { display: grid; grid-template-columns: 3fr 2fr; gap: 12px; }
+.sector { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed var(--border); }
+.sector .rank { color: var(--text-sub); width: 28px; }
+.bar { height: 6px; border-radius: 3px; background: var(--up); display: inline-block; vertical-align: middle; }
+.cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+.card.removed { opacity: .5; }
+.card-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.code { font-weight: 700; font-family: monospace; }
+.name { font-weight: 600; }
+.pri { font-size: 11px; padding: 1px 6px; border-radius: 10px; color: #fff; }
+.pri-高 { background: var(--up); }
+.pri-中 { background: var(--warn); }
+.pri-低 { background: var(--flat); }
+.tag { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: var(--up-bg); color: var(--up); margin-right: 3px; }
+.tag-炸板 { background: var(--warn); color: #fff; }
+.card-m { display: flex; align-items: center; gap: 14px; margin-top: 6px; flex-wrap: wrap; }
+.price { font-size: 18px; font-weight: 700; }
+.pct { font-size: 14px; font-weight: 700; }
+.metrics { color: var(--text-sub); font-size: 12px; }
+.spark { margin-left: auto; }
+.review { margin-top: 8px; background: var(--bg); border-radius: 6px; padding: 8px; font-size: 12px; }
+.review .item { margin: 3px 0; }
+.review .lbl { color: var(--up); font-weight: 600; }
+.trace { margin-top: 6px; font-size: 11px; color: var(--text-sub); }
+.trace summary { cursor: pointer; color: var(--text-sub); }
+.opts { margin-top: 6px; font-size: 12px; }
+.controls { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+.controls input { padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; }
+.controls button { padding: 4px 10px; border: 1px solid var(--border); background: var(--bg); border-radius: 4px; cursor: pointer; }
+.controls button.active { background: var(--up); color: #fff; border-color: var(--up); }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th, td { border: 1px solid var(--border); padding: 4px 6px; text-align: left; }
+th { background: var(--bg); color: var(--text-sub); }
+.fold { margin-top: 10px; }
+.fold details { border: 1px solid var(--border); border-radius: 6px; margin-bottom: 6px; }
+.fold summary { padding: 6px 10px; cursor: pointer; background: var(--bg); }
+.scroll { max-height: 240px; overflow: auto; }
+footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: center; border-top: 1px solid var(--border); padding-top: 8px; }
+.kpi { font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>A股每日复盘 · {{ date }}（{{ weekday }}）</h1>
+  <div class="sub">数据截止 {{ data_cutoff }} · {{ mode }} 模式
+    {% if has_ai %}· AI 精复盘已生成{% else %}· 机器筛选（AI 精复盘待补充）{% endif %}
+    {% if first_day %}· 首日运行（无对账数据）{% endif %}
+  </div>
+  <div class="stat-grid">
+    {% set sh = market.sh_index %}{% set sz = market.sz_index %}
+    <div class="stat"><div class="k">上证指数</div><div class="v {% if sh and sh.pct is not none and sh.pct>0 %}up{% elif sh and sh.pct is not none and sh.pct<0 %}down{% else %}flat{% endif %}">
+      {{ sh.price if sh else 'N/A' }}{% if sh and sh.pct is not none %}<br>{{ '%.2f'|format(sh.pct) }}%{% endif %}</div></div>
+    <div class="stat"><div class="k">深证成指</div><div class="v {% if sz and sz.pct is not none and sz.pct>0 %}up{% elif sz and sz.pct is not none and sz.pct<0 %}down{% else %}flat{% endif %}">
+      {{ sz.price if sz else 'N/A' }}{% if sz and sz.pct is not none %}<br>{{ '%.2f'|format(sz.pct) }}%{% endif %}</div></div>
+    <div class="stat"><div class="k">两市成交</div><div class="v">{{ market.turnover_yi if market.turnover_yi is not none else 'N/A' }}亿</div></div>
+    <div class="stat"><div class="k">涨跌家数</div><div class="v"><span class="up">{{ market.up }}</span>/<span class="down">{{ market.down }}</span></div></div>
+    <div class="stat"><div class="k">涨停(炸)</div><div class="v up">{{ market.limit_up }}<span class="flat"> (炸{{ market.broken_board }})</span></div></div>
+    <div class="stat"><div class="k">最高连板</div><div class="v">{% if market.max_board is not none %}{{ market.max_board }}{% else %}<span class="na">N/A</span>{% endif %}</div></div>
+  </div>
+</header>
+
+<div class="section two">
+  <div>
+    <h2>② 市场情绪温度</h2>
+    <div class="metrics">两市成交额：<span class="kpi">{{ market.turnover_yi if market.turnover_yi is not none else 'N/A' }}</span> 亿
+      （环比 {% if market.turnover_chg is not none %}{{ '%.2f'|format(market.turnover_chg) }}%{% else %}<span class="na">N/A</span>{% endif %}）</div>
+    <div class="metrics">涨跌家数：<span class="up">{{ market.up }}</span> 涨 / <span class="down">{{ market.down }}</span> 跌</div>
+    <div class="metrics">涨停 <span class="up">{{ market.limit_up }}</span> 家 · 炸板 <span class="warn">{{ market.broken_board }}</span> 家 · 最高连板 {% if market.max_board is not none %}{{ market.max_board }}{% else %}<span class="na">N/A</span>{% endif %}</div>
+    <div class="metrics" style="margin-top:6px;color:var(--text-sub)">【口径说明】最高连板为跨日状态机，P0 暂以 <span class="na">N/A</span> 表示；成交额环比首日 <span class="na">N/A</span>。</div>
+  </div>
+  <div>
+    {% if thematic %}
+    <h2>③ 当日核心主线（题材榜口径：腾讯自选股/Wind 概念板块 · {{ date }}）</h2>
+    <div class="banner ok" style="margin:0 0 8px;">
+      <b>核心主线：{{ thematic.main_line }}</b>
+      {% if thematic.main_line_change_pct is not none %}　涨幅 {{ '%.2f'|format(thematic.main_line_change_pct) }}%{% endif %}
+      {% if thematic.main_line_main_net_inflow_yi is not none %}　主力净流入 {{ '%.2f'|format(thematic.main_line_main_net_inflow_yi) }}亿{% endif %}
+      {% if thematic.main_line_up %}　涨停 {{ thematic.main_line_up }}{% endif %}
+      {% if thematic.main_line_leader %}　龙头 {{ thematic.main_line_leader }}{% endif %}
+    </div>
+    <table>
+      <thead><tr><th>排名</th><th>题材</th><th>代码</th><th>涨幅%</th><th>涨停</th><th>主力净流入(亿)</th><th>龙头</th></tr></thead>
+      <tbody>
+      {% for t in thematic.top_thematic[:8] %}
+      <tr>
+        <td>{{ t.rank }}</td>
+        <td>{{ t.name }}</td>
+        <td class="flat">{{ t.code }}</td>
+        <td class="{% if t.change_pct is not none and t.change_pct>0 %}up{% elif t.change_pct is not none and t.change_pct<0 %}down{% else %}flat{% endif %}">{% if t.change_pct is not none %}{{ '%.2f'|format(t.change_pct) }}{% else %}N/A{% endif %}</td>
+        <td>{{ t.up if t.up else '—' }}</td>
+        <td>{% if t.main_net_inflow_yi is not none %}{{ '%.2f'|format(t.main_net_inflow_yi) }}{% else %}—{% endif %}</td>
+        <td>{{ t.leader if t.leader else '—' }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <div class="metrics" style="margin-top:6px;color:var(--text-sub)">数据源：{{ thematic.source_tool }}；与 Wind 资讯及公开报道交叉验证。mootdx block_type=2 无题材板块名，核心主线改由题材概念榜提供。</div>
+    {% else %}
+    <h2>③ 当日核心主线（题材榜数据缺失，降级为宽基板块口径）</h2>
+    {% if sectors_top %}
+    {% for s in sectors_top[:8] %}
+    <div class="sector">
+      <span><span class="rank">{{ s.block_rank }}</span>{{ s.block_name }}
+        <span class="flat">（{{ s.member_count }}只）</span></span>
+      <span class="{% if s.pct_weighted is not none and s.pct_weighted>0 %}up{% elif s.pct_weighted is not none and s.pct_weighted<0 %}down{% else %}flat{% endif %}">
+        {{ '%.2f'|format(s.pct_weighted) }}%</span>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="na">暂无板块数据</div>
+    {% endif %}
+    <div class="metrics" style="margin-top:6px;color:var(--text-sub)">题材榜数据缺失（data/thematic/{{ date }}.json 未生成），以下为通达信 block_type==2 宽基/指数板块，非题材主线。</div>
+    {% endif %}
+  </div>
+</div>
+
+{% if sectors_top %}
+<div class="section">
+  <h2>③-补 宽基/指数板块强弱（通达信 block_type=2，非题材主线，仅供参考）</h2>
+  <div class="cards">
+  {% for s in sectors_top %}
+    <div class="sector">
+      <span><span class="rank">{{ s.block_rank }}</span>{{ s.block_name }}
+        <span class="flat">（{{ s.member_count }}只 · 成交 {{ '%.1f'|format(s.amount_yi) if s.amount_yi is not none else 'N/A' }}亿）</span></span>
+      <span class="{% if s.pct_weighted is not none and s.pct_weighted>0 %}up{% elif s.pct_weighted is not none and s.pct_weighted<0 %}down{% else %}flat{% endif %}">
+        {{ '%.2f'|format(s.pct_weighted) }}%</span>
+    </div>
+  {% endfor %}
+  </div>
+  <div class="metrics" style="margin-top:6px;color:var(--text-sub)">板块名取自通达信 block_type=2（20 个干净板块，含 ST板块），成分股流通市值加权涨幅；行业维度为可插拔本地映射，缺失显示 N/A。</div>
+</div>
+{% endif %}
+
+<div class="section">
+  <h2>⑥ 个股复盘卡片流（{{ stocks|length }} 只）</h2>
+  <div class="controls">
+    <button data-f="全部" class="active" onclick="setF('全部')">全部 {{ stocks|length }}</button>
+    <button data-f="高" onclick="setF('高')">高</button>
+    <button data-f="中" onclick="setF('中')">中</button>
+    <button data-f="低" onclick="setF('低')">低</button>
+    <input id="q" placeholder="搜索代码/名称/标签" oninput="search()">
+  </div>
+  <div class="cards" id="cards">
+  {% for s in stocks %}
+    <div class="card {% if s.finalize_removed %}removed{% endif %}" data-priority="{{ s.priority }}" data-text="{{ s.code }}{{ s.name }}{{ s.tags|join(' ') }}">
+      <div class="card-h">
+        <span class="code">{{ s.code }}</span>
+        <span class="name">{{ s.name }}</span>
+        <span class="pri pri-{{ s.priority }}">{{ s.priority }}</span>
+        {% for t in s.tags %}<span class="tag tag-{{ t }}">{{ t }}</span>{% endfor %}
+        {% if s.is_ex_dividend %}<span class="tag" style="background:var(--warn);color:#fff">除权</span>{% endif %}
+      </div>
+      <div class="card-m">
+        <span class="price {% if s.pct is not none and s.pct>0 %}up{% elif s.pct is not none and s.pct<0 %}down{% else %}flat{% endif %}">{{ '%.2f'|format(s.price) if s.price is not none else 'N/A' }}</span>
+        <span class="pct {% if s.pct is not none and s.pct>0 %}up{% elif s.pct is not none and s.pct<0 %}down{% else %}flat{% endif %}">{% if s.pct is not none %}{{ '%+.2f'|format(s.pct) }}%{% else %}N/A{% endif %}</span>
+        <span class="metrics">成交额 {{ '%.2f'|format(s.amount_yi) if s.amount_yi is not none else 'N/A' }}亿 · 换手 {{ '%.2f'|format(s.turnover) if s.turnover is not none else 'N/A' }}% · 量比 {{ '%.2f'|format(s.vr) if s.vr is not none else 'N/A' }} · 流通 {{ '%.2f'|format(s.float_mv) if s.float_mv is not none else 'N/A' }}亿</span>
+        <span class="spark">{{ s.spark_svg | safe }}</span>
+      </div>
+
+      <div class="review">
+        {% set r = s.review %}
+        {% if r and r.review_status == 'OK' %}
+          <div class="item"><span class="lbl">①量价结构</span> {{ r.volume_price or '—' }}</div>
+          <div class="item"><span class="lbl">③资金定性</span> {{ r.capital.type or '—' }}
+            {% if r.capital.evidence %}<br><span class="metrics">依据：{{ r.capital.evidence }}（强度：{{ r.capital.strength or '—' }}）</span>{% endif %}</div>
+          <div class="item"><span class="lbl">④板块定位</span> {{ r.sector_role.type or '—' }}
+            {% if r.sector_role.basis %}<br><span class="metrics">依据：{{ r.sector_role.basis }}</span>{% endif %}</div>
+          <div class="item"><span class="lbl">⑤关键价位</span> 支撑 {{ '%.2f'|format(r.levels.support) if r.levels.support is not none else 'N/A' }}（{{ r.levels.support_basis or '—' }}） / 压力 {{ '%.2f'|format(r.levels.resistance) if r.levels.resistance is not none else 'N/A' }}（{{ r.levels.resistance_basis or '—' }}）</div>
+          <div class="item"><span class="lbl">⑥介入三件套</span> 触发：{{ r.entry.trigger or '—' }} | 区间：{{ r.entry.zone or '—' }} | 止损：{{ '%.2f'|format(r.entry.stop_loss) if r.entry.stop_loss is not none else 'N/A' }} | 目标：{{ '%.2f'|format(r.entry.target) if r.entry.target is not none else 'N/A' }} | 盈亏比：{{ '%.2f'|format(r.entry.odds) if r.entry.odds is not none else 'N/A' }}{% if r.entry.odds is not none and r.entry.odds < 2 %} <span class="warn">赔率不足</span>{% endif %}</div>
+          <div class="item"><span class="lbl">⑦证伪条件</span> {{ r.falsify or '—' }}</div>
+          {% if r.risk %}<div class="item"><span class="lbl">⑧核心风险</span> {{ r.risk|join('；') }}</div>{% endif %}
+        {% else %}
+          <div class="item"><span class="warn">AI 精复盘待补充</span>（请粘贴 prompt.txt 至 AI，回填后执行 <code>review.py finalize</code>）</div>
+        {% endif %}
+        {% if s.yesterday_history and s.yesterday_history != 'N/A' %}
+        <div class="item metrics">昨日留存历史：{{ s.yesterday_history }}</div>
+        {% endif %}
+      </div>
+
+      <details class="trace">
+        <summary>ⓘ 溯源（原始字段与计算式）</summary>
+        <div class="metrics">MA5/10/20：{{ '%.2f'|format(s.ma5) if s.ma5 is not none else 'N/A' }} / {{ '%.2f'|format(s.ma10) if s.ma10 is not none else 'N/A' }} / {{ '%.2f'|format(s.ma20) if s.ma20 is not none else 'N/A' }} · 5日均量：{{ '%.0f'|format(s.vma5) if s.vma5 is not none else 'N/A' }}</div>
+        <div class="metrics">涨停价：{{ '%.2f'|format(s.limit_up_price) if s.limit_up_price is not none else 'N/A' }} · 跌停价：{{ '%.2f'|format(s.limit_down_price) if s.limit_down_price is not none else 'N/A' }} · 炸板：{{ '是' if s.is_broken_board else '否' }} · 板块：{% if s.sector_block %}{{ s.sector_block }}（排名{{ s.sector_rank }} · 加权涨{{ s.sector_pct_weighted }}%）{% else %}N/A{% endif %}</div>
+        {% for k, v in s.trace.items() %}
+        <div class="metrics">· {{ k }}：{{ v }}</div>
+        {% endfor %}
+        {% if s.missing %}{% for f, reason in s.missing.items() %}<div class="metrics warn">· 缺失 {{ f }}：{{ reason }}</div>{% endfor %}{% endif %}
+      </details>
+
+      <div class="opts">
+        <label><input type="checkbox" class="rm" value="{{ s.code }}" {% if s.finalize_removed %}checked{% endif %}> 剔除误判</label>
+        <label><input type="checkbox" class="wt" value="{{ s.code }}" {% if s.finalize_watch %}checked{% endif %}> 加入观察池</label>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% if reconcile %}
+<div class="section">
+  <h2>⑦ 昨日对账表（{% if first_day %}首日运行，无对账数据{% else %}已执行{% endif %}）</h2>
+  <table><thead><tr><th>代码</th><th>名称</th><th>昨日预案</th><th>今日兑现/证伪</th><th>今日涨幅</th><th>修正结论</th></tr></thead>
+  <tbody>
+  {% for r in reconcile %}
+    <tr><td>{{ r.code }}</td><td>{{ r.name }}</td><td>{{ r.yesterday }}</td>
+      <td class="{% if r.result=='兑现' %}up{% elif r.result=='证伪' %}down{% else %}flat{% endif %}">{{ r.result }}</td>
+      <td class="{% if r.today_pct is not none and r.today_pct>0 %}up{% elif r.today_pct is not none and r.today_pct<0 %}down{% else %}flat{% endif %}">{% if r.today_pct is not none %}{{ '%.2f'|format(r.today_pct) }}%{% else %}N/A{% endif %}</td>
+      <td>{{ r.fix or '—' }}</td></tr>
+  {% endfor %}
+  </tbody></table>
+</div>
+{% endif %}
+
+<div class="section">
+  <h2>⑧ 明日候选观察清单</h2>
+  {% if summary and summary.watchlist %}
+    <ul>{% for w in summary.watchlist %}<li>{{ w }}</li>{% endfor %}</ul>
+  {% else %}
+    <div class="na">（AI 精复盘待补充）</div>
+  {% endif %}
+</div>
+
+<div class="section fold">
+  <h2>⑨ 留存 / 截断 / 排除 / 配置</h2>
+  <details><summary>留存日志（{{ stocks|length }} 只 · 导出 CSV）</summary>
+    <div class="scroll"><table><thead><tr><th>代码</th><th>名称</th><th>标签</th><th>优先级</th><th>板块</th><th>量比</th><th>收盘</th></tr></thead>
+    <tbody>{% for s in stocks %}<tr><td>{{ s.code }}</td><td>{{ s.name }}</td><td>{{ s.tags|join('/') }}</td><td>{{ s.priority }}</td><td>{% if s.block_name %}{{ s.block_name }}{% if s.sector_rank %}({{ s.sector_rank }}){% endif %}{% else %}N/A{% endif %}{% if s.industry_name %} · 行业:{{ s.industry_name }}{% endif %}</td><td>{{ '%.2f'|format(s.vr) if s.vr is not none else 'N/A' }}</td><td>{{ '%.2f'|format(s.price) if s.price is not none else 'N/A' }}</td></tr>{% endfor %}</tbody></table></div>
+  </details>
+  <details><summary>截断日志（{{ truncate_log|length }} 只 · 超出 M={{ config.M }}）</summary>
+    <div class="scroll"><table><thead><tr><th>代码</th><th>名称</th><th>优先级</th><th>原因</th></tr></thead>
+    <tbody>{% for t in truncate_log %}<tr><td>{{ t.code }}</td><td>{{ t.name }}</td><td>{{ t.priority }}</td><td>{{ t.reason }}</td></tr>{% endfor %}</tbody></table></div>
+  </details>
+  <details><summary>排除清单（{{ exclude_log|length }} 只）</summary>
+    <div class="scroll"><table><thead><tr><th>代码</th><th>名称</th><th>原因</th></tr></thead>
+    <tbody>{% for e in exclude_log %}<tr><td>{{ e.code }}</td><td>{{ e.name }}</td><td>{{ e.reason }}</td></tr>{% endfor %}</tbody></table></div>
+  </details>
+  <details><summary>运行配置（参数公示，api_key 脱敏）</summary>
+    <div class="metrics">N={{ config.N }} · D={{ config.D }} · Q_UP={{ config.Q_UP }} · Q_LOW={{ config.Q_LOW }} · P_TH={{ config.P_TH }}% · K={{ config.K }} · M={{ config.M }} · mode={{ config.mode }} · model={{ config.llm.model }} · api_key={{ config.llm.api_key or '（未配置）' }}</div>
+    <div class="metrics">板块口径：通达信 block_type=2（20 板块含 ST板块，非申万） · 行业=本地映射表缺失 N/A · 量比口径：当日量÷5日均量（日线近似） · 涨跌幅：不复权</div>
+  </details>
+</div>
+
+<footer>
+  【数据截止：{{ date }} 收盘；信号均为盘中待验证假设，非投资建议】<br>
+  生成时间 {{ date }} · 模式 {{ mode }} · 数据源 mootdx(在线) + 腾讯自选股/Wind(题材榜) · 核心主线/题材榜口径：腾讯自选股概念板块 ranking（mootdx 无题材板块名）；宽基板块：通达信 block_type=2（含 ST板块，非申万）；行业=本地映射表缺失 N/A
+</footer>
+
+</div>
+
+<script>
+function setF(f){
+  document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('#cards .card').forEach(c=>{
+    c.style.display = (f==='全部' || c.dataset.priority===f) ? '' : 'none';
+  });
+}
+function search(){
+  var q=document.getElementById('q').value.trim();
+  document.querySelectorAll('#cards .card').forEach(c=>{
+    c.style.display = (q==='' || c.dataset.text.indexOf(q)>=0) ? '' : 'none';
+  });
+}
+// 终审：localStorage 持久化，观察池上限 5
+var KEY='adr_finalize_{{ date }}';
+function loadState(){ try{return JSON.parse(localStorage.getItem(KEY))||{removed:[],watch:[]};}catch(e){return {removed:[],watch:[]};} }
+function saveState(st){ localStorage.setItem(KEY, JSON.stringify(st)); }
+var st=loadState();
+document.querySelectorAll('.rm').forEach(cb=>{ cb.checked=st.removed.indexOf(cb.value)>=0;
+  cb.onchange=function(){ var s=loadState(); if(this.checked){if(s.removed.indexOf(this.value)<0)s.removed.push(this.value);}else{s.removed=s.removed.filter(x=>x!=this.value);} saveState(s); sync(); }; });
+document.querySelectorAll('.wt').forEach(cb=>{ cb.checked=st.watch.indexOf(cb.value)>=0;
+  cb.onchange=function(){ var s=loadState(); if(this.checked){ if(s.watch.length>=5 && s.watch.indexOf(this.value)<0){ alert('观察池上限 5 只'); this.checked=false; return; } if(s.watch.indexOf(this.value)<0)s.watch.push(this.value); }else{s.watch=s.watch.filter(x=>x!=this.value);} saveState(s); sync(); }; });
+function sync(){ var s=loadState();
+  document.querySelectorAll('#cards .card').forEach(c=>{ c.classList.toggle('removed', s.removed.indexOf(c.dataset? c.querySelector('.code').textContent : '')>=0 || s.removed.indexOf(c.querySelector('.code').textContent)>=0); });
+}
+function exportFinalize(){
+  var s=loadState();
+  var data={date:'{{ date }}', removed:s.removed, watchlist:s.watch, stocks:[]};
+  document.querySelectorAll('#cards .card').forEach(c=>{ var code=c.querySelector('.code').textContent;
+    data.stocks.push({code:code, removed:s.removed.indexOf(code)>=0, watch:s.watch.indexOf(code)>=0}); });
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='review-{{ date }}.json'; a.click();
+}
+var btn=document.createElement('button'); btn.textContent='导出终审结果'; btn.style.marginTop='8px';
+btn.onclick=exportFinalize; document.querySelector('.controls').appendChild(btn);
+</script>
+</body>
+</html>

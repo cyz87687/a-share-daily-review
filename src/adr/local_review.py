@@ -46,6 +46,24 @@ def _ma_position(s: dict):
     return len(above), above
 
 
+def board_of(code: str) -> str:
+    """按代码前缀返回上市板块（真实分类，零编造）；用于板块缺失时的兜底展示。"""
+    c = str(code or "")
+    if c.startswith(("600", "601", "603", "605")):
+        return "沪市主板"
+    if c.startswith(("688", "689")):
+        return "科创板"
+    if c.startswith(("000", "001", "002", "003")):
+        return "深市主板"
+    if c.startswith(("300", "301")):
+        return "创业板"
+    if c.startswith(("8", "4")):
+        return "北交所"
+    if c.startswith("9"):
+        return "B股"
+    return "其他"
+
+
 def _review_stock(s: dict) -> dict:
     code = s.get("code")
     price = s.get("price")
@@ -60,7 +78,7 @@ def _review_stock(s: dict) -> dict:
     us, ls = s.get("upper_shadow"), s.get("lower_shadow")
     amp = s.get("amplitude")
     tags = s.get("tags") or []
-    block = s.get("block_name")
+    block = s.get("block_name") or board_of(s.get("code", ""))
     srank = s.get("sector_rank")
     spw = s.get("sector_pct_weighted")
     lup = s.get("limit_up_price")
@@ -161,19 +179,25 @@ def _review_stock(s: dict) -> dict:
         trigger, zone = "放量换手回封 / 分时均线低吸", f"涨停价附近换手承接（约{_fmt(price)}）"
     elif bu:
         trigger, zone = "回踩不破均线低吸", f"MA5/MA10 区间（{_fmt(ma5)}~{_fmt(ma10)}）"
-    else:
+    elif support is not None and price is not None and price > support:
         trigger, zone = "站上MA且放量确认", f"突破{_fmt(resistance)} 后回踩"
+    else:
+        trigger, zone = "破位观望 / 收复企稳再介入", f"已破{sbasis_l}（{_fmt(support)}），待收复企稳"
     stop_loss = target = odds = None
-    if price is not None and resistance is not None:
-        if is_lu:
-            stop_loss = round(price * 0.93, 2)  # 涨停股：隔日跌破涨停价 7% 即失效
-        elif support is not None:
-            stop_loss = round(support * 0.98, 2)
-        if stop_loss is not None:
-            target = round(resistance * 1.03, 2)
-            risk_amt = price - stop_loss
-            if risk_amt > 0:
-                odds = round((target - price) / risk_amt, 2)
+    if price is not None and resistance is not None and is_lu:
+        stop_loss = round(price * 0.93, 2)  # 涨停股：隔日跌破涨停价 7% 即失效
+    elif price is not None and support is not None and price > support:
+        stop_loss = round(support * 0.98, 2)  # 正常：支撑下方 2% 止损
+    elif price is not None:
+        stop_loss = round(price * 0.95, 2)  # 已破位/支撑缺失：现价-5% 硬止损，保证风险为正
+    if resistance is not None:
+        target = round(resistance * 1.03, 2)
+    elif price is not None:
+        target = round(price * 1.05, 2)  # 无压力位：现价+5% 保守目标
+    if stop_loss is not None and target is not None and price is not None:
+        risk_amt = price - stop_loss
+        if risk_amt > 0:
+            odds = round((target - price) / risk_amt, 2)
     entry = {"trigger": trigger, "zone": zone, "stop_loss": stop_loss, "target": target, "odds": odds}
 
     # ⑦ 证伪条件
@@ -185,7 +209,7 @@ def _review_stock(s: dict) -> dict:
         risk.append("涨停板获利盘集中，次日开板回落风险")
     if long_sh:
         risk.append("长上影线，上方抛压较重")
-    if fm is not None and fm < 8e10:  # 流通市值 < 80亿
+    if fm is not None and fm < 8e9:  # 流通市值 < 80亿（8e9 元）
         risk.append("流通市值偏小，流动性/情绪波动大")
     risk.append("题材发酵不及预期或大盘情绪退潮的系统性风险")
     if not risk:

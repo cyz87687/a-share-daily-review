@@ -185,7 +185,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
       <div class="card-m">
         <span class="price {% if s.pct is not none and s.pct>0 %}up{% elif s.pct is not none and s.pct<0 %}down{% else %}flat{% endif %}">{{ '%.2f'|format(s.price) if s.price is not none else 'N/A' }}</span>
         <span class="pct {% if s.pct is not none and s.pct>0 %}up{% elif s.pct is not none and s.pct<0 %}down{% else %}flat{% endif %}">{% if s.pct is not none %}{{ '%+.2f'|format(s.pct) }}%{% else %}N/A{% endif %}</span>
-        <span class="metrics">成交额 {{ '%.2f'|format(s.amount_yi) if s.amount_yi is not none else 'N/A' }}亿 · 换手 {{ '%.2f'|format(s.turnover) if s.turnover is not none else 'N/A' }}% · 量比 {{ '%.2f'|format(s.vr) if s.vr is not none else 'N/A' }} · 流通 {{ '%.2f'|format(s.float_mv) if s.float_mv is not none else 'N/A' }}亿</span>
+        <span class="metrics">成交额 {{ '%.2f'|format(s.amount_yi) if s.amount_yi is not none else 'N/A' }}亿 · 换手 {{ '%.2f'|format(s.turnover) if s.turnover is not none else 'N/A' }}% · 量比 {{ '%.2f'|format(s.vr) if s.vr is not none else 'N/A' }} · 流通 {{ '%.2f'|format(s.float_mv / 1e8) if s.float_mv is not none else 'N/A' }}亿</span>
         <span class="spark">{{ s.spark_svg | safe }}</span>
       </div>
 

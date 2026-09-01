@@ -26,6 +26,7 @@ from src.adr.reconcile import _prev_trading_date, reconcile
 from src.adr.datapack import build_datapack
 from src.adr.prompt import _inject_params, build_prompt
 from src.adr import quality
+from src.adr.local_review import board_of
 from src.adr.renderer.review_page import make_sparkline, render_review
 from src.adr.renderer.index_page import render_index
 
@@ -201,8 +202,8 @@ class Pipeline:
                     "ma10": c.metrics.ma10,
                     "ma20": c.metrics.ma20,
                     "vma5": c.metrics.vma5,
-                    "block_name": c.sector.block_name if c.sector else None,
-                    "sector_block": c.sector.block_name if c.sector else None,
+                    "block_name": c.sector.block_name if c.sector else board_of(c.code),
+                    "sector_block": c.sector.block_name if c.sector else board_of(c.code),
                     "industry_name": c.snap.industry_name if c.snap.industry_name else None,
                     "sector_rank": c.sector.block_rank if c.sector else None,
                     "sector_pct_weighted": round(c.sector.pct_weighted, 2) if c.sector and c.sector.pct_weighted is not None else None,
@@ -217,6 +218,16 @@ class Pipeline:
                     "missing": c.snap.missing,
                 }
             )
+        # 默认按盈亏比降序排列（None 置于末尾）
+        def _odds_of(s):
+            try:
+                o = s.get("review", {}).get("entry", {}).get("odds")
+            except Exception:
+                o = None
+            return o if o is not None else float("-inf")
+
+        stocks.sort(key=_odds_of, reverse=True)
+
         sectors_top = sorted([s for s in sectors.values() if s.pct_weighted is not None], key=lambda s: s.block_rank)[: self.cfg.K]
         sectors_top = [
             {"block_name": s.block_name, "block_rank": s.block_rank,

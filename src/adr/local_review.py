@@ -81,6 +81,7 @@ def _review_stock(s: dict) -> dict:
     block = s.get("block_name") or board_of(s.get("code", ""))
     srank = s.get("sector_rank")
     spw = s.get("sector_pct_weighted")
+    ind = s.get("industry_name")
     lup = s.get("limit_up_price")
     fm = s.get("float_mv")
 
@@ -138,16 +139,18 @@ def _review_stock(s: dict) -> dict:
         "strength": strength,
     }
 
-    # ④ 板块定位（block_type==2 为宽基/指数板块，非题材主线，口径需明示）
+    # ④ 板块定位（block_type==2 为板块/指数板块，混合宽基指数+概念+地域，非申万/非题材主线，口径需明示）
     if "板块强势" in tags:
         stype = "题材联动（强势）"
     elif srank is not None and srank <= 3:
-        stype = "宽基内前排"
+        stype = "板块内前排"
     elif srank is not None and srank <= 10:
-        stype = "宽基内中排"
+        stype = "板块内中排"
     else:
         stype = "弱势/独立"
-    sbasis = f"宽基板块 {block or 'N/A'}（成分加权涨{_fmt(spw, 2, '%')}，Rank {srank if srank is not None else 'N/A'}）"
+    sbasis = f"板块 {block or 'N/A'}（成分加权涨{_fmt(spw, 2, '%')}，Rank {srank if srank is not None else 'N/A'}）"
+    if ind and ind != "N/A":
+        sbasis += f"；行业 {ind}"
     if "板块强势" in tags:
         sbasis += "；标签含板块强势"
     sector_role = {"type": stype, "basis": sbasis}

@@ -1,19 +1,53 @@
-# industry 编码 → 行业名称映射（P0 可为空）。
+# 通达信 finance().industry 编码 → 行业名称映射（已验证）
 #
-# 说明（DESIGN A1/A2）：mootdx 不提供 industry 编码→名称映射表，板块指数(880xxx)
-# 与 industry 编码的对应关系无法实测确认。P0 板块名称默认显示 `TDX#{code}`，
-# 待后续用「industry 分组流通市值加权涨幅 vs 880301~880520 行业指数涨幅」多日交叉验证后补齐。
+# 验证方式（零幻觉纪律）：对全市场 Top 450 成交额标的逐个读取 finance().industry 编码，
+# 按编码分组后人工研判各组成分股的真实行业（以已知大盘/纯正标的为锚），反推出编码→行业
+# 的真实对应关系。该编码为通达信内部行业分类（非申万一级），部分编码为混合大类
+# （如 "1"=金融含银行/券商/保险；"26"=机械设备含部分军工装备；"24"=通信设备含算力硬件），
+# 属数据源真实口径，非编造。
 #
-# 补齐格式（去掉行首 # 即可生效）：
-# "37": "酿酒"
-# "1": "银行"
-# "7": "汽车"
-# "14": "食品"
-# "23": "家电"
-# "24": "软件"
-# "29": "电气设备"
-# "34": "医药"
-# "35": "半导体"
-# "36": "有色"
-# "43": "电池"
-# "51": "电子"
+# 格式：code: {name: 行业名, category: 大类}
+
+"1": {name: 金融, category: 金融}
+"3": {name: 煤炭, category: 能源}
+"4": {name: 家居, category: 消费}
+"5": {name: 石油石化, category: 能源}
+"7": {name: 汽车, category: 制造}
+"8": {name: 航运, category: 基建}
+"9": {name: 医疗器械CRO, category: 医药}
+"10": {name: 免税零售, category: 消费}
+"11": {name: 房地产, category: 地产}
+"12": {name: 商贸零售, category: 消费}
+"13": {name: 电子分销, category: 科技}
+"14": {name: 食品饮料, category: 消费}
+"16": {name: 电力, category: 公用}
+"17": {name: 农林牧渔, category: 消费}
+"18": {name: 传媒, category: 文体}
+"19": {name: 基础化工, category: 材料}
+"20": {name: 煤炭, category: 能源}
+"21": {name: 建筑装饰, category: 基建}
+"23": {name: 家用电器, category: 消费}
+"24": {name: 通信设备, category: 科技}
+"26": {name: 机械设备, category: 制造}
+"27": {name: 化纤化工, category: 材料}
+"28": {name: 化肥农化, category: 材料}
+"29": {name: 光伏储能, category: 制造}
+"30": {name: 通用设备, category: 制造}
+"31": {name: 建筑装饰, category: 基建}
+"33": {name: 船舶制造, category: 制造}
+"34": {name: 医药制药, category: 医药}
+"35": {name: 半导体电子, category: 科技}
+"36": {name: 有色金属, category: 材料}
+"37": {name: 酿酒, category: 消费}
+"38": {name: 造纸, category: 消费}
+"39": {name: 环保, category: 公用}
+"40": {name: 电子材料, category: 材料}
+"41": {name: 轻工珠宝, category: 消费}
+"43": {name: 电气设备, category: 制造}
+"46": {name: 广告营销, category: 文体}
+"47": {name: 塑料包装, category: 材料}
+"48": {name: 建材玻纤, category: 材料}
+"49": {name: 国防军工(航空), category: 制造}
+"50": {name: 国防军工(地面), category: 制造}
+"51": {name: 安防工控, category: 科技}
+"52": {name: 超硬材料, category: 材料}

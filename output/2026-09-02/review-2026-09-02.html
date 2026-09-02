@@ -102,7 +102,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
   </div>
   <div>
     
-    <h2>③ 当日核心主线（题材榜数据缺失，降级为宽基板块口径）</h2>
+    <h2>③ 当日核心主线（题材榜数据缺失，降级为板块/指数板块口径）</h2>
     
     
     <div class="sector">
@@ -162,14 +162,14 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
     </div>
     
     
-    <div class="metrics" style="margin-top:6px;color:var(--text-sub)">题材榜数据缺失（data/thematic/2026-09-02.json 未生成），以下为通达信 block_type==2 宽基/指数板块，非题材主线。</div>
+    <div class="metrics" style="margin-top:6px;color:var(--text-sub)">题材榜数据缺失（data/thematic/2026-09-02.json 未生成），以下为通达信 block_type==2 板块（含宽基指数/概念/地域），非题材主线。</div>
     
   </div>
 </div>
 
 
 <div class="section">
-  <h2>③-补 宽基/指数板块强弱（通达信 block_type=2，非题材主线，仅供参考）</h2>
+  <h2>③-补 板块/指数板块强弱（通达信 block_type=2，含宽基指数/概念/地域，非题材主线）</h2>
   <div class="cards">
   
     <div class="sector">
@@ -292,7 +292,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
     </div>
   
   </div>
-  <div class="metrics" style="margin-top:6px;color:var(--text-sub)">板块名取自通达信 block_type=2（20 个干净板块，含 ST板块），成分股流通市值加权涨幅；行业维度为可插拔本地映射，缺失显示 N/A。</div>
+  <div class="metrics" style="margin-top:6px;color:var(--text-sub)">板块名取自通达信 block_type=2（20 个干净板块，含宽基指数/概念/地域/ST板块），成分股流通市值加权涨幅；行业维度=通达信 finance().industry 本地映射（已验证），缺失显示 N/A。</div>
 </div>
 
 
@@ -329,7 +329,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 观望
             <br><span class="metrics">依据：量比1.37，成交额16.19亿，换手0.15%；大单方向=中性（强度：弱）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 专精特新（成分加权涨-1.44%，Rank 11）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 专精特新（成分加权涨-1.44%，Rank 11）；行业 医疗器械CRO；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 84.52（MA20 支撑） / 压力 102.79（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：回踩不破均线低吸 | 区间：MA5/MA10 区间（81.88~87.79） | 止损：82.83 | 目标：105.87 | 盈亏比：11.66</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（84.52）且缩量（量比<1），或板块 专精特新 转跌/主线退潮，则证伪初判。</div>
@@ -382,7 +382,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比0.96，成交额18.13亿，换手0.15%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 电力</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 13.32（MA5 支撑） / 压力 16.88（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：破位观望 / 收复企稳再介入 | 区间：已破MA5 支撑（13.32），待收复企稳 | 止损：11.89 | 目标：17.39 | 盈亏比：7.73</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA5 支撑（13.32）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -433,7 +433,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 分歧
             <br><span class="metrics">依据：量比1.62，成交额17.94亿，换手0.11%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 通信设备</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 14.60（MA20 支撑） / 压力 16.40（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破16.40 后回踩 | 止损：14.31 | 目标：16.89 | 盈亏比：5.97</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（14.60）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -486,7 +486,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.27，成交额13.37亿，换手0.04%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 机械设备</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 44.18（MA5 支撑） / 压力 51.82（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：破位观望 / 收复企稳再介入 | 区间：已破MA5 支撑（44.18），待收复企稳 | 止损：40.28 | 目标：53.37 | 盈亏比：5.17</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA5 支撑（44.18）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -537,7 +537,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 分歧
             <br><span class="metrics">依据：量比1.71，成交额14.06亿，换手0.13%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 石油石化</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 23.04（MA20 支撑） / 压力 25.38（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破25.38 后回踩 | 止损：22.58 | 目标：26.14 | 盈亏比：4.56</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（23.04）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -588,7 +588,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.20，成交额10.33亿，换手0.13%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 食品饮料</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 8.12（MA5 支撑） / 压力 8.88（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：破位观望 / 收复企稳再介入 | 区间：已破MA5 支撑（8.12），待收复企稳 | 止损：7.13 | 目标：9.15 | 盈亏比：4.32</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA5 支撑（8.12）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -638,8 +638,8 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">①量价结构</span> 收6.08元（-6.17%，量比1.33，量能平稳），大阴线；站上 MA20。振幅7.41%。</div>
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.33，成交额10.76亿，换手0.07%；大单方向=大阴(主空)（强度：中）</span></div>
-          <div class="item"><span class="lbl">④板块定位</span> 宽基内前排
-            <br><span class="metrics">依据：宽基板块 雄安新区（成分加权涨-0.38%，Rank 1）</span></div>
+          <div class="item"><span class="lbl">④板块定位</span> 板块内前排
+            <br><span class="metrics">依据：板块 雄安新区（成分加权涨-0.38%，Rank 1）；行业 环保</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 5.99（MA20 支撑） / 压力 6.74（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破6.74 后回踩 | 止损：5.87 | 目标：6.94 | 盈亏比：4.10</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（5.99）且缩量（量比<1），或板块 雄安新区 转跌/主线退潮，则证伪初判。</div>
@@ -690,7 +690,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.48，成交额13.60亿，换手0.14%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 半导体电子</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 18.96（MA20 支撑） / 压力 22.42（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：回踩不破均线低吸 | 区间：MA5/MA10 区间（18.69~18.37） | 止损：18.58 | 目标：23.09 | 盈亏比：3.34</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（18.96）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -740,8 +740,8 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">①量价结构</span> 收12.67元（-8.59%，量比1.16，量能平稳），大阴线；跌破全部均线。振幅7.22%。</div>
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.16，成交额11.43亿，换手0.05%；大单方向=大阴(主空)（强度：中）</span></div>
-          <div class="item"><span class="lbl">④板块定位</span> 宽基内前排
-            <br><span class="metrics">依据：宽基板块 融资融券（成分加权涨-0.81%，Rank 3）</span></div>
+          <div class="item"><span class="lbl">④板块定位</span> 板块内前排
+            <br><span class="metrics">依据：板块 融资融券（成分加权涨-0.81%，Rank 3）；行业 农林牧渔</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 13.28（MA5 支撑） / 压力 14.22（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：破位观望 / 收复企稳再介入 | 区间：已破MA5 支撑（13.28），待收复企稳 | 止损：12.04 | 目标：14.65 | 盈亏比：3.14</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA5 支撑（13.28）且缩量（量比<1），或板块 融资融券 转跌/主线退潮，则证伪初判。</div>
@@ -794,7 +794,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.13，成交额13.77亿，换手0.10%；大单方向=大阳(主多)（强度：强）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 专精特新（成分加权涨-1.44%，Rank 11）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 专精特新（成分加权涨-1.44%，Rank 11）；行业 通用设备；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 15.73（MA20 支撑） / 压力 17.99（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：回踩不破均线低吸 | 区间：MA5/MA10 区间（15.45~15.27） | 止损：15.42 | 目标：18.53 | 盈亏比：2.99</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（15.73）且缩量（量比<1），或板块 专精特新 转跌/主线退潮，则证伪初判。</div>
@@ -849,7 +849,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.05，成交额18.94亿，换手0.20%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 基础化工</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 10.46（MA10 支撑） / 压力 12.86（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破12.86 后回踩 | 止损：10.25 | 目标：13.25 | 盈亏比：2.80</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA10 支撑（10.46）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -897,8 +897,8 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">①量价结构</span> 收7.09元（-8.40%，量比1.41，量能平稳），大阴线；站上 MA20。振幅19.77%。</div>
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.41，成交额9.22亿，换手0.19%；大单方向=大阴(主空)（强度：中）</span></div>
-          <div class="item"><span class="lbl">④板块定位</span> 宽基内中排
-            <br><span class="metrics">依据：宽基板块 一带一路（成分加权涨-1.39%，Rank 10）</span></div>
+          <div class="item"><span class="lbl">④板块定位</span> 板块内中排
+            <br><span class="metrics">依据：板块 一带一路（成分加权涨-1.39%，Rank 10）；行业 食品饮料</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 6.60（MA20 支撑） / 压力 8.51（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破8.51 后回踩 | 止损：6.47 | 目标：8.77 | 盈亏比：2.71</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（6.60）且缩量（量比<1），或板块 一带一路 转跌/主线退潮，则证伪初判。</div>
@@ -950,8 +950,8 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">①量价结构</span> 收19.45元（-3.23%，量比0.55，缩量），小实体；站上 MA10/MA20；长影线（上影1.59%/下影0.50%）。振幅2.84%。</div>
           <div class="item"><span class="lbl">③资金定性</span> 观望
             <br><span class="metrics">依据：量比0.55，成交额14.23亿，换手0.09%；大单方向=中性（强度：弱）</span></div>
-          <div class="item"><span class="lbl">④板块定位</span> 宽基内中排
-            <br><span class="metrics">依据：宽基板块 粤港澳（成分加权涨-1.20%，Rank 5）</span></div>
+          <div class="item"><span class="lbl">④板块定位</span> 板块内中排
+            <br><span class="metrics">依据：板块 粤港澳（成分加权涨-1.20%，Rank 5）；行业 半导体电子</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 18.40（MA20 支撑） / 压力 22.10（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破22.10 后回踩 | 止损：18.03 | 目标：22.76 | 盈亏比：2.33</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（18.40）且缩量（量比<1），或板块 粤港澳 转跌/主线退潮，则证伪初判。</div>
@@ -1004,7 +1004,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.84，成交额8.56亿，换手0.17%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 基础化工</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 6.96（MA20 支撑） / 压力 8.15（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破8.15 后回踩 | 止损：6.82 | 目标：8.39 | 盈亏比：2.20</div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（6.96）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1055,7 +1055,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比0.98，成交额8.11亿，换手0.08%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 基础化工</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 68.00（MA20 支撑） / 压力 88.55（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破88.55 后回踩 | 止损：66.64 | 目标：91.21 | 盈亏比：1.94 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（68.00）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1106,7 +1106,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.72，成交额9.01亿，换手0.12%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 化肥农化</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 2.02（MA20 支撑） / 压力 2.45（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破2.45 后回踩 | 止损：1.98 | 目标：2.52 | 盈亏比：1.84 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（2.02）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1157,7 +1157,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.03，成交额12.08亿，换手0.25%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 医药制药</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 8.26（MA20 支撑） / 压力 12.77（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破12.77 后回踩 | 止损：8.09 | 目标：13.15 | 盈亏比：1.59 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（8.26）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1210,7 +1210,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.08，成交额12.03亿，换手0.15%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 农林牧渔</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 6.56（MA20 支撑） / 压力 7.90（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破7.90 后回踩 | 止损：6.43 | 目标：8.14 | 盈亏比：1.44 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（6.56）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1261,7 +1261,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.86，成交额11.10亿，换手0.17%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 创业板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 创业板（成分加权涨N/A，Rank N/A）；行业 国防军工(地面)</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 96.16（MA20 支撑） / 压力 113.23（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约106.30） | 止损：98.86 | 目标：116.63 | 盈亏比：1.39 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（96.16）且缩量（量比<1），或板块 创业板 转跌/主线退潮，则证伪初判。</div>
@@ -1314,7 +1314,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比0.95，成交额14.26亿，换手0.23%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 基础化工</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 7.48（MA20 支撑） / 压力 9.40（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破9.40 后回踩 | 止损：7.33 | 目标：9.68 | 盈亏比：1.22 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（7.48）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1364,8 +1364,8 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">①量价结构</span> 收10.87元（-8.50%，量比0.95，量能平稳），大阴线；站上 MA10/MA20。振幅8.92%。</div>
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比0.95，成交额9.37亿，换手0.10%；大单方向=大阴(主空)（强度：中）</span></div>
-          <div class="item"><span class="lbl">④板块定位</span> 宽基内前排
-            <br><span class="metrics">依据：宽基板块 融资融券（成分加权涨-0.81%，Rank 3）</span></div>
+          <div class="item"><span class="lbl">④板块定位</span> 板块内前排
+            <br><span class="metrics">依据：板块 融资融券（成分加权涨-0.81%，Rank 3）；行业 农林牧渔</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 9.89（MA20 支撑） / 压力 11.88（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破11.88 后回踩 | 止损：9.69 | 目标：12.24 | 盈亏比：1.16 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（9.89）且缩量（量比<1），或板块 融资融券 转跌/主线退潮，则证伪初判。</div>
@@ -1416,7 +1416,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.36，成交额8.37亿，换手0.13%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 电气设备</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 10.15（MA20 支撑） / 压力 11.25（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约10.75） | 止损：10.00 | 目标：11.59 | 盈亏比：1.12 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（10.15）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1467,7 +1467,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 观望
             <br><span class="metrics">依据：量比0.91，成交额20.16亿，换手0.11%；大单方向=大阳(主多)（强度：弱）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 一带一路（成分加权涨-1.39%，Rank 10）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 一带一路（成分加权涨-1.39%，Rank 10）；行业 有色金属；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 19.53（MA20 支撑） / 压力 22.55（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：回踩不破均线低吸 | 区间：MA5/MA10 区间（20.99~20.83） | 止损：19.14 | 目标：23.23 | 盈亏比：1.11 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（19.53）且缩量（量比<1），或板块 一带一路 转跌/主线退潮，则证伪初判。</div>
@@ -1520,7 +1520,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.07，成交额25.58亿，换手0.42%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 海南自贸（成分加权涨-2.82%，Rank 17）</span></div>
+            <br><span class="metrics">依据：板块 海南自贸（成分加权涨-2.82%，Rank 17）；行业 农林牧渔</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 5.78（MA20 支撑） / 压力 7.55（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破7.55 后回踩 | 止损：5.66 | 目标：7.78 | 盈亏比：1.06 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（5.78）且缩量（量比<1），或板块 海南自贸 转跌/主线退潮，则证伪初判。</div>
@@ -1573,7 +1573,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.41，成交额10.58亿，换手0.09%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 农林牧渔</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 8.72（MA20 支撑） / 压力 9.97（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破9.97 后回踩 | 止损：8.55 | 目标：10.27 | 盈亏比：1.05 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（8.72）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1622,7 +1622,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.33，成交额9.62亿，换手0.09%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 建材玻纤</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 14.68（MA20 支撑） / 压力 16.60（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约15.96） | 止损：14.84 | 目标：17.10 | 盈亏比：1.02 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（14.68）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1673,7 +1673,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 观望
             <br><span class="metrics">依据：量比1.12，成交额47.22亿，换手0.19%；大单方向=大阳(主多)（强度：弱）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 电气设备</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 30.12（MA20 支撑） / 压力 38.62（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约37.22） | 止损：34.61 | 目标：39.78 | 盈亏比：0.98 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（30.12）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1724,7 +1724,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 分歧
             <br><span class="metrics">依据：量比2.06，成交额21.26亿，换手0.19%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 通信设备</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 22.00（MA20 支撑） / 压力 25.80（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破25.80 后回踩 | 止损：21.56 | 目标：26.57 | 盈亏比：0.93 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（22.00）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1777,7 +1777,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.59，成交额12.69亿，换手0.19%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 传媒</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 5.18（MA20 支撑） / 压力 6.20（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破6.20 后回踩 | 止损：5.08 | 目标：6.39 | 盈亏比：0.93 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（5.18）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -1827,8 +1827,8 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">①量价结构</span> 收130.35元（-3.44%，量比0.49，缩量），小实体；站上 MA5/MA10/MA20；长影线（上影2.44%/下影0.19%）。振幅3.62%。</div>
           <div class="item"><span class="lbl">③资金定性</span> 观望
             <br><span class="metrics">依据：量比0.49，成交额13.09亿，换手0.03%；大单方向=中性（强度：弱）</span></div>
-          <div class="item"><span class="lbl">④板块定位</span> 宽基内中排
-            <br><span class="metrics">依据：宽基板块 粤港澳（成分加权涨-1.20%，Rank 5）</span></div>
+          <div class="item"><span class="lbl">④板块定位</span> 板块内中排
+            <br><span class="metrics">依据：板块 粤港澳（成分加权涨-1.20%，Rank 5）；行业 通信设备</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 122.56（MA20 支撑） / 压力 135.50（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破135.50 后回踩 | 止损：120.11 | 目标：139.56 | 盈亏比：0.90 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（122.56）且缩量（量比<1），或板块 粤港澳 转跌/主线退潮，则证伪初判。</div>
@@ -1879,7 +1879,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 观望
             <br><span class="metrics">依据：量比1.03，成交额11.57亿，换手0.08%；大单方向=中性（强度：弱）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 粤港澳（成分加权涨-1.20%，Rank 5）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 粤港澳（成分加权涨-1.20%，Rank 5）；行业 机械设备；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 113.13（MA20 支撑） / 压力 124.99（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：回踩不破均线低吸 | 区间：MA5/MA10 区间（118.41~113.84） | 止损：110.87 | 目标：128.74 | 盈亏比：0.87 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（113.13）且缩量（量比<1），或板块 粤港澳 转跌/主线退潮，则证伪初判。</div>
@@ -1929,8 +1929,8 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">①量价结构</span> 收88.64元（-6.89%，量比1.12，量能平稳），小实体；站上 MA20。振幅8.38%。</div>
           <div class="item"><span class="lbl">③资金定性</span> 观望
             <br><span class="metrics">依据：量比1.12，成交额26.17亿，换手0.14%；大单方向=中性（强度：弱）</span></div>
-          <div class="item"><span class="lbl">④板块定位</span> 宽基内中排
-            <br><span class="metrics">依据：宽基板块 一带一路（成分加权涨-1.39%，Rank 10）</span></div>
+          <div class="item"><span class="lbl">④板块定位</span> 板块内中排
+            <br><span class="metrics">依据：板块 一带一路（成分加权涨-1.39%，Rank 10）；行业 基础化工</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 76.73（MA20 支撑） / 压力 97.18（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破97.18 后回踩 | 止损：75.20 | 目标：100.10 | 盈亏比：0.85 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（76.73）且缩量（量比<1），或板块 一带一路 转跌/主线退潮，则证伪初判。</div>
@@ -1979,7 +1979,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.69，成交额21.40亿，换手0.08%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 国防军工(地面)</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 32.97（MA20 支撑） / 压力 37.63（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约36.62） | 止损：34.06 | 目标：38.76 | 盈亏比：0.84 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（32.97）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -2031,8 +2031,8 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">①量价结构</span> 收8.21元（-9.98%，量比1.02，量能平稳），大阴线；站上 MA10/MA20；近乎光头光脚。振幅8.99%。</div>
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.02，成交额11.33亿，换手0.26%；大单方向=大阴(主空)（强度：中）</span></div>
-          <div class="item"><span class="lbl">④板块定位</span> 宽基内前排
-            <br><span class="metrics">依据：宽基板块 融资融券（成分加权涨-0.81%，Rank 3）</span></div>
+          <div class="item"><span class="lbl">④板块定位</span> 板块内前排
+            <br><span class="metrics">依据：板块 融资融券（成分加权涨-0.81%，Rank 3）；行业 农林牧渔</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 6.93（MA20 支撑） / 压力 9.12（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破9.12 后回踩 | 止损：6.79 | 目标：9.39 | 盈亏比：0.83 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（6.93）且缩量（量比<1），或板块 融资融券 转跌/主线退潮，则证伪初判。</div>
@@ -2085,7 +2085,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 分歧
             <br><span class="metrics">依据：量比1.70，成交额14.25亿，换手0.01%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 沪深300（成分加权涨-1.08%，Rank 4）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 沪深300（成分加权涨-1.08%，Rank 4）；行业 电力；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 8.83（MA20 支撑） / 压力 9.00（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：回踩不破均线低吸 | 区间：MA5/MA10 区间（8.91~8.85） | 止损：8.65 | 目标：9.27 | 盈亏比：0.77 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（8.83）且缩量（量比<1），或板块 沪深300 转跌/主线退潮，则证伪初判。</div>
@@ -2136,7 +2136,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.84，成交额8.99亿，换手0.15%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 传媒</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 7.20（MA20 支撑） / 压力 9.50（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破9.50 后回踩 | 止损：7.06 | 目标：9.79 | 盈亏比：0.75 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（7.20）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -2191,7 +2191,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.84，成交额16.23亿，换手0.15%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 粤港澳（成分加权涨-1.20%，Rank 5）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 粤港澳（成分加权涨-1.20%，Rank 5）；行业 传媒；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 8.86（MA20 支撑） / 压力 10.28（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破10.28 后回踩 | 止损：8.68 | 目标：10.59 | 盈亏比：0.69 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（8.86）且缩量（量比<1），或板块 粤港澳 转跌/主线退潮，则证伪初判。</div>
@@ -2242,7 +2242,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 分歧
             <br><span class="metrics">依据：量比1.67，成交额16.43亿，换手0.03%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 融资融券（成分加权涨-0.81%，Rank 3）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 融资融券（成分加权涨-0.81%，Rank 3）；行业 国防军工(航空)；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 21.32（MA20 支撑） / 压力 23.66（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破23.66 后回踩 | 止损：20.89 | 目标：24.37 | 盈亏比：0.63 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（21.32）且缩量（量比<1），或板块 融资融券 转跌/主线退潮，则证伪初判。</div>
@@ -2293,7 +2293,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.53，成交额13.16亿，换手0.12%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 国防军工(航空)</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 18.52（MA20 支撑） / 压力 20.20（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约20.00） | 止损：18.60 | 目标：20.81 | 盈亏比：0.58 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（18.52）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -2344,7 +2344,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.38，成交额8.08亿，换手0.05%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 融资融券（成分加权涨-0.81%，Rank 3）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 融资融券（成分加权涨-0.81%，Rank 3）；行业 机械设备；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 10.76（MA20 支撑） / 压力 11.86（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破11.86 后回踩 | 止损：10.54 | 目标：12.22 | 盈亏比：0.56 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（10.76）且缩量（量比<1），或板块 融资融券 转跌/主线退潮，则证伪初判。</div>
@@ -2395,7 +2395,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.47，成交额9.57亿，换手0.09%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 科创板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 科创板（成分加权涨N/A，Rank N/A）；行业 国防军工(地面)</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 39.47（MA20 支撑） / 压力 46.88（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破46.88 后回踩 | 止损：38.68 | 目标：48.29 | 盈亏比：0.52 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（39.47）且缩量（量比<1），或板块 科创板 转跌/主线退潮，则证伪初判。</div>
@@ -2444,7 +2444,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.15，成交额8.18亿，换手0.12%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 粤港澳（成分加权涨-1.20%，Rank 5）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 粤港澳（成分加权涨-1.20%，Rank 5）；行业 通信设备；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 11.79（MA20 支撑） / 压力 12.78（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破12.78 后回踩 | 止损：11.55 | 目标：13.16 | 盈亏比：0.46 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（11.79）且缩量（量比<1），或板块 粤港澳 转跌/主线退潮，则证伪初判。</div>
@@ -2495,7 +2495,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主空
             <br><span class="metrics">依据：量比1.26，成交额36.64亿，换手0.44%；大单方向=大阴(主空)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 农林牧渔</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 8.45（MA20 支撑） / 压力 13.88（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破13.88 后回踩 | 止损：8.28 | 目标：14.30 | 盈亏比：0.46 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（8.45）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -2546,7 +2546,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比3.57，成交额14.44亿，换手0.38%；大单方向=大阳(主多)（强度：强）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 农林牧渔</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 4.42（MA20 支撑） / 压力 6.73（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约6.73） | 止损：6.26 | 目标：6.93 | 盈亏比：0.43 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（4.42）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -2599,7 +2599,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.31，成交额8.59亿，换手0.10%；大单方向=大阳(主多)（强度：强）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 一带一路（成分加权涨-1.39%，Rank 10）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 一带一路（成分加权涨-1.39%，Rank 10）；行业 机械设备；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 12.09（MA20 支撑） / 压力 13.27（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约13.27） | 止损：12.34 | 目标：13.67 | 盈亏比：0.43 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（12.09）且缩量（量比<1），或板块 一带一路 转跌/主线退潮，则证伪初判。</div>
@@ -2654,7 +2654,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.86，成交额17.72亿，换手0.23%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 一带一路（成分加权涨-1.39%，Rank 10）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 一带一路（成分加权涨-1.39%，Rank 10）；行业 半导体电子；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 11.05（MA20 支撑） / 压力 13.51（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约13.51） | 止损：12.56 | 目标：13.92 | 盈亏比：0.43 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（11.05）且缩量（量比<1），或板块 一带一路 转跌/主线退潮，则证伪初判。</div>
@@ -2707,7 +2707,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.79，成交额8.46亿，换手0.04%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 航运</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 11.45（MA20 支撑） / 压力 13.41（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约13.41） | 止损：12.47 | 目标：13.81 | 盈亏比：0.43 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（11.45）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -2758,7 +2758,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.65，成交额13.65亿，换手0.11%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 塑料包装</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 8.01（MA20 支撑） / 压力 8.68（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约8.68） | 止损：8.07 | 目标：8.94 | 盈亏比：0.43 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（8.01）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -2811,7 +2811,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 观望
             <br><span class="metrics">依据：量比1.01，成交额32.60亿，换手0.11%；大单方向=大阳(主多)（强度：弱）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 一带一路（成分加权涨-1.39%，Rank 10）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 一带一路（成分加权涨-1.39%，Rank 10）；行业 汽车；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 46.52（MA20 支撑） / 压力 58.07（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约58.07） | 止损：54.01 | 目标：59.81 | 盈亏比：0.43 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（46.52）且缩量（量比<1），或板块 一带一路 转跌/主线退潮，则证伪初判。</div>
@@ -2864,7 +2864,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 观望
             <br><span class="metrics">依据：量比0.90，成交额11.58亿，换手0.19%；大单方向=大阳(主多)（强度：弱）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 专精特新（成分加权涨-1.44%，Rank 11）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 专精特新（成分加权涨-1.44%，Rank 11）；行业 塑料包装；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 22.10（MA20 支撑） / 压力 30.84（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约30.84） | 止损：28.68 | 目标：31.77 | 盈亏比：0.43 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（22.10）且缩量（量比<1），或板块 专精特新 转跌/主线退潮，则证伪初判。</div>
@@ -2917,7 +2917,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.30，成交额9.29亿，换手0.09%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 建筑装饰</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 43.82（MA20 支撑） / 压力 54.79（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约54.79） | 止损：50.95 | 目标：56.43 | 盈亏比：0.43 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（43.82）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -2966,7 +2966,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.05，成交额8.61亿，换手0.12%；大单方向=大阳(主多)（强度：强）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 汽车</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 11.65（MA20 支撑） / 压力 14.16（20日高点（次日连板空间））</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：放量换手回封 / 分时均线低吸 | 区间：涨停价附近换手承接（约14.16） | 止损：13.17 | 目标：14.58 | 盈亏比：0.42 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（11.65）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -3017,7 +3017,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.94，成交额11.31亿，换手0.01%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 雄安新区（成分加权涨-0.38%，Rank 1）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 雄安新区（成分加权涨-0.38%，Rank 1）；行业 电力；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 5.12（MA20 支撑） / 压力 5.40（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破5.40 后回踩 | 止损：5.02 | 目标：5.56 | 盈亏比：0.42 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（5.12）且缩量（量比<1），或板块 雄安新区 转跌/主线退潮，则证伪初判。</div>
@@ -3068,7 +3068,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.68，成交额20.90亿，换手0.10%；大单方向=大阳(主多)（强度：强）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 机械设备</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 14.59（MA20 支撑） / 压力 15.66（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破15.66 后回踩 | 止损：14.30 | 目标：16.13 | 盈亏比：0.39 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（14.59）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -3119,7 +3119,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 观望
             <br><span class="metrics">依据：量比1.16，成交额33.89亿，换手0.27%；大单方向=大阳(主多)（强度：弱）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 题材联动（强势）
-            <br><span class="metrics">依据：宽基板块 雄安新区（成分加权涨-0.38%，Rank 1）；标签含板块强势</span></div>
+            <br><span class="metrics">依据：板块 雄安新区（成分加权涨-0.38%，Rank 1）；行业 基础化工；标签含板块强势</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 13.67（MA20 支撑） / 压力 19.86（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破19.86 后回踩 | 止损：13.40 | 目标：20.46 | 盈亏比：0.20 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（13.67）且缩量（量比<1），或板块 雄安新区 转跌/主线退潮，则证伪初判。</div>
@@ -3176,7 +3176,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.79，成交额14.53亿，换手0.35%；大单方向=中性（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 农林牧渔</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 9.01（MA20 支撑） / 压力 14.97（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破14.97 后回踩 | 止损：8.83 | 目标：15.42 | 盈亏比：0.18 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（9.01）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -3227,7 +3227,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.53，成交额9.02亿，换手0.11%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 家居</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 25.64（MA20 支撑） / 压力 33.61（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破33.61 后回踩 | 止损：25.13 | 目标：34.62 | 盈亏比：0.15 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（25.64）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -3278,7 +3278,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.29，成交额30.52亿，换手0.32%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 半导体电子</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 14.38（MA20 支撑） / 压力 21.54（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破21.54 后回踩 | 止损：14.09 | 目标：22.19 | 盈亏比：0.15 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（14.38）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -3329,7 +3329,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比2.22，成交额9.67亿，换手0.22%；大单方向=大阳(主多)（强度：强）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 深市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 深市主板（成分加权涨N/A，Rank N/A）；行业 半导体电子</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 11.72（MA20 支撑） / 压力 19.48（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破19.48 后回踩 | 止损：11.49 | 目标：20.06 | 盈亏比：0.14 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（11.72）且缩量（量比<1），或板块 深市主板 转跌/主线退潮，则证伪初判。</div>
@@ -3382,7 +3382,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
           <div class="item"><span class="lbl">③资金定性</span> 主多
             <br><span class="metrics">依据：量比1.54，成交额23.06亿，换手0.20%；大单方向=大阳(主多)（强度：中）</span></div>
           <div class="item"><span class="lbl">④板块定位</span> 弱势/独立
-            <br><span class="metrics">依据：宽基板块 沪市主板（成分加权涨N/A，Rank N/A）</span></div>
+            <br><span class="metrics">依据：板块 沪市主板（成分加权涨N/A，Rank N/A）；行业 机械设备</span></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 18.78（MA20 支撑） / 压力 27.48（20日高点）</div>
           <div class="item"><span class="lbl">⑥介入三件套</span> 触发：站上MA且放量确认 | 区间：突破27.48 后回踩 | 止损：18.40 | 目标：28.30 | 盈亏比：0.10 <span class="warn">赔率不足</span></div>
           <div class="item"><span class="lbl">⑦证伪条件</span> 跌破MA20 支撑（18.78）且缩量（量比<1），或板块 沪市主板 转跌/主线退潮，则证伪初判。</div>
@@ -3735,7 +3735,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
   <h2>⑨ 留存 / 截断 / 排除 / 配置</h2>
   <details><summary>留存日志（60 只 · 导出 CSV）</summary>
     <div class="scroll"><table><thead><tr><th>代码</th><th>名称</th><th>标签</th><th>优先级</th><th>板块</th><th>量比</th><th>收盘</th></tr></thead>
-    <tbody><tr><td>301080</td><td>百普赛斯</td><td>涨异动/突破/板块强势</td><td>高</td><td>专精特新(11) · 行业:N/A</td><td>1.37</td><td>84.65</td></tr><tr><td>001258</td><td>立新能源</td><td>跌异动/跌破/大阴</td><td>中</td><td>深市主板 · 行业:N/A</td><td>0.96</td><td>12.52</td></tr><tr><td>600410</td><td>华胜天成</td><td>放量/跌异动/长影线</td><td>高</td><td>沪市主板 · 行业:N/A</td><td>1.62</td><td>14.68</td></tr><tr><td>603308</td><td>应流股份</td><td>跌异动/跌破/大阴</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>1.27</td><td>42.40</td></tr><tr><td>603619</td><td>中曼石油</td><td>放量/跌异动/跌破</td><td>高</td><td>沪市主板 · 行业:N/A</td><td>1.71</td><td>23.22</td></tr><tr><td>002515</td><td>金字火腿</td><td>跌异动/跌破/大阴</td><td>中</td><td>深市主板 · 行业:N/A</td><td>1.20</td><td>7.51</td></tr><tr><td>000711</td><td>京蓝科技</td><td>跌异动/跌破/大阴</td><td>中</td><td>雄安新区(1) · 行业:N/A</td><td>1.33</td><td>6.08</td></tr><tr><td>603890</td><td>春秋电子</td><td>涨异动/突破/大阳</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>1.48</td><td>19.62</td></tr><tr><td>600598</td><td>北大荒</td><td>跌异动/跌破/大阴</td><td>中</td><td>融资融券(3) · 行业:N/A</td><td>1.16</td><td>12.67</td></tr><tr><td>001696</td><td>宗申动力</td><td>放量/涨异动/突破/大阳/板块强势</td><td>高</td><td>专精特新(11) · 行业:N/A</td><td>2.13</td><td>16.20</td></tr><tr><td>002361</td><td>神剑股份</td><td>放量/涨异动</td><td>中</td><td>深市主板 · 行业:N/A</td><td>2.05</td><td>11.04</td></tr><tr><td>000505</td><td>京粮控股</td><td>跌异动/跌破/大阴/炸板</td><td>中</td><td>一带一路(10) · 行业:N/A</td><td>1.41</td><td>7.09</td></tr><tr><td>300319</td><td>麦捷科技</td><td>极致缩量/跌异动/跌破/长影线</td><td>高</td><td>粤港澳(5) · 行业:N/A</td><td>0.55</td><td>19.45</td></tr><tr><td>603980</td><td>吉华集团</td><td>放量/跌异动/大阴</td><td>高</td><td>沪市主板 · 行业:N/A</td><td>1.84</td><td>7.31</td></tr><tr><td>603580</td><td>艾艾精工</td><td>跌异动/跌破/大阴</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>0.98</td><td>75.00</td></tr><tr><td>002470</td><td>金正大</td><td>放量/跌异动/大阴</td><td>高</td><td>深市主板 · 行业:N/A</td><td>1.72</td><td>2.17</td></tr><tr><td>600613</td><td>神奇制药</td><td>跌异动/跌破/大阴/长影线</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>1.03</td><td>10.04</td></tr><tr><td>600313</td><td>农发种业</td><td>跌异动/跌破/大阴</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>1.08</td><td>7.13</td></tr><tr><td>301357</td><td>北方长龙</td><td>放量/涨异动/突破/大阳</td><td>高</td><td>创业板 · 行业:N/A</td><td>1.86</td><td>106.30</td></tr><tr><td>002165</td><td>红 宝 丽</td><td>跌异动/跌破/大阴</td><td>中</td><td>深市主板 · 行业:N/A</td><td>0.95</td><td>8.39</td></tr><tr><td>002041</td><td>登海种业</td><td>跌异动/跌破/大阴</td><td>中</td><td>融资融券(3) · 行业:N/A</td><td>0.95</td><td>10.87</td></tr><tr><td>603778</td><td>国晟科技</td><td>涨异动/突破/大阳</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>1.36</td><td>10.75</td></tr><tr><td>000506</td><td>招金黄金</td><td>涨异动/突破/大阳/板块强势</td><td>高</td><td>一带一路(10) · 行业:N/A</td><td>0.91</td><td>21.08</td></tr><tr><td>300189</td><td>神农种业</td><td>跌异动/跌破/大阴</td><td>中</td><td>海南自贸(17) · 行业:N/A</td><td>1.07</td><td>6.69</td></tr><tr><td>000998</td><td>隆平高科</td><td>跌异动/大阴</td><td>中</td><td>深市主板 · 行业:N/A</td><td>1.41</td><td>9.39</td></tr><tr><td>605006</td><td>山东玻纤</td><td>涨异动/突破/大阳</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>1.33</td><td>15.96</td></tr><tr><td>603618</td><td>杭电股份</td><td>涨异动/突破/大阳</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>1.12</td><td>37.22</td></tr><tr><td>603533</td><td>掌阅科技</td><td>放量/跌异动/长影线</td><td>高</td><td>沪市主板 · 行业:N/A</td><td>2.06</td><td>24.15</td></tr><tr><td>001330</td><td>博纳影业</td><td>跌异动/大阴</td><td>中</td><td>深市主板 · 行业:N/A</td><td>1.59</td><td>5.76</td></tr><tr><td>300454</td><td>深信服</td><td>极致缩量/跌异动/长影线</td><td>高</td><td>粤港澳(5) · 行业:N/A</td><td>0.49</td><td>130.35</td></tr><tr><td>301128</td><td>强瑞技术</td><td>涨异动/突破/板块强势</td><td>高</td><td>粤港澳(5) · 行业:N/A</td><td>1.03</td><td>120.44</td></tr><tr><td>300684</td><td>中石科技</td><td>跌异动/跌破</td><td>中</td><td>一带一路(10) · 行业:N/A</td><td>1.12</td><td>88.64</td></tr><tr><td>601606</td><td>长城军工</td><td>放量/涨异动/大阳</td><td>高</td><td>沪市主板 · 行业:N/A</td><td>1.69</td><td>36.62</td></tr><tr><td>600354</td><td>敦煌种业</td><td>跌异动/跌破/大阴</td><td>中</td><td>融资融券(3) · 行业:N/A</td><td>1.02</td><td>8.21</td></tr><tr><td>601985</td><td>中国核电</td><td>放量/突破/板块强势</td><td>高</td><td>沪深300(4) · 行业:N/A</td><td>1.70</td><td>9.00</td></tr><tr><td>600551</td><td>时代出版</td><td>放量/跌异动/大阴/长影线</td><td>高</td><td>沪市主板 · 行业:N/A</td><td>1.84</td><td>8.62</td></tr><tr><td>002181</td><td>粤 传 媒</td><td>放量/长影线/板块强势</td><td>高</td><td>粤港澳(5) · 行业:N/A</td><td>2.84</td><td>9.81</td></tr><tr><td>000768</td><td>中航西飞</td><td>放量/长影线/板块强势</td><td>高</td><td>融资融券(3) · 行业:N/A</td><td>1.67</td><td>23.02</td></tr><tr><td>002297</td><td>博云新材</td><td>涨异动/突破/大阳</td><td>中</td><td>深市主板 · 行业:N/A</td><td>1.53</td><td>20.00</td></tr><tr><td>600435</td><td>北方导航</td><td>放量/涨异动/板块强势</td><td>高</td><td>融资融券(3) · 行业:N/A</td><td>2.38</td><td>11.62</td></tr><tr><td>688543</td><td>国科军工</td><td>放量/涨异动</td><td>中</td><td>科创板 · 行业:N/A</td><td>2.47</td><td>45.01</td></tr><tr><td>300252</td><td>金信诺</td><td>放量/涨异动/板块强势</td><td>高</td><td>粤港澳(5) · 行业:N/A</td><td>2.15</td><td>12.65</td></tr><tr><td>600127</td><td>金健米业</td><td>跌异动/大阴/长影线</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>1.26</td><td>12.40</td></tr><tr><td>600540</td><td>新赛股份</td><td>放量/涨异动/大阳/长影线</td><td>高</td><td>沪市主板 · 行业:N/A</td><td>3.57</td><td>6.73</td></tr><tr><td>002639</td><td>雪人集团</td><td>放量/涨异动/突破/大阳/板块强势</td><td>高</td><td>一带一路(10) · 行业:N/A</td><td>2.31</td><td>13.27</td></tr><tr><td>002104</td><td>恒宝股份</td><td>放量/涨异动/大阳/板块强势</td><td>高</td><td>一带一路(10) · 行业:N/A</td><td>1.86</td><td>13.51</td></tr><tr><td>600967</td><td>内蒙一机</td><td>放量/涨异动/大阳</td><td>高</td><td>沪市主板 · 行业:N/A</td><td>1.79</td><td>13.41</td></tr><tr><td>600589</td><td>大位科技</td><td>放量/涨异动/突破/大阳</td><td>高</td><td>沪市主板 · 行业:N/A</td><td>1.65</td><td>8.68</td></tr><tr><td>002536</td><td>飞龙股份</td><td>涨异动/突破/大阳/板块强势</td><td>高</td><td>一带一路(10) · 行业:N/A</td><td>1.01</td><td>58.07</td></tr><tr><td>002886</td><td>沃特股份</td><td>涨异动/大阳/板块强势</td><td>高</td><td>专精特新(11) · 行业:N/A</td><td>0.90</td><td>30.84</td></tr><tr><td>000628</td><td>高新发展</td><td>涨异动/大阳</td><td>中</td><td>深市主板 · 行业:N/A</td><td>1.30</td><td>54.79</td></tr><tr><td>002708</td><td>光洋股份</td><td>放量/涨异动/大阳</td><td>高</td><td>深市主板 · 行业:N/A</td><td>2.05</td><td>14.16</td></tr><tr><td>600795</td><td>国电电力</td><td>放量/涨异动/板块强势</td><td>高</td><td>雄安新区(1) · 行业:N/A</td><td>1.94</td><td>5.40</td></tr><tr><td>000519</td><td>中兵红箭</td><td>放量/涨异动/大阳</td><td>高</td><td>深市主板 · 行业:N/A</td><td>2.68</td><td>15.62</td></tr><tr><td>600722</td><td>金牛化工</td><td>涨异动/大阳/长影线/板块强势/炸板</td><td>高</td><td>雄安新区(1) · 行业:N/A</td><td>1.16</td><td>19.26</td></tr><tr><td>600371</td><td>万向德农</td><td>放量/涨异动/长影线</td><td>高</td><td>沪市主板 · 行业:N/A</td><td>2.79</td><td>14.42</td></tr><tr><td>603221</td><td>爱丽家居</td><td>涨异动/大阳/炸板</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>1.53</td><td>33.37</td></tr><tr><td>003040</td><td>楚天龙</td><td>涨异动/大阳/炸板</td><td>中</td><td>深市主板 · 行业:N/A</td><td>1.29</td><td>21.12</td></tr><tr><td>002855</td><td>捷荣技术</td><td>放量/涨异动/大阳/炸板</td><td>高</td><td>深市主板 · 行业:N/A</td><td>2.22</td><td>19.01</td></tr><tr><td>603269</td><td>海鸥股份</td><td>涨异动/大阳</td><td>中</td><td>沪市主板 · 行业:N/A</td><td>1.54</td><td>27.41</td></tr></tbody></table></div>
+    <tbody><tr><td>301080</td><td>百普赛斯</td><td>涨异动/突破/板块强势</td><td>高</td><td>专精特新(11) · 行业:医疗器械CRO</td><td>1.37</td><td>84.65</td></tr><tr><td>001258</td><td>立新能源</td><td>跌异动/跌破/大阴</td><td>中</td><td>深市主板 · 行业:电力</td><td>0.96</td><td>12.52</td></tr><tr><td>600410</td><td>华胜天成</td><td>放量/跌异动/长影线</td><td>高</td><td>沪市主板 · 行业:通信设备</td><td>1.62</td><td>14.68</td></tr><tr><td>603308</td><td>应流股份</td><td>跌异动/跌破/大阴</td><td>中</td><td>沪市主板 · 行业:机械设备</td><td>1.27</td><td>42.40</td></tr><tr><td>603619</td><td>中曼石油</td><td>放量/跌异动/跌破</td><td>高</td><td>沪市主板 · 行业:石油石化</td><td>1.71</td><td>23.22</td></tr><tr><td>002515</td><td>金字火腿</td><td>跌异动/跌破/大阴</td><td>中</td><td>深市主板 · 行业:食品饮料</td><td>1.20</td><td>7.51</td></tr><tr><td>000711</td><td>京蓝科技</td><td>跌异动/跌破/大阴</td><td>中</td><td>雄安新区(1) · 行业:环保</td><td>1.33</td><td>6.08</td></tr><tr><td>603890</td><td>春秋电子</td><td>涨异动/突破/大阳</td><td>中</td><td>沪市主板 · 行业:半导体电子</td><td>1.48</td><td>19.62</td></tr><tr><td>600598</td><td>北大荒</td><td>跌异动/跌破/大阴</td><td>中</td><td>融资融券(3) · 行业:农林牧渔</td><td>1.16</td><td>12.67</td></tr><tr><td>001696</td><td>宗申动力</td><td>放量/涨异动/突破/大阳/板块强势</td><td>高</td><td>专精特新(11) · 行业:通用设备</td><td>2.13</td><td>16.20</td></tr><tr><td>002361</td><td>神剑股份</td><td>放量/涨异动</td><td>中</td><td>深市主板 · 行业:基础化工</td><td>2.05</td><td>11.04</td></tr><tr><td>000505</td><td>京粮控股</td><td>跌异动/跌破/大阴/炸板</td><td>中</td><td>一带一路(10) · 行业:食品饮料</td><td>1.41</td><td>7.09</td></tr><tr><td>300319</td><td>麦捷科技</td><td>极致缩量/跌异动/跌破/长影线</td><td>高</td><td>粤港澳(5) · 行业:半导体电子</td><td>0.55</td><td>19.45</td></tr><tr><td>603980</td><td>吉华集团</td><td>放量/跌异动/大阴</td><td>高</td><td>沪市主板 · 行业:基础化工</td><td>1.84</td><td>7.31</td></tr><tr><td>603580</td><td>艾艾精工</td><td>跌异动/跌破/大阴</td><td>中</td><td>沪市主板 · 行业:基础化工</td><td>0.98</td><td>75.00</td></tr><tr><td>002470</td><td>金正大</td><td>放量/跌异动/大阴</td><td>高</td><td>深市主板 · 行业:化肥农化</td><td>1.72</td><td>2.17</td></tr><tr><td>600613</td><td>神奇制药</td><td>跌异动/跌破/大阴/长影线</td><td>中</td><td>沪市主板 · 行业:医药制药</td><td>1.03</td><td>10.04</td></tr><tr><td>600313</td><td>农发种业</td><td>跌异动/跌破/大阴</td><td>中</td><td>沪市主板 · 行业:农林牧渔</td><td>1.08</td><td>7.13</td></tr><tr><td>301357</td><td>北方长龙</td><td>放量/涨异动/突破/大阳</td><td>高</td><td>创业板 · 行业:国防军工(地面)</td><td>1.86</td><td>106.30</td></tr><tr><td>002165</td><td>红 宝 丽</td><td>跌异动/跌破/大阴</td><td>中</td><td>深市主板 · 行业:基础化工</td><td>0.95</td><td>8.39</td></tr><tr><td>002041</td><td>登海种业</td><td>跌异动/跌破/大阴</td><td>中</td><td>融资融券(3) · 行业:农林牧渔</td><td>0.95</td><td>10.87</td></tr><tr><td>603778</td><td>国晟科技</td><td>涨异动/突破/大阳</td><td>中</td><td>沪市主板 · 行业:电气设备</td><td>1.36</td><td>10.75</td></tr><tr><td>000506</td><td>招金黄金</td><td>涨异动/突破/大阳/板块强势</td><td>高</td><td>一带一路(10) · 行业:有色金属</td><td>0.91</td><td>21.08</td></tr><tr><td>300189</td><td>神农种业</td><td>跌异动/跌破/大阴</td><td>中</td><td>海南自贸(17) · 行业:农林牧渔</td><td>1.07</td><td>6.69</td></tr><tr><td>000998</td><td>隆平高科</td><td>跌异动/大阴</td><td>中</td><td>深市主板 · 行业:农林牧渔</td><td>1.41</td><td>9.39</td></tr><tr><td>605006</td><td>山东玻纤</td><td>涨异动/突破/大阳</td><td>中</td><td>沪市主板 · 行业:建材玻纤</td><td>1.33</td><td>15.96</td></tr><tr><td>603618</td><td>杭电股份</td><td>涨异动/突破/大阳</td><td>中</td><td>沪市主板 · 行业:电气设备</td><td>1.12</td><td>37.22</td></tr><tr><td>603533</td><td>掌阅科技</td><td>放量/跌异动/长影线</td><td>高</td><td>沪市主板 · 行业:通信设备</td><td>2.06</td><td>24.15</td></tr><tr><td>001330</td><td>博纳影业</td><td>跌异动/大阴</td><td>中</td><td>深市主板 · 行业:传媒</td><td>1.59</td><td>5.76</td></tr><tr><td>300454</td><td>深信服</td><td>极致缩量/跌异动/长影线</td><td>高</td><td>粤港澳(5) · 行业:通信设备</td><td>0.49</td><td>130.35</td></tr><tr><td>301128</td><td>强瑞技术</td><td>涨异动/突破/板块强势</td><td>高</td><td>粤港澳(5) · 行业:机械设备</td><td>1.03</td><td>120.44</td></tr><tr><td>300684</td><td>中石科技</td><td>跌异动/跌破</td><td>中</td><td>一带一路(10) · 行业:基础化工</td><td>1.12</td><td>88.64</td></tr><tr><td>601606</td><td>长城军工</td><td>放量/涨异动/大阳</td><td>高</td><td>沪市主板 · 行业:国防军工(地面)</td><td>1.69</td><td>36.62</td></tr><tr><td>600354</td><td>敦煌种业</td><td>跌异动/跌破/大阴</td><td>中</td><td>融资融券(3) · 行业:农林牧渔</td><td>1.02</td><td>8.21</td></tr><tr><td>601985</td><td>中国核电</td><td>放量/突破/板块强势</td><td>高</td><td>沪深300(4) · 行业:电力</td><td>1.70</td><td>9.00</td></tr><tr><td>600551</td><td>时代出版</td><td>放量/跌异动/大阴/长影线</td><td>高</td><td>沪市主板 · 行业:传媒</td><td>1.84</td><td>8.62</td></tr><tr><td>002181</td><td>粤 传 媒</td><td>放量/长影线/板块强势</td><td>高</td><td>粤港澳(5) · 行业:传媒</td><td>2.84</td><td>9.81</td></tr><tr><td>000768</td><td>中航西飞</td><td>放量/长影线/板块强势</td><td>高</td><td>融资融券(3) · 行业:国防军工(航空)</td><td>1.67</td><td>23.02</td></tr><tr><td>002297</td><td>博云新材</td><td>涨异动/突破/大阳</td><td>中</td><td>深市主板 · 行业:国防军工(航空)</td><td>1.53</td><td>20.00</td></tr><tr><td>600435</td><td>北方导航</td><td>放量/涨异动/板块强势</td><td>高</td><td>融资融券(3) · 行业:机械设备</td><td>2.38</td><td>11.62</td></tr><tr><td>688543</td><td>国科军工</td><td>放量/涨异动</td><td>中</td><td>科创板 · 行业:国防军工(地面)</td><td>2.47</td><td>45.01</td></tr><tr><td>300252</td><td>金信诺</td><td>放量/涨异动/板块强势</td><td>高</td><td>粤港澳(5) · 行业:通信设备</td><td>2.15</td><td>12.65</td></tr><tr><td>600127</td><td>金健米业</td><td>跌异动/大阴/长影线</td><td>中</td><td>沪市主板 · 行业:农林牧渔</td><td>1.26</td><td>12.40</td></tr><tr><td>600540</td><td>新赛股份</td><td>放量/涨异动/大阳/长影线</td><td>高</td><td>沪市主板 · 行业:农林牧渔</td><td>3.57</td><td>6.73</td></tr><tr><td>002639</td><td>雪人集团</td><td>放量/涨异动/突破/大阳/板块强势</td><td>高</td><td>一带一路(10) · 行业:机械设备</td><td>2.31</td><td>13.27</td></tr><tr><td>002104</td><td>恒宝股份</td><td>放量/涨异动/大阳/板块强势</td><td>高</td><td>一带一路(10) · 行业:半导体电子</td><td>1.86</td><td>13.51</td></tr><tr><td>600967</td><td>内蒙一机</td><td>放量/涨异动/大阳</td><td>高</td><td>沪市主板 · 行业:航运</td><td>1.79</td><td>13.41</td></tr><tr><td>600589</td><td>大位科技</td><td>放量/涨异动/突破/大阳</td><td>高</td><td>沪市主板 · 行业:塑料包装</td><td>1.65</td><td>8.68</td></tr><tr><td>002536</td><td>飞龙股份</td><td>涨异动/突破/大阳/板块强势</td><td>高</td><td>一带一路(10) · 行业:汽车</td><td>1.01</td><td>58.07</td></tr><tr><td>002886</td><td>沃特股份</td><td>涨异动/大阳/板块强势</td><td>高</td><td>专精特新(11) · 行业:塑料包装</td><td>0.90</td><td>30.84</td></tr><tr><td>000628</td><td>高新发展</td><td>涨异动/大阳</td><td>中</td><td>深市主板 · 行业:建筑装饰</td><td>1.30</td><td>54.79</td></tr><tr><td>002708</td><td>光洋股份</td><td>放量/涨异动/大阳</td><td>高</td><td>深市主板 · 行业:汽车</td><td>2.05</td><td>14.16</td></tr><tr><td>600795</td><td>国电电力</td><td>放量/涨异动/板块强势</td><td>高</td><td>雄安新区(1) · 行业:电力</td><td>1.94</td><td>5.40</td></tr><tr><td>000519</td><td>中兵红箭</td><td>放量/涨异动/大阳</td><td>高</td><td>深市主板 · 行业:机械设备</td><td>2.68</td><td>15.62</td></tr><tr><td>600722</td><td>金牛化工</td><td>涨异动/大阳/长影线/板块强势/炸板</td><td>高</td><td>雄安新区(1) · 行业:基础化工</td><td>1.16</td><td>19.26</td></tr><tr><td>600371</td><td>万向德农</td><td>放量/涨异动/长影线</td><td>高</td><td>沪市主板 · 行业:农林牧渔</td><td>2.79</td><td>14.42</td></tr><tr><td>603221</td><td>爱丽家居</td><td>涨异动/大阳/炸板</td><td>中</td><td>沪市主板 · 行业:家居</td><td>1.53</td><td>33.37</td></tr><tr><td>003040</td><td>楚天龙</td><td>涨异动/大阳/炸板</td><td>中</td><td>深市主板 · 行业:半导体电子</td><td>1.29</td><td>21.12</td></tr><tr><td>002855</td><td>捷荣技术</td><td>放量/涨异动/大阳/炸板</td><td>高</td><td>深市主板 · 行业:半导体电子</td><td>2.22</td><td>19.01</td></tr><tr><td>603269</td><td>海鸥股份</td><td>涨异动/大阳</td><td>中</td><td>沪市主板 · 行业:机械设备</td><td>1.54</td><td>27.41</td></tr></tbody></table></div>
   </details>
   <details><summary>截断日志（385 只 · 超出 M=60）</summary>
     <div class="scroll"><table><thead><tr><th>代码</th><th>名称</th><th>优先级</th><th>原因</th></tr></thead>
@@ -3747,13 +3747,13 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
   </details>
   <details><summary>运行配置（参数公示，api_key 脱敏）</summary>
     <div class="metrics">N=500 · D=20 · Q_UP=1.6 · Q_LOW=0.55 · P_TH=2.5% · K=20 · M=60 · mode=prepare · model=adr-local-review-engine · api_key=（未配置）</div>
-    <div class="metrics">板块口径：通达信 block_type=2（20 板块含 ST板块，非申万） · 行业=本地映射表缺失 N/A · 量比口径：当日量÷5日均量（日线近似） · 涨跌幅：不复权</div>
+    <div class="metrics">板块口径：通达信 block_type=2（20 板块含宽基指数/概念/地域/ST板块，非申万） · 行业=通达信 finance().industry 本地映射（已验证） · 量比口径：当日量÷5日均量（日线近似） · 涨跌幅：不复权</div>
   </details>
 </div>
 
 <footer>
   【数据截止：2026-09-02 收盘；信号均为盘中待验证假设，非投资建议】<br>
-  生成时间 2026-09-02 · 模式 auto · 数据源 mootdx(在线) + 腾讯自选股/Wind(题材榜) · 核心主线/题材榜口径：腾讯自选股概念板块 ranking（mootdx 无题材板块名）；宽基板块：通达信 block_type=2（含 ST板块，非申万）；行业=本地映射表缺失 N/A
+  生成时间 2026-09-02 · 模式 auto · 数据源 mootdx(在线) + 腾讯自选股/Wind(题材榜) · 核心主线/题材榜口径：腾讯自选股概念板块 ranking（mootdx 无题材板块名）；板块/指数板块：通达信 block_type=2（含宽基指数/概念/地域，非申万）；行业=通达信 finance().industry 本地映射（已验证）
 </footer>
 
 </div>

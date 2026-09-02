@@ -128,7 +128,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
     </table>
     <div class="metrics" style="margin-top:6px;color:var(--text-sub)">数据源：{{ thematic.source_tool }}；与 Wind 资讯及公开报道交叉验证。mootdx block_type=2 无题材板块名，核心主线改由题材概念榜提供。</div>
     {% else %}
-    <h2>③ 当日核心主线（题材榜数据缺失，降级为宽基板块口径）</h2>
+    <h2>③ 当日核心主线（题材榜数据缺失，降级为板块/指数板块口径）</h2>
     {% if sectors_top %}
     {% for s in sectors_top[:8] %}
     <div class="sector">
@@ -141,14 +141,14 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
     {% else %}
     <div class="na">暂无板块数据</div>
     {% endif %}
-    <div class="metrics" style="margin-top:6px;color:var(--text-sub)">题材榜数据缺失（data/thematic/{{ date }}.json 未生成），以下为通达信 block_type==2 宽基/指数板块，非题材主线。</div>
+    <div class="metrics" style="margin-top:6px;color:var(--text-sub)">题材榜数据缺失（data/thematic/{{ date }}.json 未生成），以下为通达信 block_type==2 板块（含宽基指数/概念/地域），非题材主线。</div>
     {% endif %}
   </div>
 </div>
 
 {% if sectors_top %}
 <div class="section">
-  <h2>③-补 宽基/指数板块强弱（通达信 block_type=2，非题材主线，仅供参考）</h2>
+  <h2>③-补 板块/指数板块强弱（通达信 block_type=2，含宽基指数/概念/地域，非题材主线）</h2>
   <div class="cards">
   {% for s in sectors_top %}
     <div class="sector">
@@ -159,7 +159,7 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
     </div>
   {% endfor %}
   </div>
-  <div class="metrics" style="margin-top:6px;color:var(--text-sub)">板块名取自通达信 block_type=2（20 个干净板块，含 ST板块），成分股流通市值加权涨幅；行业维度为可插拔本地映射，缺失显示 N/A。</div>
+  <div class="metrics" style="margin-top:6px;color:var(--text-sub)">板块名取自通达信 block_type=2（20 个干净板块，含宽基指数/概念/地域/ST板块），成分股流通市值加权涨幅；行业维度=通达信 finance().industry 本地映射（已验证），缺失显示 N/A。</div>
 </div>
 {% endif %}
 
@@ -268,13 +268,13 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
   </details>
   <details><summary>运行配置（参数公示，api_key 脱敏）</summary>
     <div class="metrics">N={{ config.N }} · D={{ config.D }} · Q_UP={{ config.Q_UP }} · Q_LOW={{ config.Q_LOW }} · P_TH={{ config.P_TH }}% · K={{ config.K }} · M={{ config.M }} · mode={{ config.mode }} · model={{ config.llm.model }} · api_key={{ config.llm.api_key or '（未配置）' }}</div>
-    <div class="metrics">板块口径：通达信 block_type=2（20 板块含 ST板块，非申万） · 行业=本地映射表缺失 N/A · 量比口径：当日量÷5日均量（日线近似） · 涨跌幅：不复权</div>
+    <div class="metrics">板块口径：通达信 block_type=2（20 板块含宽基指数/概念/地域/ST板块，非申万） · 行业=通达信 finance().industry 本地映射（已验证） · 量比口径：当日量÷5日均量（日线近似） · 涨跌幅：不复权</div>
   </details>
 </div>
 
 <footer>
   【数据截止：{{ date }} 收盘；信号均为盘中待验证假设，非投资建议】<br>
-  生成时间 {{ date }} · 模式 {{ mode }} · 数据源 mootdx(在线) + 腾讯自选股/Wind(题材榜) · 核心主线/题材榜口径：腾讯自选股概念板块 ranking（mootdx 无题材板块名）；宽基板块：通达信 block_type=2（含 ST板块，非申万）；行业=本地映射表缺失 N/A
+  生成时间 {{ date }} · 模式 {{ mode }} · 数据源 mootdx(在线) + 腾讯自选股/Wind(题材榜) · 核心主线/题材榜口径：腾讯自选股概念板块 ranking（mootdx 无题材板块名）；板块/指数板块：通达信 block_type=2（含宽基指数/概念/地域，非申万）；行业=通达信 finance().industry 本地映射（已验证）
 </footer>
 
 </div>

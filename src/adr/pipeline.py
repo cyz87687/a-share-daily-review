@@ -83,6 +83,14 @@ class Pipeline:
         full_snap = self.client.get_full_snapshot(run_date)
         candidates, exclude_log = build_universe(self.client, self.cfg, run_date)
 
+        # 板块维度 + 行业维度映射：必须在建快照循环之前执行，否则 industry_name 无法写入 Snapshot
+        sectors = build_sectors(
+            candidates,
+            self.cfg,
+            self.client.blocks_type2(),
+            load_sector_map(self.cfg.sector_map_path),
+        )
+
         metrics: dict = {}
         snaps: dict = {}
         for _, row in candidates.iterrows():
@@ -103,12 +111,6 @@ class Pipeline:
             metrics[code] = m
             snaps[code] = snap
 
-        sectors = build_sectors(
-            candidates,
-            self.cfg,
-            self.client.blocks_type2(),
-            load_sector_map(self.cfg.sector_map_path),
-        )
         # 题材主线（真实题材榜；mootdx 无题材板块名，缺失则退化为 block_type==2 口径）
         thematic = load_thematic(self.cfg, run_date)
         kept, truncate_log = screen(candidates, metrics, sectors, self.cfg)

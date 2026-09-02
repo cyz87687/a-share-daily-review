@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-02",
+  "weekday": "周三",
+  "mode": "auto",
+  "elapsed_sec": 55.7,
+  "kept": 60,
+  "quality_passed": true,
+  "sh_index": {
+    "code": "999999",
+    "name": "",
+    "price": 3941.39,
+    "pct": -0.9673634195919987
+  },
+  "main_line": "雄安新区",
+  "main_line_source": "AI摘要"
+}

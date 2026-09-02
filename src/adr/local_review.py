@@ -218,6 +218,46 @@ def _review_stock(s: dict) -> dict:
     if not risk:
         risk.append("情绪/流动性波动风险")
 
+    # 重点突出（供卡片精简渲染，不再逐条列全 8 项）
+    body_txt = "涨停" if is_lu else body
+    hl_parts = [f"{body_txt}（{_fmt(pct, 2, '%')}，量比{_fmt(vr, 2)}）{ma_s}"]
+    if block and block not in ("沪市主板", "深市主板", "科创板", "创业板", "北交所"):
+        hl_parts.append(f"板块「{block}」")
+    else:
+        hl_parts.append(f"{block}")
+    if ind and ind != "N/A":
+        hl_parts.append(f"行业 {ind}")
+    hl_parts.append(f"支撑{_fmt(support)}/压力{_fmt(resistance)}，盈亏比{_fmt(odds)}")
+    highlight = "；".join(hl_parts) + "。"
+
+    # 入选理由（确定性合成，零幻觉：均来自真实筛选信号，非自由生成文本）
+    reasons = []
+    if "板块强势" in tags:
+        reasons.append("板块强势：处于题材/板块联动前排，主线资金聚焦")
+    elif is_lu:
+        reasons.append("涨停封板：资金强势，列入连板观察")
+    elif bu:
+        reasons.append("放量突破：触发突破信号，站上均线打开空间")
+    elif bbull:
+        reasons.append("大阳线：主多资金推动，量价配合")
+    elif "涨异动" in tags:
+        reasons.append("涨幅异动：进入当日异动榜")
+    elif "跌异动" in tags:
+        reasons.append("跌幅异动：进入当日异动榜（弱势/风险释放，列观察）")
+    if block and block not in ("沪市主板", "深市主板", "科创板", "创业板", "北交所") and srank is not None:
+        reasons.append(f"属「{block}」板块成分（Rank {srank}），板块加权涨幅靠前")
+    if vr is not None:
+        if vr >= 1.5:
+            reasons.append(f"放量确认（量比{vr:.2f}）")
+        elif vr < 0.8:
+            reasons.append(f"缩量企稳（量比{vr:.2f}）")
+    if odds is not None and odds >= 2:
+        reasons.append(f"风险收益比 {odds:.2f}（≥2，赔率占优）")
+    pri = s.get("priority")
+    if pri:
+        reasons.append(f"综合优先级：{pri}")
+    selected_reason = reasons if reasons else ["进入候选池（高成交额 + 异动信号）"]
+
     return {
         "code": code,
         "review_status": "OK",
@@ -228,6 +268,8 @@ def _review_stock(s: dict) -> dict:
         "entry": entry,
         "falsify": falsify,
         "risk": risk,
+        "highlight": highlight,
+        "selected_reason": selected_reason,
     }
 
 

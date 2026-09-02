@@ -51,6 +51,10 @@ h1 { font-size: 18px; margin: 0 0 8px; }
 .review { margin-top: 8px; background: var(--bg); border-radius: 6px; padding: 8px; font-size: 12px; }
 .review .item { margin: 3px 0; }
 .review .lbl { color: var(--up); font-weight: 600; }
+.review .sel-reason { background: var(--up-bg); border-left: 3px solid var(--up); border-radius: 4px; padding: 4px 8px; margin-top: 4px; }
+.review .sel-reason ul { margin: 2px 0 0 16px; padding: 0; }
+.review .sel-reason li { margin: 1px 0; font-size: 12px; }
+.review .muted { color: var(--text-sub); font-size: 11px; }
 .trace { margin-top: 6px; font-size: 11px; color: var(--text-sub); }
 .trace summary { cursor: pointer; color: var(--text-sub); }
 .opts { margin-top: 6px; font-size: 12px; }
@@ -192,15 +196,12 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
       <div class="review">
         {% set r = s.review %}
         {% if r and r.review_status == 'OK' %}
-          <div class="item"><span class="lbl">①量价结构</span> {{ r.volume_price or '—' }}</div>
-          <div class="item"><span class="lbl">③资金定性</span> {{ r.capital.type or '—' }}
-            {% if r.capital.evidence %}<br><span class="metrics">依据：{{ r.capital.evidence }}（强度：{{ r.capital.strength or '—' }}）</span>{% endif %}</div>
-          <div class="item"><span class="lbl">④板块定位</span> {{ r.sector_role.type or '—' }}
-            {% if r.sector_role.basis %}<br><span class="metrics">依据：{{ r.sector_role.basis }}</span>{% endif %}</div>
+          <div class="item"><span class="lbl">重点</span> {{ r.highlight or '—' }}</div>
+          <div class="item sel-reason"><span class="lbl">入选理由</span>
+            <ul>{% for rs in r.selected_reason %}<li>{{ rs }}</li>{% endfor %}</ul></div>
           <div class="item"><span class="lbl">⑤关键价位</span> 支撑 {{ '%.2f'|format(r.levels.support) if r.levels.support is not none else 'N/A' }}（{{ r.levels.support_basis or '—' }}） / 压力 {{ '%.2f'|format(r.levels.resistance) if r.levels.resistance is not none else 'N/A' }}（{{ r.levels.resistance_basis or '—' }}）</div>
-          <div class="item"><span class="lbl">⑥介入三件套</span> 触发：{{ r.entry.trigger or '—' }} | 区间：{{ r.entry.zone or '—' }} | 止损：{{ '%.2f'|format(r.entry.stop_loss) if r.entry.stop_loss is not none else 'N/A' }} | 目标：{{ '%.2f'|format(r.entry.target) if r.entry.target is not none else 'N/A' }} | 盈亏比：{{ '%.2f'|format(r.entry.odds) if r.entry.odds is not none else 'N/A' }}{% if r.entry.odds is not none and r.entry.odds < 2 %} <span class="warn">赔率不足</span>{% endif %}</div>
-          <div class="item"><span class="lbl">⑦证伪条件</span> {{ r.falsify or '—' }}</div>
-          {% if r.risk %}<div class="item"><span class="lbl">⑧核心风险</span> {{ r.risk|join('；') }}</div>{% endif %}
+          <div class="item"><span class="lbl">⑥介入</span> 触发：{{ r.entry.trigger or '—' }} | 止损：{{ '%.2f'|format(r.entry.stop_loss) if r.entry.stop_loss is not none else 'N/A' }} | 目标：{{ '%.2f'|format(r.entry.target) if r.entry.target is not none else 'N/A' }} | 盈亏比：{{ '%.2f'|format(r.entry.odds) if r.entry.odds is not none else 'N/A' }}{% if r.entry.odds is not none and r.entry.odds < 2 %} <span class="warn">赔率不足</span>{% endif %}</div>
+          <div class="item muted">资金：{{ r.capital.type or '—' }}{{ '（' + r.capital.strength + '）' if r.capital.strength else '' }} · 证伪：{{ r.falsify or '—' }} · 风险：{{ r.risk|join('；') if r.risk else '—' }}</div>
         {% else %}
           <div class="item"><span class="warn">AI 精复盘待补充</span>（请粘贴 prompt.txt 至 AI，回填后执行 <code>review.py finalize</code>）</div>
         {% endif %}

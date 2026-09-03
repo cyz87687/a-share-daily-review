@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-03",
+  "weekday": "周四",
+  "mode": "auto",
+  "elapsed_sec": 36.2,
+  "kept": 60,
+  "quality_passed": true,
+  "sh_index": {
+    "code": "999999",
+    "name": "",
+    "price": 3942.09,
+    "pct": 0.01776023179640363
+  },
+  "main_line": "上海自贸",
+  "main_line_source": "AI摘要"
+}

@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-04",
+  "weekday": "周五",
+  "mode": "auto",
+  "elapsed_sec": 65.6,
+  "kept": 60,
+  "quality_passed": true,
+  "sh_index": {
+    "code": "999999",
+    "name": "",
+    "price": 3930.12,
+    "pct": -0.3036460354786485
+  },
+  "main_line": "融资融券",
+  "main_line_source": "AI摘要"
+}

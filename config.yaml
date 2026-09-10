@@ -26,15 +26,15 @@ industry_map_path: config/industry_map.yaml  # 旧版 industry 编码→名称�
 # 待以 880xxx 行业指数多日交叉验证、拿到 mootdx 权威 code→name 后方可启用。
 sector_map_path: config/industry_map.yaml
 
-# ---------- 复盘引擎（auto 模式）----------
+# ---------- 复盘引擎（auto / llm 模式）----------
 # auto 模式默认走「本地复盘引擎」（src/adr/local_review.py）：将提示词定义的单股 8 项复盘 +
 # 市场总结方法论固化为确定性规则，全部输入来自真实行情数据包，零外部 LLM、零 api_key。
 # 因此 auto 模式完全离线自治，可在 CI（GitHub Actions）中每日自动运行，无需配置任何 key。
-# 如需接外部 LLM（可选增强），可在此填入 provider/base_url/api_key 并改造 pipeline；当前未启用。
+# 如需接外部 LLM：在下方 api_key 填入 DeepSeek key 即可启用真实 LLM 总结（auto/llm 模式）；未填写则自动降级本地引擎。
 llm:
-  provider: local                # local = 本工具内置复盘引擎（无外部调用）
-  base_url: ""
-  model: adr-local-review-engine # 页面页脚/运行配置公示展示用
-  api_key: ""                    # 本地引擎无需 key；留空
+  provider: deepseek             # deepseek = OpenAI 兼容协议；可换通义/智谱只需改 base_url+model
+  base_url: https://api.deepseek.com/v1
+  model: deepseek-chat
+  api_key: ""                    # ★ 填写后启用真实 LLM 总结；留空则 auto/llm 自动降级本地引擎
   temperature: 0.3
   max_tokens: 4096

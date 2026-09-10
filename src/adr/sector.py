@@ -23,6 +23,32 @@ import yaml
 from src.adr.types import SectorStat
 
 
+# ---------------------------------------------------------------------------
+# block_type==2 的 20 板块人工分类（DESIGN 918 实测：mootdx 仅 block_type==2 干净，
+# 其余 block_type 乱码；且 block_type==2 本身为「宽基指数+地域+概念+风险」混合，并非纯概念）。
+# 用户要求「板块数据只用概念板块」→ 仅保留概念类，剔除宽基指数/地域/风险。
+# 注：mootdx 取不到半导体/PCB/AI 等真实概念板块名，唯一干净的「概念板块」来自
+#     题材榜（腾讯自选股/Wind，见 thematic 模块）。本分类仅用于在 block_type==2 中
+#     筛选出可能属于「概念/主题」的少数板块，作为题材榜缺失时的退化展示。
+_BLOCK_TYPE2_CONCEPT = {
+    "专精特新",   # 政策主题概念
+    "一带一路",   # 主题投资概念
+}
+_BLOCK_TYPE2_BROAD_INDEX = {
+    "沪深300", "创业板指", "上证50", "中证A50", "中证A100", "北证50", "深证50",
+    "深证成指", "科创50", "通达信88", "精选指数",
+}
+_BLOCK_TYPE2_REGION = {
+    "上海自贸", "海南自贸", "海峡西岸", "粤港澳", "雄安新区",
+}
+_BLOCK_TYPE2_RISK = {"ST板块", "融资融券"}
+
+
+def is_concept_block(name: str) -> bool:
+    """判断 block_type==2 板块名是否属于「概念/主题」类（用于「板块数据只用概念板块」过滤）。"""
+    return str(name).strip() in _BLOCK_TYPE2_CONCEPT
+
+
 def load_sector_map(path: str) -> dict | None:
     """读取 industry 编码→{name, category} 映射。
 

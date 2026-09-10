@@ -132,9 +132,9 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
     </table>
     <div class="metrics" style="margin-top:6px;color:var(--text-sub)">数据源：{{ thematic.source_tool }}；与 Wind 资讯及公开报道交叉验证。mootdx block_type=2 无题材板块名，核心主线改由题材概念榜提供。</div>
     {% else %}
-    <h2>③ 当日核心主线（题材榜数据缺失，降级为板块/指数板块口径）</h2>
-    {% if sectors_top %}
-    {% for s in sectors_top[:8] %}
+    <h2>③ 当日核心主线（题材榜缺失，降级为概念板块口径）</h2>
+    {% if sectors_concept %}
+    {% for s in sectors_concept %}
     <div class="sector">
       <span><span class="rank">{{ s.block_rank }}</span>{{ s.block_name }}
         <span class="flat">（{{ s.member_count }}只）</span></span>
@@ -142,30 +142,32 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
         {{ '%.2f'|format(s.pct_weighted) }}%</span>
     </div>
     {% endfor %}
+    <div class="metrics" style="margin-top:6px;color:var(--text-sub)">题材榜缺失，降级展示 block_type==2 中概念类板块（样本极少）；mootdx 取不到半导体/PCB/AI 等真实概念板块名。</div>
     {% else %}
-    <div class="na">暂无板块数据</div>
+    <div class="na">概念板块数据缺失：题材榜未生成（data/thematic/{{ date }}.json），且 block_type==2 无概念类板块。</div>
     {% endif %}
-    <div class="metrics" style="margin-top:6px;color:var(--text-sub)">题材榜数据缺失（data/thematic/{{ date }}.json 未生成），以下为通达信 block_type==2 板块（含宽基指数/概念/地域），非题材主线。</div>
     {% endif %}
   </div>
 </div>
 
-{% if sectors_top %}
 <div class="section">
-  <h2>③-补 板块/指数板块强弱（通达信 block_type=2，含宽基指数/概念/地域，非题材主线）</h2>
-  <div class="cards">
-  {% for s in sectors_top %}
-    <div class="sector">
-      <span><span class="rank">{{ s.block_rank }}</span>{{ s.block_name }}
-        <span class="flat">（{{ s.member_count }}只 · 成交 {{ '%.1f'|format(s.amount_yi) if s.amount_yi is not none else 'N/A' }}亿）</span></span>
-      <span class="{% if s.pct_weighted is not none and s.pct_weighted>0 %}up{% elif s.pct_weighted is not none and s.pct_weighted<0 %}down{% else %}flat{% endif %}">
-        {{ '%.2f'|format(s.pct_weighted) }}%</span>
-    </div>
-  {% endfor %}
+  <h2>③-补 概念板块强弱（只用概念板块）</h2>
+  {% if thematic and thematic.top_thematic %}
+  <div class="metrics" style="margin-bottom:6px;color:var(--text-sub)">概念板块已在③区按题材榜口径列出（腾讯自选股/Wind 概念板块 ranking）；通达信 block_type==2 混合板块（宽基指数/地域/ST板块）已按「只用概念板块」要求不再列入板块数据。数据源：{{ thematic.source_tool }}。</div>
+  {% elif sectors_concept %}
+  {% for s in sectors_concept %}
+  <div class="sector">
+    <span><span class="rank">{{ s.block_rank }}</span>{{ s.block_name }}
+      <span class="flat">（{{ s.member_count }}只 · 成交 {{ '%.1f'|format(s.amount_yi) if s.amount_yi is not none else 'N/A' }}亿）</span></span>
+    <span class="{% if s.pct_weighted is not none and s.pct_weighted>0 %}up{% elif s.pct_weighted is not none and s.pct_weighted<0 %}down{% else %}flat{% endif %}">
+      {{ '%.2f'|format(s.pct_weighted) }}%</span>
   </div>
-  <div class="metrics" style="margin-top:6px;color:var(--text-sub)">板块名取自通达信 block_type=2（20 个干净板块，含宽基指数/概念/地域/ST板块），成分股流通市值加权涨幅；行业维度=通达信 finance().industry 本地映射（已验证），缺失显示 N/A。</div>
+  {% endfor %}
+  <div class="metrics" style="margin-top:6px;color:var(--text-sub)">题材榜缺失，降级展示 block_type==2 中概念类板块（样本极少）；mootdx 取不到半导体/PCB/AI 等真实概念板块名。</div>
+  {% else %}
+  <div class="na">概念板块数据缺失：题材榜未生成，且 block_type==2 无概念类板块（见③区说明）。</div>
+  {% endif %}
 </div>
-{% endif %}
 
 <div class="section">
   <h2>⑥ 个股复盘卡片流（{{ stocks|length }} 只）</h2>
@@ -245,9 +247,31 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
 {% endif %}
 
 <div class="section">
-  <h2>⑧ 明日候选观察清单</h2>
-  {% if summary and summary.watchlist %}
-    <ul>{% for w in summary.watchlist %}<li>{{ w }}</li>{% endfor %}</ul>
+  <h2>⑧ 明日候选观察清单（{% if summary.llm_generated %}真实 LLM 归纳{% else %}本地引擎确定性归纳{% endif %}：需要关注的点 + 公司）</h2>
+  {% if summary and (summary.focus_points or summary.watchlist) %}
+    {% if summary.focus_points %}
+    <div class="review" style="margin-bottom:10px">
+      <div class="item"><span class="lbl">需要关注的点</span></div>
+      <ul>{% for p in summary.focus_points %}<li>{{ p }}</li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+    {% if summary.watchlist %}
+    <div class="item" style="margin-bottom:4px"><span class="lbl">重点公司（高优先级 · 非涨停 · 板块强势/突破）</span></div>
+    {% for w in summary.watchlist %}
+      <div class="card" style="margin:6px 0">
+        <div class="card-h">
+          <span class="code">{{ w.code }}</span>
+          <span class="name">{{ w.name }}</span>
+          <span class="pri pri-{{ w.priority }}">{{ w.priority }}</span>
+          <span class="tag">{{ w.block }}</span>
+          <span class="pct {% if w.pct is not none and w.pct>0 %}up{% elif w.pct is not none and w.pct<0 %}down{% else %}flat{% endif %}">{% if w.pct is not none %}{{ '%.2f'|format(w.pct) }}%{% else %}N/A{% endif %}</span>
+        </div>
+        <ul style="margin:4px 0 0 16px;font-size:12px">
+          {% for pt in w.points %}<li>{{ pt }}</li>{% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+    {% endif %}
   {% else %}
     <div class="na">（AI 精复盘待补充）</div>
   {% endif %}
@@ -269,13 +293,13 @@ footer { margin-top: 16px; color: var(--text-sub); font-size: 11px; text-align: 
   </details>
   <details><summary>运行配置（参数公示，api_key 脱敏）</summary>
     <div class="metrics">N={{ config.N }} · D={{ config.D }} · Q_UP={{ config.Q_UP }} · Q_LOW={{ config.Q_LOW }} · P_TH={{ config.P_TH }}% · K={{ config.K }} · M={{ config.M }} · mode={{ config.mode }} · model={{ config.llm.model }} · api_key={{ config.llm.api_key or '（未配置）' }}</div>
-    <div class="metrics">板块口径：通达信 block_type=2（20 板块含宽基指数/概念/地域/ST板块，非申万） · 行业=通达信 finance().industry 本地映射（已验证） · 量比口径：当日量÷5日均量（日线近似） · 涨跌幅：不复权</div>
+    <div class="metrics">板块口径（已按需求改为「只用概念板块」）：概念板块优先取题材榜（腾讯自选股/Wind 概念板块 ranking，data/thematic/{date}.json），缺失时降级为 block_type==2 概念类；通达信 block_type==2 混合板块（宽基指数/地域/ST板块）不再列入板块数据 · 行业=通达信 finance().industry 本地映射（已验证） · 量比口径：当日量÷5日均量（日线近似） · 涨跌幅：不复权</div>
   </details>
 </div>
 
 <footer>
   【数据截止：{{ date }} 收盘；信号均为盘中待验证假设，非投资建议】<br>
-  生成时间 {{ date }} · 模式 {{ mode }} · 数据源 mootdx(在线) + 腾讯自选股/Wind(题材榜) · 核心主线/题材榜口径：腾讯自选股概念板块 ranking（mootdx 无题材板块名）；板块/指数板块：通达信 block_type=2（含宽基指数/概念/地域，非申万）；行业=通达信 finance().industry 本地映射（已验证）
+  生成时间 {{ date }} · 模式 {{ mode }} · 数据源 mootdx(在线) + 腾讯自选股/Wind(题材榜) · 板块数据仅概念板块：题材榜（腾讯自选股/Wind 概念板块 ranking，mootdx 无真实概念板块名）；block_type==2 宽基指数/地域/ST板块已按需求不列入 · 行业=通达信 finance().industry 本地映射（已验证）
 </footer>
 
 </div>

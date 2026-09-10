@@ -18,7 +18,7 @@ from src.adr.logging_setup import setup_logging
 from src.adr.adjust import build_qfq
 from src.adr.indicators import enrich
 from src.adr.universe import build_universe, snapshot_from_row
-from src.adr.sector import build_sectors, load_sector_map
+from src.adr.sector import build_sectors, load_sector_map, is_concept_block
 from src.adr.thematic import load_thematic
 from src.adr.screener import screen
 from src.adr import logs_repo
@@ -26,7 +26,8 @@ from src.adr.reconcile import _prev_trading_date, reconcile
 from src.adr.datapack import build_datapack
 from src.adr.prompt import _inject_params, build_prompt
 from src.adr import quality
-from src.adr.local_review import board_of
+from src.adr.local_review import board_of, _is_limit_up, _fmt
+from src.adr.parser import parse_ai_json
 from src.adr.renderer.review_page import make_sparkline, render_review
 from src.adr.renderer.index_page import render_index
 
@@ -237,6 +238,15 @@ class Pipeline:
              "pct_weighted": s.pct_weighted, "amount_yi": s.amount_yi, "member_count": s.member_count}
             for s in sectors_top
         ]
+        # 概念板块过滤（用户要求「板块数据只用概念板块」）：从 block_type==2 中筛概念类，
+        # 作为题材榜缺失时的退化展示；真实概念板块来自题材榜（thematic.top_thematic）。
+        sectors_concept = [
+            {"block_name": s.block_name, "block_rank": s.block_rank,
+             "pct_weighted": s.pct_weighted, "amount_yi": s.amount_yi, "member_count": s.member_count}
+            for s in sectors.values()
+            if s.pct_weighted is not None and is_concept_block(s.block_name)
+        ]
+        sectors_concept.sort(key=lambda s: s["pct_weighted"], reverse=True)
         summary = (review_result.get("summary") if review_result else {}) or {}
         first_day = (len(rec) == 0 and _is_first_day(self.cfg, run_date))
         return {
@@ -249,6 +259,7 @@ class Pipeline:
             "market": market,
             "quality": qr.to_dict() if qr is not None else None,
             "sectors_top": sectors_top,
+            "sectors_concept": sectors_concept,
             "stocks": stocks,
             "reconcile": rec,
             "truncate_log": truncate_log,
@@ -296,9 +307,164 @@ class Pipeline:
         }
         (Path(self.cfg.output_dir) / run_date / "run_meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    # ----------------------------------------------------------- auto（本地复盘引擎，零外部 LLM）
-    # 原 DeepSeek(LLMClient) 路径已移除：auto 模式改由 src/adr/local_review.generate_review
-    # 直接产出 8 项复盘 + 市场总结，无需任何 api_key（满足"不要套其他模型 / 每天自动更新"）。
+    # ----------------------------------------------------------- 市场总结：本地引擎 / 真实 LLM
+    # 设计：① per-stock 8 项复盘始终由本地确定性引擎产出（零幻觉、零外部 LLM）。
+    #       ② 市场总结（需要关注的点 + 公司）在 llm 模式 / auto 且配置了 api_key 时，
+    #          由真实 LLM（DeepSeek）基于【真实信号】归纳；LLM 不可用或输出不合格时
+    #          自动降级本地引擎确定性总结，绝不中断、绝不编造（零幻觉底线）。
+
+    def _build_llm_prompt(self, datapack, thematic, reviewed_by_code) -> str:
+        """构造喂给真实 LLM 的上下文：仅含真实信号，禁止自由发挥（零幻觉）。"""
+        stocks = datapack.get("stocks", [])
+        # 预筛选：高优先级 + 非涨停 + (突破 or 板块强势)，取前 8 作为 LLM 唯一可引用标的
+        cands = [
+            s for s in stocks
+            if s.get("priority") == "高" and not _is_limit_up(s)
+            and (s.get("break_up") or ("板块强势" in (s.get("tags") or [])))
+        ]
+        cands.sort(key=lambda s: (s.get("pct") or 0), reverse=True)
+        cands = cands[:8]
+
+        cand_lines = []
+        for s in cands:
+            code = s["code"]
+            rv = reviewed_by_code.get(code, {}) or {}
+            entry = rv.get("entry", {}) or {}
+            levels = rv.get("levels", {}) or {}
+            reasons = rv.get("selected_reason", []) or []
+            risk = rv.get("risk", []) or []
+            tags = "/".join(s.get("tags") or []) or "—"
+            block = s.get("block_name") or board_of(code)
+            parts = [
+                f"{code} {s.get('name', '')}",
+                f"板块={block}",
+                f"涨跌幅={_fmt(s.get('pct'))}%",
+                f"标签={tags}",
+                f"板块强势={'是' if '板块强势' in (s.get('tags') or []) else '否'}",
+                f"放量突破={'是' if s.get('break_up') else '否'}",
+                f"支撑={_fmt(levels.get('support'))}({levels.get('support_basis', '')})",
+                f"压力={_fmt(levels.get('resistance'))}({levels.get('resistance_basis', '')})",
+                f"盈亏比={_fmt(entry.get('odds'))}",
+                f"介入触发={entry.get('trigger') or '—'}",
+                f"止损={_fmt(entry.get('stop_loss'))}",
+                f"目标={_fmt(entry.get('target'))}",
+                f"入选理由={'；'.join(reasons)}",
+                f"风险={'；'.join(risk[:2])}",
+            ]
+            cand_lines.append(" | ".join(parts))
+
+        main_line = (thematic or {}).get("main_line") if thematic else None
+        main_src = (thematic or {}).get("source_tool") if thematic else None
+        concept = sorted(
+            [s for s in stocks if s.get("sector_pct_weighted") is not None],
+            key=lambda s: s["sector_pct_weighted"], reverse=True,
+        )[:5]
+        concept_lines = [
+            f"- {c.get('block_name') or board_of(c['code'])}：{c['sector_pct_weighted']:.2f}%（成分排名 {c.get('sector_rank', '-')}）"
+            for c in concept
+        ] or ["N/A"]
+
+        prompt = (
+            "你是一名A股复盘分析师。以下是确定性引擎从真实行情数据中提取的「候选观察标的」与其真实信号（无未来函数）。"
+            "请严格基于【仅下列真实数据】做归纳总结，绝对禁止编造任何未出现的数据、公司、价格或信号。\n\n"
+            f"# 核心主线（题材榜真实口径）\n{main_line or 'N/A'}（来源：{main_src or 'block_type==2 降级'}）\n\n"
+            "# 概念板块强弱（真实加权涨幅 Top5）\n" + "\n".join(concept_lines) + "\n\n"
+            "# 候选观察标的（真实信号，仅这些代码可被引用）\n"
+            + ("\n".join(cand_lines) if cand_lines else "N/A") + "\n\n"
+            "# 输出要求（严格 JSON，不要任何多余文字/解释）\n"
+            "{\n"
+            '  "focus_points": [\n'
+            '    "市场级需要关注的点（3-6条）：聚焦核心主线、最强板块强弱与退潮风险、明日观察方向、必须含一条风险提示"\n'
+            "  ],\n"
+            '  "watchlist": [\n'
+            '    {"code": "候选代码（必须来自上面列表）", "name": "对应名称",\n'
+            '     "points": ["针对该标的的1-4条关注点，必须来自其真实信号（板块强势/突破/关键价位/介入/风险），禁止编造"]}\n'
+            "  ]\n"
+            "}\n\n"
+            "约束：\n"
+            "1. watchlist 只能包含上面列出的候选代码，不得新增任何代码；若无可写标的，watchlist 返回 []。\n"
+            "2. focus_points 不得出现上面数据之外的数字、公司名、价格。\n"
+            "3. 这是盘中待验证信号，非投资建议；风险提示必须包含一条关于情绪/量能/主线退潮的内容。\n"
+            "4. 输出必须是合法 JSON，可被 json.loads 解析。"
+        )
+        return prompt
+
+    def _llm_market_summary(self, datapack, thematic, reviewed_by_code, run_date) -> dict | None:
+        """调用真实 LLM 归纳市场总结；不可用/不合格时返回 None（调用方降级本地引擎）。"""
+        from src.adr.llm import LLMClient, LLMUnavailableError
+
+        try:
+            client = LLMClient(self.cfg, run_date)
+            prompt = self._build_llm_prompt(datapack, thematic, reviewed_by_code)
+            content, _ = client.chat(prompt, "market_summary")
+        except LLMUnavailableError as e:
+            self.logger.warning("LLM 不可用，降级本地引擎：%s", e)
+            return None
+
+        parsed = parse_ai_json(content)
+        if not isinstance(parsed, dict):
+            self.logger.warning("LLM 输出无法解析为 JSON，降级本地引擎")
+            return None
+        focus = parsed.get("focus_points")
+        watch = parsed.get("watchlist")
+        if not isinstance(focus, list) and not isinstance(watch, list):
+            self.logger.warning("LLM 输出缺少 focus_points/watchlist，降级本地引擎")
+            return None
+
+        stocks_by_code = {s["code"]: s for s in datapack.get("stocks", [])}
+        allowed = set(stocks_by_code)
+        wl = []
+        for it in (watch or []):
+            if not isinstance(it, dict):
+                continue
+            code = str(it.get("code", "")).strip()
+            if code not in allowed:  # 防幻觉：剔除 LLM 凭空新增的代码
+                self.logger.warning("LLM 引用了未提供代码 %s，已剔除（防幻觉）", code)
+                continue
+            src = stocks_by_code[code]
+            pts = it.get("points")
+            if not isinstance(pts, list):
+                pts = [str(pts)] if pts else []
+            pts = [str(p) for p in pts if p][:6]
+            wl.append({
+                "code": code,
+                "name": src.get("name", "") or str(it.get("name", "")),
+                "block": src.get("block_name") or board_of(code),
+                "pct": src.get("pct"),
+                "priority": src.get("priority"),
+                "points": pts,
+            })
+
+        fp = [str(p) for p in (focus or []) if p][:8]
+        if not wl and not fp:
+            return None
+
+        main_line = (thematic or {}).get("main_line") if thematic else None
+        return {
+            "main_line": main_line,
+            "emotion": None,
+            "watchlist": wl,
+            "watchlist_text": [f"{w['code']} {w['name']}（{w['block']}）" for w in wl],
+            "focus_points": fp or None,
+            "llm_generated": True,
+        }
+
+    def _generate_review(self, datapack, thematic, run_date, use_llm: bool) -> dict:
+        """生产完整复盘（per-stock 8 项 + 市场总结）。use_llm=True 时市场总结改由真实 LLM 归纳。"""
+        from src.adr.local_review import generate_review
+
+        review_result = generate_review(datapack, self.cfg, thematic)
+        if not use_llm:
+            review_result["summary"]["llm_generated"] = False
+            return review_result
+        reviewed_by_code = {r["code"]: r for r in review_result.get("stocks", [])}
+        llm_summary = self._llm_market_summary(datapack, thematic, reviewed_by_code, run_date)
+        if llm_summary is not None:
+            review_result["summary"] = llm_summary
+        else:
+            review_result["summary"]["llm_generated"] = False
+            self.logger.warning("LLM 总结不可用，已降级为本地引擎确定性总结")
+        return review_result
 
     # ----------------------------------------------------------- 主入口
     def run(self, run_date: str, mode: str) -> int:
@@ -333,17 +499,19 @@ class Pipeline:
         datapack = data_layer["datapack"]
         prompt_path = build_prompt(datapack, self.cfg, run_date)
 
-        # 本地复盘引擎（auto，零外部 LLM / 零幻觉）
+        # 复盘引擎
+        # per-stock 8 项复盘：始终本地确定性引擎（零幻觉、零外部 LLM，守住零幻觉底线）。
+        # 市场总结（需要关注的点 + 公司）：llm 模式或 auto 且配置了 api_key 时改用真实 LLM 归纳，
+        # 失败时自动降级本地引擎，绝不中断。
         review_result = None
         has_ai = False
-        if mode == "auto":
+        if mode in ("auto", "llm"):
+            use_llm = (mode == "llm") or self.cfg.llm.is_available()
             try:
-                from src.adr.local_review import generate_review
-
-                review_result = generate_review(datapack, self.cfg, data_layer.get("thematic"))
+                review_result = self._generate_review(datapack, data_layer.get("thematic"), run_date, use_llm)
                 has_ai = True
             except Exception as e:  # noqa: BLE001
-                log.warning("auto 模式降级（本地复盘引擎异常）：%s", e)
+                log.warning("复盘引擎异常，降级为无 AI 精复盘：%s", e)
                 review_result = None
                 has_ai = False
 

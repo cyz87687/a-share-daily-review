@@ -276,10 +276,17 @@ def _review_stock(s: dict) -> dict:
 def generate_review(datapack: dict, cfg=None, thematic: dict = None) -> dict:
     """由真实数据包生成完整复盘结果（stocks + summary + watchlist）。
 
+    用户要求「每日生成完数据用 AI 总结，列出需要关注的点和公司」：本引擎（auto 模式，
+    零外部 LLM、零幻觉）确定性合成 summary，包含两个维度：
+      - focus_points：市场级「需要关注的点」（主线 / 候选信号统计 / 退潮风险 / 风险提示）。
+      - watchlist：结构化「公司」列表，每只携带 points（关注点）、关键价位、介入与证伪
+        —— 全部来自真实筛选/行情信号，非自由生成文本。
+
     thematic: 可选，题材主线（data/thematic/{date}.json）；提供时 summary.main_line 取题材榜口径。
     """
     stocks = datapack.get("stocks", [])
     reviewed = [_review_stock(s) for s in stocks]
+    reviewed_by_code = {r["code"]: r for r in reviewed}
 
     # 市场总结 · 核心主线
     main_line = (thematic or {}).get("main_line") if thematic else None
@@ -297,11 +304,75 @@ def generate_review(datapack: dict, cfg=None, thematic: dict = None) -> dict:
     cands.sort(key=lambda s: (s.get("pct") or 0), reverse=True)
     top = cands[:5]
     watch_codes = [s["code"] for s in top]
-    watch_disp = [
-        f"{s['code']} {s.get('name', '')}（{(s.get('block_name') or 'N/A')}前排，回踩MA低吸）"
-        for s in top
-    ]
-    summary = {"main_line": main_line, "watchlist": watch_disp, "emotion": None}
+
+    # 结构化「公司 + 需要关注的点」（确定性合成，零幻觉：均来自真实信号）
+    watchlist = []
+    for s in top:
+        code = s["code"]
+        rv = reviewed_by_code.get(code, {})
+        entry = rv.get("entry", {}) or {}
+        levels = rv.get("levels", {}) or {}
+        pts = []
+        tags = s.get("tags") or []
+        if "板块强势" in tags:
+            pts.append("题材/板块联动前排，主线资金聚焦")
+        elif s.get("break_up"):
+            pts.append("放量突破站上均线，打开上行空间")
+        elif _is_limit_up(s):
+            pts.append("涨停封板，列入连板观察")
+        sup, res, odds = levels.get("support"), levels.get("resistance"), entry.get("odds")
+        if sup is not None or res is not None:
+            pts.append(
+                f"关键价位：支撑{_fmt(sup)}（{levels.get('support_basis', '')}）"
+                f" / 压力{_fmt(res)}（{levels.get('resistance_basis', '')}），盈亏比{_fmt(odds)}"
+            )
+        if entry.get("trigger"):
+            pts.append(
+                f"介入：{entry.get('trigger')}；止损{_fmt(entry.get('stop_loss'))}"
+                f"；目标{_fmt(entry.get('target'))}"
+            )
+        rk = rv.get("risk", []) or []
+        if rk:
+            pts.append("风险：" + "；".join(rk[:2]))
+        if rv.get("falsify"):
+            pts.append("证伪：" + rv["falsify"])
+        watchlist.append({
+            "code": code,
+            "name": s.get("name", ""),
+            "block": s.get("block_name") or board_of(code),
+            "pct": s.get("pct"),
+            "priority": s.get("priority"),
+            "points": pts,
+        })
+
+    # 市场级「需要关注的点」
+    focus_points = []
+    if main_line:
+        src = (thematic or {}).get("source_tool") if thematic else None
+        focus_points.append(
+            f"核心主线：{main_line}"
+            + (f"（题材榜口径：{src}）" if src else "（block_type==2 降级口径）")
+        )
+    n_strong = sum(1 for s in top if "板块强势" in (s.get("tags") or []))
+    n_break = sum(1 for s in top if s.get("break_up"))
+    focus_points.append(
+        f"明日观察候选 {len(top)} 只（高优先级·非涨停）：其中板块强势前排 {n_strong} 只、放量突破 {n_break} 只"
+    )
+    best_concept = max(stocks, key=lambda s: (s.get("sector_pct_weighted") or -1e9)) if stocks else {}
+    if best_concept.get("sector_pct_weighted") is not None and best_concept["sector_pct_weighted"] < 0:
+        focus_points.append(
+            f"⚠ 最强板块「{best_concept.get('block_name')}」加权涨幅转负"
+            f"（{_fmt(best_concept['sector_pct_weighted'])}%），警惕主线退潮"
+        )
+    focus_points.append("风险提示：以上均为盘中待验证信号，非投资建议；关注大盘情绪与量能变化。")
+
+    summary = {
+        "main_line": main_line,
+        "emotion": None,
+        "watchlist": watchlist,                       # 结构化公司列表（含关注点）
+        "watchlist_text": [f"{w['code']} {w['name']}（{w['block']}）" for w in watchlist],  # 兼容旧渲染
+        "focus_points": focus_points,                 # 市场级需要关注的点
+    }
 
     return {
         "date": datapack.get("date"),

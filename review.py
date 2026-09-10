@@ -33,7 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     run = sub.add_parser("run", help="执行当日复盘管道")
     run.add_argument("--date", default=None, help="交易日 YYYY-MM-DD（缺省取基准指数最新交易日）")
-    run.add_argument("--mode", default=None, choices=["prepare", "auto"], help="覆盖 config.yaml 的 mode")
+    run.add_argument("--mode", default=None, choices=["prepare", "auto", "llm"], help="覆盖 config.yaml 的 mode（llm=真实 LLM 归纳市场总结）")
 
     fin = sub.add_parser("finalize", help="人工终审回填并重新渲染当日 HTML")
     fin.add_argument("--date", required=True, help="交易日 YYYY-MM-DD")
@@ -52,7 +52,7 @@ def main(argv: list = None) -> int:
     if args.cmd == "run":
         date = args.date or pipe.infer_date()
         mode = args.mode or cfg.mode
-        if mode not in ("prepare", "auto"):
+        if mode not in ("prepare", "auto", "llm"):
             print(f"未知 mode: {mode}", file=sys.stderr)
             return 2
         return pipe.run(date, mode)

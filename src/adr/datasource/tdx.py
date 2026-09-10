@@ -13,6 +13,7 @@
 """
 
 import re
+import time
 
 import pandas as pd
 
@@ -62,6 +63,46 @@ class TdxClient:
 
         self._q = Quotes.factory(market="std")
 
+    # ------------------------------------------- 带重试退避的行情取数封装
+    def _fetch_bench_bars(self, retries: int = 4, delay: float = 5.0):
+        """带重试退避地取基准指数(999999)最新日线。
+
+        兜底 TDX bar 服务瞬时抖动：09-10 实测 bar 接口整段不可达（stocks() 正常、
+        bars() 全空），导致 ``assert_data_ready`` 一次性失败、整日复盘被丢弃。
+        加重试后短暂抖动可自愈，避免静默丢一天。返回首个非空结果，全失败返回最后结果。
+        """
+        last = None
+        for attempt in range(1, retries + 1):
+            try:
+                b = self._q.bars(_BENCH_INDEX, frequency=9, offset=1)
+            except Exception:  # noqa: BLE001  -- 网络瞬断视为空，交给重试
+                b = None
+            if b is not None and len(b) > 0:
+                return b
+            last = b
+            if attempt < retries:
+                time.sleep(delay)
+        return last
+
+    def _fetch_quotes(self, chunk, retries: int = 3, delay: float = 3.0):
+        """带重试退避地取一批全市场快照行情（兜底 bar 服务瞬时抖动）。
+
+        单批因网络瞬断返回空/异常时重试；若确实无数据（停牌等）则原样返回空，
+        交由 K3 脏零值过滤处理，不退化逻辑。
+        """
+        last = None
+        for attempt in range(1, retries + 1):
+            try:
+                r = self._q.quotes(chunk)
+            except Exception:  # noqa: BLE001
+                r = None
+            if r is not None and len(r) > 0:
+                return r
+            last = r
+            if attempt < retries:
+                time.sleep(delay)
+        return last
+
     # ----------------------------------------------------- 4 道可用性断言
     def assert_data_ready(self, date: str) -> None:
         """4 道断言：双市场列表非空 / 基准指数最新交易日==date / 快照覆盖率≥0.90 /
@@ -78,7 +119,7 @@ class TdxClient:
         # 旧逻辑 last_date == date 硬相等 → 历史日期一律被拦，无法复核旧复盘（DESIGN 缺陷）。
         # 新逻辑：date > last_date（未来）→ 拦；date == last_date（当日）→ 用在线行情；
         #         date < last_date（历史）→ 必须存在当日快照缓存，否则无法重建历史行情。
-        idx = self._q.bars(_BENCH_INDEX, frequency=9, offset=1)
+        idx = self._fetch_bench_bars()
         if idx is None or len(idx) == 0:
             raise DataUnavailableError("断言②失败：无法获取基准指数(999999)日线")
         last_date = str(idx["datetime"].iloc[-1])[:10]
@@ -170,10 +211,7 @@ class TdxClient:
         batch = max(1, int(self.cfg.batch_size))
         for i in range(0, len(codes), batch):
             chunk = codes[i : i + batch]
-            try:
-                r = self._q.quotes(chunk)
-            except Exception:
-                r = None
+            r = self._fetch_quotes(chunk)
             if r is not None and len(r):
                 rows.append(r)
 

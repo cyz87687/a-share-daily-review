@@ -237,6 +237,62 @@ class TdxClient:
         """返回全市场快照（缓存优先）。"""
         return self._snapshot_all(date, allow_cache=True, save=False)
 
+    # ----------------------------------- 历史日线重建快照（补跑前置）
+    def rebuild_historical_snapshot(self, date: str) -> pd.DataFrame:
+        """从历史日线重建某交易日全市场快照缓存（TDX 实时行情不可用时的历史复盘补跑）。
+
+        仅用 ``daily()`` 日线：当日 close→price、前一日 close→last_close/pre_close、OHLCV 取自当日
+        bar；**不依赖实时 ``quotes()``**，避免用今日/盘前价污染历史日（零幻觉）。结果写入
+        ``data/cache/{date}/snapshot.pkl``，供 ``assert_data_ready`` 历史分支与 ``_snapshot_all`` 读取。
+        返回重建的快照 DataFrame；若为空（通常意味 TDX 日线仍不可用/该日无数据），调用方应放弃补跑。
+        """
+        if self._q is None:
+            self.connect()
+        self._date = date
+        stocks = self.list_all_stocks()  # code, name, pre_close
+        name_map = dict(zip(stocks["code"], stocks["name"]))
+        preclose_map = dict(zip(stocks["code"], stocks["pre_close"]))
+        rows = []
+        for code in stocks["code"].tolist():
+            try:
+                d = self.daily(code, offset=120)
+            except Exception:  # noqa: BLE001
+                d = None
+            if d is None or len(d) == 0:
+                continue
+            hit = d[d["date"] == date]
+            if hit is None or len(hit) == 0:
+                continue
+            r = hit.iloc[-1]
+            pos = d.index[d["date"] == date]
+            i = int(pos[0])
+            prev_close = float(d.iloc[i - 1]["close"]) if i > 0 else None
+            if prev_close is None:
+                pc = preclose_map.get(code)
+                prev_close = float(pc) if pd.notna(pc) else None
+            rows.append({
+                "market": 1 if str(code).startswith(("60", "68", "90")) else 0,
+                "code": str(code),
+                "price": float(r["close"]),
+                "last_close": prev_close,
+                "open": float(r["open"]),
+                "high": float(r["high"]),
+                "low": float(r["low"]),
+                "vol": float(r["vol"]),
+                "amount": float(r["amount"]),
+                "servertime": f"{date} 15:00:00",
+                "name": str(name_map.get(code, "")),
+                "pre_close": prev_close,
+                "pct": None,
+            })
+        df = pd.DataFrame(
+            rows,
+            columns=["market", "code", "price", "last_close", "open", "high",
+                     "low", "vol", "amount", "servertime", "name", "pre_close", "pct"],
+        )
+        self.cache.save(df, "snapshot", date)
+        return df
+
     def snapshot(self, codes, date: str = None) -> pd.DataFrame:
         """返回给定代码子集的快照（从全市场快照筛选）。"""
         d = date or self._date

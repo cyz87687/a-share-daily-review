@@ -39,6 +39,9 @@ def build_parser() -> argparse.ArgumentParser:
     fin.add_argument("--date", required=True, help="交易日 YYYY-MM-DD")
     fin.add_argument("--review", required=True, help="终审结果 JSON 路径（导出后回填）")
 
+    reb = sub.add_parser("rebuild-snapshot", help="从历史日线重建某交易日快照缓存（TDX 实时不可用时的历史补跑前置）")
+    reb.add_argument("--date", required=True, help="交易日 YYYY-MM-DD")
+
     sub.add_parser("index", help="重建历史归档索引页 output/index.html")
     return p
 
@@ -58,6 +61,12 @@ def main(argv: list = None) -> int:
         return pipe.run(date, mode)
     if args.cmd == "finalize":
         return pipe.finalize(args.date, args.review)
+    if args.cmd == "rebuild-snapshot":
+        if pipe.client._q is None:
+            pipe.client.connect()
+        df = pipe.client.rebuild_historical_snapshot(args.date)
+        print(f"[rebuild] {args.date} 重建快照 {len(df)} 行 -> data/cache/{args.date}/snapshot.pkl")
+        return 0
     if args.cmd == "index":
         return pipe.rebuild_index()
     return 2

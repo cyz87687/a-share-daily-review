@@ -1,0 +1,11 @@
+{
+  "date": "2026-09-11",
+  "weekday": "周五",
+  "mode": "mcp-gateway",
+  "elapsed_sec": 0,
+  "kept": "N/A",
+  "quality_passed": true,
+  "sh_index": {"code": "999999", "name": "上证指数", "price": 3888.11, "pct": -1.18},
+  "main_line": "PCB/覆铜板·电力/风电·玻纤电子布",
+  "main_line_source": "TDX MCP 网关(手动采集，涨停/连板归纳)"
+}

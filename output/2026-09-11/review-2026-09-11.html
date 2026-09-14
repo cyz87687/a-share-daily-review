@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股每日复盘 · 2026-09-11（周五）</title>
+<style>
+:root{--up:#E1251B;--up-bg:#FFF1F0;--down:#17A673;--down-bg:#E8F8F2;--flat:#8C8C8C;--warn:#FA8C16;--text:#1F2329;--text-sub:#646A73;--bg:#FFFFFF;--card:#FAFAFA;--border:#E5E6EB;}
+* { box-sizing: border-box; }
+body { margin:0; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); font-size:13px; line-height:1.6; }
+.up { color:var(--up); } .down { color:var(--down); } .flat { color:var(--flat); } .na { color:var(--flat); font-style:italic; } .warn { color:var(--warn); }
+.wrap { max-width:1080px; margin:0 auto; padding:14px; }
+header { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; }
+h1 { font-size:18px; margin:0 0 6px; }
+.sub { color:var(--text-sub); font-size:12px; }
+.banner { margin:10px 0; padding:8px 12px; border-radius:6px; font-size:12px; background:var(--warn); color:#fff; }
+.section { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; margin-top:12px; }
+.section h2 { font-size:15px; margin:0 0 10px; border-left:3px solid var(--up); padding-left:8px; }
+table { width:100%; border-collapse:collapse; font-size:12px; margin:6px 0; }
+th, td { border:1px solid var(--border); padding:5px 7px; text-align:left; }
+th { background:var(--bg); color:var(--text-sub); }
+.stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:10px; }
+.stat { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:8px; text-align:center; }
+.stat .k { color:var(--text-sub); font-size:11px; }
+.stat .v { font-size:15px; font-weight:700; margin-top:2px; }
+.kpi { font-weight:700; }
+.note { color:var(--text-sub); font-size:11px; margin-top:6px; }
+ul { margin:4px 0 4px 18px; padding:0; }
+li { margin:2px 0; }
+footer { margin-top:16px; color:var(--text-sub); font-size:11px; text-align:center; border-top:1px solid var(--border); padding-top:8px; }
+.tag { font-size:11px; padding:1px 6px; border-radius:4px; background:var(--up-bg); color:var(--up); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>A股每日复盘 · 2026-09-11（周五）</h1>
+  <div class="sub">数据截止 15:00 收盘 · 采集方式：通达信(TDX) MCP 网关（实时行情 / 条件选股 / 龙虎榜 / F10 / AI 资讯）· 全数据来自工具真实返回，缺失项如实标注"数据暂无"</div>
+</header>
+
+<div class="banner">
+  ⚠ 说明：本环境 mootdx 直连 K 线出口被限制（<code>bars()/quotes()/index_bars()</code> 均返回空），自动化管道 <code>review.py run</code> 在「数据可用性断言」阶段即退出（不写任何产物），故无法生成标准管线 HTML。本报告改由 <b>TDX MCP 网关</b>（可用路径）手动采集并渲染，内容与管线 10 节结构一致；北向全市场净买入因接口口径限制标"数据暂无"，无编造。
+</div>
+
+<div class="section">
+  <h2>一、大盘概览</h2>
+  <table>
+    <thead><tr><th>指数</th><th>收盘价</th><th>涨跌幅</th><th>成交额</th><th>PE(TTM)</th><th>PB</th></tr></thead>
+    <tbody>
+      <tr><td>上证指数</td><td>3888.11</td><td class="down">-1.18%</td><td>9582亿</td><td>17.10</td><td class="na">数据暂无</td></tr>
+      <tr><td>深证成指</td><td>13471.26</td><td class="down">-1.08%</td><td>10137亿（约1.01万亿）</td><td>41.58</td><td class="na">数据暂无</td></tr>
+      <tr><td>创业板指</td><td>3322.04</td><td class="down">-0.49%</td><td>4626亿</td><td>59.85</td><td class="na">数据暂无</td></tr>
+      <tr><td>科创50</td><td>1553.39</td><td class="down">-1.01%</td><td>779亿</td><td>101.13</td><td class="na">数据暂无</td></tr>
+      <tr><td>北证50</td><td>1023.46</td><td class="down">-2.66%</td><td>153亿</td><td>40.31</td><td class="na">数据暂无</td></tr>
+      <tr><td>平均股价(880003)</td><td>27.44</td><td class="down">-1.51%</td><td class="na">（全市场代理≈1.99万亿）</td><td class="na">—</td><td class="na">—</td></tr>
+    </tbody>
+  </table>
+  <div class="note">① 指数 PB 工具未返回，统一标"数据暂无"。② 通达信 880003 工具实名为"平均股价"（非"万得全A"），其成交额≈1.99万亿可作全市场成交代理（午盘口径报约1.3万亿、放量）。③ 六大指数全线收跌，科创50/北证50 跌幅居前。</div>
+</div>
+
+<div class="section">
+  <h2>二、市场广度</h2>
+  <div class="stat-grid">
+    <div class="stat"><div class="k">涨停</div><div class="v up">40</div></div>
+    <div class="stat"><div class="k">跌停</div><div class="v down">21</div></div>
+    <div class="stat"><div class="k">炸板</div><div class="v warn">25</div></div>
+    <div class="stat"><div class="k">涨跌家数比</div><div class="v">0.13</div></div>
+  </div>
+  <ul>
+    <li>封板成功率 <span class="kpi">61.5%</span> ｜ 炸板率 <span class="kpi warn">38.5%</span>（炸板率 = 25 ÷ (40+25)）</li>
+    <li>涨跌家数比 <span class="kpi">643 : 4870 ≈ 0.13</span>（平均股价 880003 口径，全市场超 4800 只个股下跌；上证口径 277 : 2058）</li>
+    <li>涨停 / 跌停比 <span class="kpi">1.90</span></li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>三、板块资金流向</h2>
+  <div class="note">通达信 <code>tdx_screener</code> 的"主力净流入板块排名前20"本次实际返回<b>个股维度</b>数据，板块级排名未直接取得；以下以个股主力净额代理展示资金偏好，板块主线由涨停/连板原因归纳。</div>
+  <h3 style="font-size:13px;margin:10px 0 4px;">个股主力净流入 Top（真实返回，单位：元）</h3>
+  <table>
+    <thead><tr><th>排名</th><th>个股</th><th>代码</th><th>主力净额</th><th>涨跌幅</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>N燧原-U（新股首日）</td><td>688801</td><td class="up">+29.11亿</td><td class="up">+179.22%</td></tr>
+      <tr><td>2</td><td>双星新材</td><td>002585</td><td class="up">+5.52亿</td><td class="up">+10.06%</td></tr>
+      <tr><td>3</td><td>神宇股份</td><td>300563</td><td class="up">+2.30亿</td><td class="up">+19.98%</td></tr>
+      <tr><td>4</td><td>通达股份</td><td>002560</td><td class="up">+1.90亿</td><td class="up">+10.08%</td></tr>
+      <tr><td>5</td><td>昀冢科技</td><td>688260</td><td class="up">+1.34亿</td><td class="up">+18.68%</td></tr>
+      <tr><td>6</td><td>长盈通</td><td>688143</td><td class="up">+1.26亿</td><td class="up">+15.49%</td></tr>
+      <tr><td>7</td><td>九阳股份</td><td>002242</td><td class="up">+1.16亿</td><td class="up">+10.06%</td></tr>
+      <tr><td>8</td><td>瑞尔特</td><td>002790</td><td class="up">+0.53亿</td><td class="up">+10.05%</td></tr>
+    </tbody>
+  </table>
+  <h3 style="font-size:13px;margin:10px 0 4px;">个股主力净流出 Top（真实返回）</h3>
+  <table>
+    <thead><tr><th>排名</th><th>个股</th><th>代码</th><th>主力净额</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>金安国纪</td><td>002636</td><td class="down">-2.96亿</td></tr>
+      <tr><td>2</td><td>国芳集团</td><td>601086</td><td class="down">-0.53亿</td></tr>
+      <tr><td>3</td><td>高凯技术</td><td>688835</td><td class="down">-0.48亿</td></tr>
+      <tr><td>4</td><td>ST荣科</td><td>300290</td><td class="down">-0.10亿</td></tr>
+    </tbody>
+  </table>
+  <h3 style="font-size:13px;margin:10px 0 4px;">当日板块主线（由涨停/连板原因归纳，非资金排名接口）</h3>
+  <ul>
+    <li><span class="tag">PCB/覆铜板涨价</span> 超声电子、崇达技术、嘉立创、双星新材（建滔积层板/松下/南亚塑胶上调覆铜板价格）</li>
+    <li><span class="tag">电力/风电</span> 闽东电力、九鼎新材（国网"十五五"、风电）</li>
+    <li><span class="tag">玻璃玻纤/电子布涨价</span> 九鼎新材、凯盛新能（电子布价格连续三月加速上涨）</li>
+    <li><span class="tag">芯片/AI/华为</span> 华胜天成、远望谷、鼎信通讯、三孚股份、中新赛克</li>
+    <li><span class="tag">电商/智能家居</span> 瑞尔特（地产融资新政）</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>四、连板梯队</h2>
+  <ul>
+    <li>最高连板：<b class="up">4 板 —— 瑞尔特(002790)</b>（空间板，一字板）</li>
+    <li>连板总家数：<b>7 家</b></li>
+    <li>4 板 ×1：瑞尔特(002790) — 电商/智能家居/DeepSeek，一字板</li>
+    <li>3 板 ×2：闽东电力(000993) — 电力/风电/国企改革，T字板；鼎信通讯(603421) — 芯片/储能/华为/虚拟电厂，换手板</li>
+    <li>2 板 ×4：超声电子(000823) — 折叠屏/PCB（5天3板）；中新赛克(002912) — 国企改革/AI智能体/低空（一字板）；九鼎新材(002201) — 风电/玻纤；凯盛新能(600876) — 国企改革/玻璃玻纤</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>五、龙虎榜要点</h2>
+  <h3 style="font-size:13px;margin:0 0 4px;">席位活跃度（净买入额，真实返回）</h3>
+  <ul>
+    <li>深股通专用 <span class="up">+75.06亿</span>、沪股通专用 <span class="up">+37.73亿</span>、开源证券西安西大街 <span class="up">+37.62亿</span>、国信证券浙江互联网 <span class="up">+17.29亿</span>、高盛(中国)上海 <span class="up">+6.41亿</span>、国泰海通总部 <span class="up">+6.00亿</span></li>
+    <li>机构专用：<span class="down">-38.20亿</span>（净卖出，分歧明显）</li>
+  </ul>
+  <h3 style="font-size:13px;margin:10px 0 4px;">机构席位追踪（净买入额居前/居后，真实返回）</h3>
+  <table>
+    <thead><tr><th>个股</th><th>代码</th><th>行业</th><th>机构净买入</th></tr></thead>
+    <tbody>
+      <tr><td>神农种业</td><td>300189</td><td>种植业</td><td class="up">+8.50亿</td></tr>
+      <tr><td>万邦医药</td><td>301520</td><td>生物制药</td><td class="up">+7.23亿</td></tr>
+      <tr><td>肯特股份</td><td>301591</td><td>塑料</td><td class="up">+1.87亿</td></tr>
+      <tr><td>竞业达</td><td>003005</td><td>软件服务</td><td class="up">+1.31亿</td></tr>
+      <tr><td>誉衡药业</td><td>002437</td><td>化学制药</td><td class="down">-22.19亿</td></tr>
+      <tr><td>澳洋健康</td><td>002172</td><td>医疗保健</td><td class="down">-3.25亿</td></tr>
+      <tr><td>集泰股份</td><td>002909</td><td>化工原料</td><td class="down">-3.07亿</td></tr>
+    </tbody>
+  </table>
+  <div class="note">上榜活跃个股（按上榜次数）：百花医药(25)、万邦医药(24)、誉衡药业(24)、开开实业(23)、金健米业(20)、神农种业(20)…</div>
+</div>
+
+<div class="section">
+  <h2>六、北向资金</h2>
+  <ul>
+    <li>今日净买入：<span class="na">数据暂无</span></li>
+    <li>原因：通达信 <code>tdxf10_gg_zlcc</code>(fixedTag=bszj) 为<b>个股北向持股</b>接口，调用需传入个股代码；本次未取到全市场北向净买入汇总。北向披露口径时有调整，以工具实际返回为准，未臆造金额。</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>七、市场新闻摘要</h2>
+  <ul>
+    <li><b>政策</b>：《金融强国建设"十五五"规划》正式出台；央行配套印发 9 份行动方案；证监会表态更大力度释放并购重组改革活力，努力将 A 股打造成境内优质企业上市首选地。</li>
+    <li><b>流动性</b>：央行将于 9/14–9/17 开展隔夜逆回购（固定利率、数量招标，每日≤6000亿），匹配短期流动性需求。</li>
+    <li><b>中美经贸</b>：双方就 300 亿美元对等降税框架安排磋商，争取早日落地。</li>
+    <li><b>产业监管</b>：发改委、市场监管总局就重要工业品低价无序竞争成本核算发通知，聚焦低价无序竞争领域。</li>
+    <li><b>海外</b>：美股三指收跌（道指-0.6%/纳指-0.65%/标普-0.58%）；存储板块重挫（美光-5%、SK海力士-5%、闪迪-4%）；WTI 原油 +6.69% 至 102.48 美元/桶，布伦特 +6.34% 至 107.63；现货黄金 -1.91% 至 4314.82 美元/盎司，白银 -5.43%。</li>
+    <li><b>公司</b>：OpenAI 推出 Agents API 公开测试版；燧原科技科创板上市（发行价142.18元）；远望谷拟收购光泰通信100%股权（光通信器件与模块自动化设备）。</li>
+    <li><b>盘面</b>：兵装重组、电力板块逆势活跃；贵金属、工业金属、能源金属、电子化学品跌幅居前；全市场成交约1.3万亿（午盘12847亿、放量），超5100只个股下跌。</li>
+  </ul>
+  <h3 style="font-size:13px;margin:10px 0 4px;">龙头股 AI 资讯要点（tdx_ai_listening）</h3>
+  <ul>
+    <li><b>瑞尔特(002790)</b>：拟投 7.42 亿建年产10万套装配式智能卫浴；连板但机构净卖出 2517.65 万；上半年营收 -17.47%、净利亏损 1057.60 万（基本面承压）。</li>
+    <li><b>闽东电力(000993)</b>：连续两日异常波动核查，确认无重大未披露事项；电力板块活跃（国网"十五五"）。</li>
+    <li><b>鼎信通讯(603421)</b>：3板但半年报亏损（营收 -35.81%、归母亏 1.98 亿），电力业务未在国家电网首批中标，风险偏高。</li>
+    <li><b>超声电子(000823)</b>：涨停但机构与深股通净卖出；在研 800G / 1.6T 光模块配套 PCB 及高速覆铜板。</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>八、情绪周期判断</h2>
+  <div class="stat-grid">
+    <div class="stat"><div class="k">阶段</div><div class="v warn">退潮期·偏冰点</div></div>
+    <div class="stat"><div class="k">涨停/跌停比</div><div class="v">1.90</div></div>
+    <div class="stat"><div class="k">炸板率</div><div class="v warn">38.5%</div></div>
+    <div class="stat"><div class="k">连板高度</div><div class="v">4板 / 7家</div></div>
+  </div>
+  <ul>
+    <li>涨停 40 / 跌停 21 → 涨停跌停比 <b>1.90</b>；炸板率 <b>38.5%</b> / 封板率 <b>61.5%</b></li>
+    <li>连板高度 <b>4板</b>，连板家数 <b>7</b>；涨跌家数比 <b>643 : 4870 ≈ 0.13</b></li>
+    <li>六大指数全线下跌（-0.49% ～ -2.66%）</li>
+    <li>核心依据：涨停数处低位（非个位数）、连板仅 7 家、炸板率偏高（>30%）、涨跌比极低（0.13）、指数普跌；但涨停非个位数、炸板率未破 50%，尚不构成典型冰点/衰退，故定性为<b>退潮期</b>，建议结合上述指标自行研判。</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>九、龙头股追踪</h2>
+  <table>
+    <thead><tr><th>股票</th><th>连板</th><th>板块/主线</th><th>龙虎榜/资金</th><th>点评</th></tr></thead>
+    <tbody>
+      <tr><td>瑞尔特(002790)</td><td class="up">4板（空间板）</td><td>电商/智能家居/DeepSeek</td><td>主力净流入+0.53亿；机构净卖2517万</td><td>命中：连板高度最高+当日主力净流入。风险：一字板换手低、基本面亏损、机构分歧</td></tr>
+      <tr><td>超声电子(000823)</td><td>5天3板</td><td>PCB/覆铜板（建滔涨价）/800G光模块PCB在研</td><td>当日机构+深股通净卖</td><td>命中：板块主线+辨识度+成交额前列。与 PCB 持仓逻辑共振。风险：机构净卖</td></tr>
+      <tr><td>神农种业(300189)</td><td>—（趋势）</td><td>种植业</td><td>机构席位净买入+8.50亿（居前）</td><td>命中：龙虎榜机构频繁。偏机构趋势票，非连板高标</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>十、明日操作建议</h2>
+  <ul>
+    <li><b>仓位：40%–50%（退潮期防守，控仓为主）</b></li>
+    <li><b>重点关注板块</b>：① PCB/覆铜板（覆铜板涨价主线，与 PCB 持仓共振，观察机构是否持续回流）；② 电力/风电（国网"十五五"政策驱动）；③ 玻璃玻纤/电子布（九鼎新材、凯盛新能，电子布涨价）；④ 芯片/AI（政策+华为催化，注意高位分化）</li>
+    <li><b>重点关注个股</b>：超声电子(000823) 回调不破位可跟踪（机构当日净卖为短期扰动）；瑞尔特(002790) 空间板但分歧大，仅作情绪观测，不建议追高；神农种业(300189) 机构净买居前，趋势跟踪</li>
+    <li><b>风险提示</b>：① 高位连板（瑞尔特、鼎信通讯）机构净卖+基本面弱，警惕断板"核按钮"；② 美股存储重挫（美光-5%、SK海力士-5%）对 A 股存储（江波龙/佰维存储/德明利）构成情绪压制；③ 全市场普跌超 4800 只，情绪未企稳前不追高；④ 原油大涨、黄金大跌的海外波动向有色/贵金属传导</li>
+    <li><b>持仓联动提示</b>：PCB 持仓（胜宏科技等）与当日 PCB/覆铜板涨停（超声电子/崇达技术/嘉立创）共振，板块热度延续但需观察资金持续性；存储持仓（江波龙/佰维/德明利）受美股存储大跌情绪冲击，短期谨慎；光模块（中际旭创/新易盛）受 800G PCB 研发进展（超声电子）及三孚股份（光纤）涨停支撑，但大环境偏弱。</li>
+  </ul>
+  <div class="note">免责声明：本报告为数据驱动的研究参考，不构成投资建议，买卖决策请自行判断。</div>
+</div>
+
+<div class="section">
+  <h2>执行状态汇总</h2>
+  <table>
+    <thead><tr><th>步骤</th><th>状态</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>1 大盘指数快照</td><td class="up">成功</td><td>6 指数全部取到（880003 工具实名为"平均股价"，非"万得全A"）</td></tr>
+      <tr><td>2 涨跌停数据</td><td class="up">成功</td><td>涨停40 / 跌停21 / 炸板25</td></tr>
+      <tr><td>3 板块资金流向</td><td class="warn">部分</td><td>接口返回个股维度，板块级排名未直接取得，以个股主力净额代理</td></tr>
+      <tr><td>4 连板梯队</td><td class="up">成功</td><td>7 家，最高 4 板（瑞尔特）</td></tr>
+      <tr><td>5 龙虎榜</td><td class="up">成功</td><td>席位活跃/股票活跃/机构席位三分支均取到</td></tr>
+      <tr><td>6 北向资金</td><td class="na">数据暂无</td><td>通达信个股北向接口需 code，全市场净买入未取到</td></tr>
+      <tr><td>7 新闻与资讯</td><td class="up">成功</td><td>新闻 + 连板龙头 AI 资讯均取到</td></tr>
+      <tr><td>8 情绪周期判断</td><td class="up">成功（降级依据）</td><td>多指标交叉 → 退潮期（偏冰点）</td></tr>
+      <tr><td>9 报告生成</td><td class="up">成功</td><td>10 节齐全</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  【数据截止：2026-09-11 收盘；信号均为盘中待验证假设，非投资建议】<br>
+  生成方式：TDX MCP 网关手动采集（mootdx 直连 K 线出口在本环境受限，标准管道 review.py 暂不可运行）· 板块数据仅概念板块口径（板块级资金排名接口返回个股维度，主线由涨停/连板归纳）
+</footer>
+
+</div>
+</body>
+</html>

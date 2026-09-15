@@ -28,6 +28,8 @@ class Cache:
             return d / f"finance_{code}.pkl"
         if kind == "blocks":
             return d / "blocks.pkl"
+        if kind == "index":
+            return d / "index.pkl"
         raise ValueError(f"未知缓存类型: {kind}")
 
     def load(self, kind: str, date, code: str = None):

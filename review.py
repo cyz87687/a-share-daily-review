@@ -34,6 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
     run = sub.add_parser("run", help="执行当日复盘管道")
     run.add_argument("--date", default=None, help="交易日 YYYY-MM-DD（缺省取基准指数最新交易日）")
     run.add_argument("--mode", default=None, choices=["prepare", "auto", "llm"], help="覆盖 config.yaml 的 mode（llm=真实 LLM 归纳市场总结）")
+    run.add_argument("--cache-only", action="store_true", help="仅缓存模式：跳过 connect()/assert_data_ready()，直接读 data/cache/{date} 预热缓存（TDX 不可用时的历史复盘离线重建）")
 
     fin = sub.add_parser("finalize", help="人工终审回填并重新渲染当日 HTML")
     fin.add_argument("--date", required=True, help="交易日 YYYY-MM-DD")
@@ -58,7 +59,7 @@ def main(argv: list = None) -> int:
         if mode not in ("prepare", "auto", "llm"):
             print(f"未知 mode: {mode}", file=sys.stderr)
             return 2
-        return pipe.run(date, mode)
+        return pipe.run(date, mode, cache_only=args.cache_only)
     if args.cmd == "finalize":
         return pipe.finalize(args.date, args.review)
     if args.cmd == "rebuild-snapshot":

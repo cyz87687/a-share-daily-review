@@ -467,25 +467,31 @@ class Pipeline:
         return review_result
 
     # ----------------------------------------------------------- 主入口
-    def run(self, run_date: str, mode: str) -> int:
+    def run(self, run_date: str, mode: str, cache_only: bool = False) -> int:
         t0 = time.time()
         self.logger = setup_logging(self.cfg.logs_dir, run_date)
         log = self.logger
-        log.info("开始运行 date=%s mode=%s", run_date, mode)
-        try:
-            self.client.connect()
-        except Exception as e:  # noqa: BLE001
-            log.error("连接行情服务器失败: %s", e)
-            print(f"[错误] 连接行情服务器失败：{e}", file=sys.stderr)
-            return 1
+        log.info("开始运行 date=%s mode=%s cache_only=%s", run_date, mode, cache_only)
+        if cache_only:
+            # 仅缓存模式：跳过在线连接与 4 道可用性断言，直接读 data/cache/{date} 预热缓存。
+            # 用于 TDX 实时不可用时的历史复盘离线重建（零幻觉：仅用已预热的真实数据）。
+            log.info("cache-only 模式：跳过 connect()/assert_data_ready()，读取预热缓存")
+            self.client._date = run_date
+        else:
+            try:
+                self.client.connect()
+            except Exception as e:  # noqa: BLE001
+                log.error("连接行情服务器失败: %s", e)
+                print(f"[错误] 连接行情服务器失败：{e}", file=sys.stderr)
+                return 1
 
-        try:
-            self.client.assert_data_ready(run_date)
-        except DataUnavailableError as e:
-            log.error("数据可用性断言失败：%s", e)
-            print(f"[断言失败] {e}（不写任何输出文件，退出码 1）", file=sys.stderr)
-            return 1
-        log.info("数据可用性断言通过")
+            try:
+                self.client.assert_data_ready(run_date)
+            except DataUnavailableError as e:
+                log.error("数据可用性断言失败：%s", e)
+                print(f"[断言失败] {e}（不写任何输出文件，退出码 1）", file=sys.stderr)
+                return 1
+            log.info("数据可用性断言通过")
 
         data_layer = self._prepare_data(run_date)
         kept = data_layer["kept"]

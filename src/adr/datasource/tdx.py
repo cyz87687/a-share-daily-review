@@ -306,6 +306,11 @@ class TdxClient:
         cached = self.cache.load("bars", self._date, symbol)
         if cached is not None:
             return cached
+        if self._q is None:
+            # cache-only 模式：无 bars 缓存且无法联网 → 返回空日线（上层 enrich 退化为全 None 指标，不崩溃）
+            empty = pd.DataFrame(columns=["date", "open", "close", "high", "low", "vol", "amount"])
+            self.cache.save(empty, "bars", self._date, symbol)
+            return empty
         b = self._q.bars(str(symbol), frequency=9, offset=offset)
         if b is None or len(b) == 0:
             b = pd.DataFrame(columns=["date", "open", "close", "high", "low", "vol", "amount"])
@@ -329,6 +334,10 @@ class TdxClient:
         cached = self.cache.load("xdxr", self._date, symbol)
         if cached is not None:
             return cached
+        if self._q is None:
+            empty = pd.DataFrame(columns=["year", "month", "day", "category", "fenhong", "peigujia", "songzhuangu", "peigu"])
+            self.cache.save(empty, "xdxr", self._date, symbol)
+            return empty
         x = self._q.xdxr(str(symbol))
         if x is None:
             x = pd.DataFrame(columns=["year", "month", "day", "category", "fenhong", "peigujia", "songzhuangu", "peigu"])
@@ -343,6 +352,11 @@ class TdxClient:
         cached = self.cache.load("finance", self._date, symbol)
         if cached is not None:
             return {} if len(cached) == 0 else cached.iloc[0].to_dict()
+        if self._q is None:
+            # cache-only 模式：无 finance 缓存且无法联网 → 返回空（上层判 None，不崩溃）
+            empty = pd.DataFrame(columns=["industry", "ipo_date", "liutongguben", "zongguben", "market", "code"])
+            self.cache.save(empty, "finance", self._date, symbol)
+            return {}
         f = self._q.finance(str(symbol))
         if f is None or len(f) == 0:
             empty = pd.DataFrame(columns=["industry", "ipo_date", "liutongguben", "zongguben", "market", "code"])
@@ -461,8 +475,15 @@ class TdxClient:
 
     # ----------------------------------------------- 市场指数（上证/深证）
     def index_quotes(self, codes=None) -> pd.DataFrame:
-        """上证/深证指数现价与涨跌幅（用 index_bars 取近 2 根，可靠）。"""
+        """上证/深证指数现价与涨跌幅（用 index_bars 取近 2 根，可靠）。cache-only 模式读预热缓存。"""
         codes = codes or [_BENCH_INDEX, _SHENZHEN_INDEX]
+        if self._date is not None:
+            cached = self.cache.load("index", self._date)
+            if cached is not None and len(cached):
+                return cached
+        if self._q is None:
+            # cache-only 模式：无 index 缓存且无法联网 → 返回空（市场指数维度退化为 N/A，不崩溃）
+            return pd.DataFrame(columns=["code", "price", "last_close", "pct", "amount"])
         rows = []
         for code in codes:
             b = self._q.index_bars(str(code), frequency=9, offset=2)

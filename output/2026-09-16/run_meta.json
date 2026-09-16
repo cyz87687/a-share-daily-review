@@ -1,13 +1,16 @@
 {
   "date": "2026-09-16",
   "weekday": "周三",
-  "mode": "mcp-gateway",
-  "elapsed_sec": 0,
-  "kept": "N/A",
-  "quality_passed": false,
-  "data_available": false,
-  "sh_index": {"code": "999999", "name": "上证指数", "price": null, "pct": null},
-  "main_line": "数据暂无",
-  "main_line_source": "TDX MCP 网关未连接（本执行环境 mcp.json 无 tdx-connector，仅含已禁用的 Deepq 服务器；ToolSearch 检索 tdx_quotes/tdx_screener/tdx_api_data/tdx_ai_listening 及 gfsecurities/westock 均无可用工具）",
-  "note": "TDX MCP 网关及新闻类连接器在本执行环境中不可用，所有数据字段如实标注'数据暂无'，未编造任何数字/公司/价格/信号。请重新连接并信任 tdx-connector 后重跑。"
+  "mode": "auto",
+  "elapsed_sec": 23.4,
+  "kept": 60,
+  "quality_passed": true,
+  "sh_index": {
+    "code": "999999",
+    "name": "",
+    "price": 3891.6,
+    "pct": 0.707
+  },
+  "main_line": null,
+  "main_line_source": "block_type==2(宽基/指数)"
 }

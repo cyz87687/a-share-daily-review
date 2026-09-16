@@ -48,7 +48,8 @@ def read_holdings(cfg, run_date: str) -> pd.DataFrame:
     cols = ["代码", "名称", "触发标签", "优先级", "所属板块及涨幅排名", "量比", "收盘价", "次日开盘表现", "次日收盘表现"]
     if not p.exists():
         return pd.DataFrame(columns=cols)
-    return pd.read_csv(p, dtype={"代码": str}, encoding="utf-8-sig")
+    # keep_default_na=False：保留字面量「N/A」（数据暂无），避免被 pandas 解析为 NaN 后回写丢失
+    return pd.read_csv(p, dtype={"代码": str}, encoding="utf-8-sig", keep_default_na=False)
 
 
 def backfill_next_day(cfg, prev_date: str, today_snap: pd.DataFrame) -> None:
@@ -61,7 +62,11 @@ def backfill_next_day(cfg, prev_date: str, today_snap: pd.DataFrame) -> None:
         return
     if today_snap is None or len(today_snap) == 0:
         return
-    df = pd.read_csv(p, dtype={"代码": str}, encoding="utf-8-sig")
+    df = pd.read_csv(p, dtype={"代码": str}, encoding="utf-8-sig", keep_default_na=False)
+    # 次日两列转为 object：keep_default_na=False 下全空列会被推断为 str dtype，直接写 float 会 TypeError
+    for c in ("次日开盘表现", "次日收盘表现"):
+        if c in df.columns:
+            df[c] = df[c].astype(object)
     idx = today_snap.copy()
     idx["code"] = idx["code"].astype(str)
     snap_idx = idx.set_index("code")[["open", "price"]]

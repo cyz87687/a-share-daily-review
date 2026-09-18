@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股每日复盘 · 2026-09-18（周五）</title>
+<style>
+:root{--up:#E1251B;--up-bg:#FFF1F0;--down:#17A673;--down-bg:#E8F8F2;--flat:#8C8C8C;--warn:#FA8C16;--text:#1F2329;--text-sub:#646A73;--bg:#FFFFFF;--card:#FAFAFA;--border:#E5E6EB;}
+* { box-sizing: border-box; }
+body { margin:0; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); font-size:13px; line-height:1.6; }
+.up { color:var(--up); } .down { color:var(--down); } .flat { color:var(--flat); } .na { color:var(--flat); font-style:italic; } .warn { color:var(--warn); }
+.wrap { max-width:1080px; margin:0 auto; padding:14px; }
+header { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; }
+h1 { font-size:18px; margin:0 0 6px; }
+.sub { color:var(--text-sub); font-size:12px; }
+.banner { margin:10px 0; padding:8px 12px; border-radius:6px; font-size:12px; background:var(--warn); color:#fff; }
+.banner.gray { background:#8C8C8C; }
+.section { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:12px 14px; margin-top:12px; }
+.section h2 { font-size:15px; margin:0 0 10px; border-left:3px solid var(--up); padding-left:8px; }
+table { width:100%; border-collapse:collapse; font-size:12px; margin:6px 0; }
+th, td { border:1px solid var(--border); padding:5px 7px; text-align:left; }
+th { background:var(--bg); color:var(--text-sub); }
+.stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:10px; }
+.stat { background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:8px; text-align:center; }
+.stat .k { color:var(--text-sub); font-size:11px; }
+.stat .v { font-size:15px; font-weight:700; margin-top:2px; }
+.kpi { font-weight:700; }
+.note { color:var(--text-sub); font-size:11px; margin-top:6px; }
+ul { margin:4px 0 4px 18px; padding:0; }
+li { margin:2px 0; }
+footer { margin-top:16px; color:var(--text-sub); font-size:11px; text-align:center; border-top:1px solid var(--border); padding-top:8px; }
+.tag { font-size:11px; padding:1px 6px; border-radius:4px; background:var(--up-bg); color:var(--up); }
+.na-cell { color:var(--flat); font-style:italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>A股每日复盘 · 2026-09-18（周五）</h1>
+  <div class="sub">数据截止 15:00 收盘 · 采集方式：TDX MCP 网关（mootdx 直连 K 线出口受限）· 全数据来自工具真实返回，缺失项如实标注"数据暂无"</div>
+</header>
+
+<div class="banner">
+  ⚠ 经 TDX MCP 网关采集（mootdx 直连受限）。<b>本次执行环境中 TDX MCP 网关不可达</b>：通过工具检索确认 <code>tdx_quotes / tdx_screener / tdx_api_data / tdx_ai_listening</code> 及新闻连接器（gfsecurities / westock）均<b>无可调用工具</b>（<code>~/.workbuddy/mcp.json</code> 仅含一个 disabled 的 Deepq 服务器，无 tdx-connector）。依据红线"数字只来自工具真实返回，缺失一律标数据暂无，绝不编造"，本报告所有数据字段如实标注"数据暂无"，无虚构数字/公司/价格/信号。
+</div>
+
+<div class="banner gray">
+  ℹ 说明：本自动化按设计规范仅以 TDX MCP 网关为唯一数据源。本自动化此前 2026-09-15 / 2026-09-16 / 2026-09-17 多次执行均因同一网关不可达而降级（9-15/9-16 后已由人工"Wind cache-only 离线重建"回填真实数据，见 commit 5b198f9；9-17 仍为"数据暂无"）。本自动化不调用 Wind 缓存（非授权数据源），如需 2026-09-18 真实数据，待 TDX MCP 网关连通或走同一致的人工回填流程即可。
+</div>
+
+<div class="section">
+  <h2>一、大盘概览</h2>
+  <table>
+    <thead><tr><th>指数</th><th>收盘价</th><th>涨跌幅</th><th>成交额</th><th>PE(TTM)</th><th>PB</th></tr></thead>
+    <tbody>
+      <tr><td>上证指数(999999)</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td></tr>
+      <tr><td>深证成指(399001)</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td></tr>
+      <tr><td>创业板指(399006)</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td></tr>
+      <tr><td>科创50(000688)</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td></tr>
+      <tr><td>北证50(899050)</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td></tr>
+      <tr><td>平均股价(880003)</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">—</td><td class="na-cell">—</td></tr>
+    </tbody>
+  </table>
+  <div class="note">① 通达信 880003 工具实名为"平均股价"（非"万得全A"）。② 六大指数收盘价/涨跌幅/成交额/PE/PB 均因 TDX MCP 网关不可达未取得，统一标"数据暂无"。</div>
+</div>
+
+<div class="section">
+  <h2>二、市场广度</h2>
+  <div class="stat-grid">
+    <div class="stat"><div class="k">涨停</div><div class="v na">数据暂无</div></div>
+    <div class="stat"><div class="k">跌停</div><div class="v na">数据暂无</div></div>
+    <div class="stat"><div class="k">炸板</div><div class="v na">数据暂无</div></div>
+    <div class="stat"><div class="k">涨跌家数比</div><div class="v na">数据暂无</div></div>
+  </div>
+  <ul>
+    <li>封板成功率 / 炸板率：<span class="na">数据暂无</span></li>
+    <li>涨跌家数比（平均股价 880003 口径）：<span class="na">数据暂无</span></li>
+    <li>涨停 / 跌停比：<span class="na">数据暂无</span></li>
+  </ul>
+  <div class="note">tdx_screener 涨停/跌停/炸板家数、封板率因网关不可达未取得，全部标"数据暂无"，无编造。</div>
+</div>
+
+<div class="section">
+  <h2>三、板块资金流向</h2>
+  <div class="note">通达信 <code>tdx_screener</code>"主力净流入板块排名前20"及个股主力净额 Top、涨停/连板原因归纳均因 TDX MCP 网关不可达未取得。以下数据项全部标"数据暂无"。</div>
+  <ul>
+    <li>个股主力净流入 Top：<span class="na">数据暂无</span></li>
+    <li>个股主力净流出 Top：<span class="na">数据暂无</span></li>
+    <li>当日板块主线（涨停/连板原因归纳）：<span class="na">数据暂无</span></li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>四、连板梯队</h2>
+  <ul>
+    <li>最高连板：<span class="na">数据暂无</span></li>
+    <li>连板总家数：<span class="na">数据暂无</span></li>
+    <li>4 板 / 3 板 / 2 板 分层：<span class="na">数据暂无</span></li>
+  </ul>
+  <div class="note">tdx_screener 连板股票数据因网关不可达未取得，无虚构连板个股或高度。</div>
+</div>
+
+<div class="section">
+  <h2>五、龙虎榜要点</h2>
+  <h3 style="font-size:13px;margin:0 0 4px;">席位活跃度（净买入额）</h3>
+  <ul><li><span class="na">数据暂无</span></li></ul>
+  <h3 style="font-size:13px;margin:10px 0 4px;">机构席位追踪（净买入居前/居后）</h3>
+  <ul><li><span class="na">数据暂无</span></li></ul>
+  <div class="note">tdx_api_data 席位活跃度、机构席位净买入、上榜活跃个股均因网关不可达未取得。</div>
+</div>
+
+<div class="section">
+  <h2>六、北向资金</h2>
+  <ul>
+    <li>今日净买入：<span class="na">数据暂无</span></li>
+    <li>原因：本执行环境 TDX MCP 网关整体不可达；且个股北向接口（tdxf10_gg_zlcc, fixedTag=bszj）调用需传入个股代码，无法取全市场净买入。未臆造金额。</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>七、市场新闻摘要</h2>
+  <ul>
+    <li>政策 / 流动性 / 海外 / 盘面 / 公司 要点：<span class="na">数据暂无</span></li>
+    <li>新闻类工具（gfsecurities / westock 新闻）在本次执行环境中不可达，未取得新闻与资讯文本。</li>
+    <li>龙头股 AI 资讯（tdx_ai_listening）：<span class="na">数据暂无</span>（网关不可达）。</li>
+  </ul>
+  <div class="note">为避免幻觉，本环境未引用任何未经工具返回的时事新闻或价格。待新闻连接器连通后重跑即可补全。</div>
+</div>
+
+<div class="section">
+  <h2>八、情绪周期判断</h2>
+  <div class="stat-grid">
+    <div class="stat"><div class="k">阶段</div><div class="v na">数据暂无</div></div>
+    <div class="stat"><div class="k">涨停/跌停比</div><div class="v na">数据暂无</div></div>
+    <div class="stat"><div class="k">炸板率</div><div class="v na">数据暂无</div></div>
+    <div class="stat"><div class="k">连板高度</div><div class="v na">数据暂无</div></div>
+  </div>
+  <ul>
+    <li>因涨停跌停比、炸板率、连板高度、涨跌家数比、指数涨跌等量化依据均缺失，无法判定情绪阶段（退潮/冰点等）。</li>
+    <li>核心依据缺失，故阶段标注"数据暂无"，不做主观臆测。</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>九、龙头股追踪</h2>
+  <table>
+    <thead><tr><th>股票</th><th>连板</th><th>板块/主线</th><th>龙虎榜/资金</th><th>点评</th></tr></thead>
+    <tbody>
+      <tr><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td><td class="na-cell">数据暂无</td></tr>
+    </tbody>
+  </table>
+  <div class="note">龙头个股（2-3 只）、连板高度、板块主线均因数据源不可达未取得，无虚构标的。</div>
+</div>
+
+<div class="section">
+  <h2>十、明日操作建议</h2>
+  <ul>
+    <li><b>仓位建议</b>：因情绪阶段与主线均缺失，<b>建议保持观望/低仓（如 ≤30%）</b>，待 TDX MCP 网关连通、取得真实盘面数据后再定策略。</li>
+    <li><b>重点关注板块/个股</b>：<span class="na">数据暂无</span>（主线与连板数据缺失，无法给出确定性板块/个股建议）。</li>
+    <li><b>风险提示</b>：① 本次复盘数据全面缺失，任何交易决策缺乏量化依据，切勿据此重仓；② 用户 PCB/存储/光模块 持仓的联动分析需真实盘面与资金数据支撑，本期无法给出。</li>
+    <li><b>持仓联动提示</b>：PCB（胜宏科技等）/ 存储（江波龙/佰维存储/德明利）/ 光模块（中际旭创/新易盛）相关板块的当日表现与资金流向因网关不可达未取得，本期不给出联动结论。</li>
+  </ul>
+  <div class="note">免责声明：本报告为数据驱动的研究参考，不构成投资建议。本期因数据源不可达，所有结论性字段均为"数据暂无"，请知悉。</div>
+</div>
+
+<div class="section">
+  <h2>执行状态汇总</h2>
+  <table>
+    <thead><tr><th>步骤</th><th>状态</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>0 交易日判定</td><td class="up">成功</td><td>2026-09-18（周五），15:00 已过，非周末/非法定节假日（中秋为 9/25），output/2026-09-18 不存在 → 执行</td></tr>
+      <tr><td>1 大盘指数快照</td><td class="na">数据暂无</td><td>tdx_quotes 不可达，6 指数全部未取得</td></tr>
+      <tr><td>2 涨跌停数据</td><td class="na">数据暂无</td><td>tdx_screener 涨停/跌停/炸板不可达</td></tr>
+      <tr><td>3 板块资金流向</td><td class="na">数据暂无</td><td>tdx_screener 主力净流入/个股净额不可达</td></tr>
+      <tr><td>4 连板梯队</td><td class="na">数据暂无</td><td>tdx_screener 连板不可达</td></tr>
+      <tr><td>5 龙虎榜</td><td class="na">数据暂无</td><td>tdx_api_data 席位/机构不可达</td></tr>
+      <tr><td>6 北向资金</td><td class="na">数据暂无</td><td>个股北向接口需 code，全市场净买入未取得</td></tr>
+      <tr><td>7 新闻与资讯</td><td class="na">数据暂无</td><td>gfsecurities/westock 新闻 + tdx_ai_listening 均不可达</td></tr>
+      <tr><td>8 情绪周期判断</td><td class="na">数据暂无</td><td>量化依据缺失，未臆测阶段</td></tr>
+      <tr><td>9 报告生成</td><td class="up">成功</td><td>10 节齐全，全部"数据暂无"，零编造</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  【数据截止：2026-09-18 收盘；信号均为盘中待验证假设，非投资建议】<br>
+  生成方式：TDX MCP 网关（本次不可达，降级为"数据暂无"）· 板块数据仅概念板块口径（主线由涨停/连板归纳，本期缺失）
+</footer>
+
+</div>
+</body>
+</html>

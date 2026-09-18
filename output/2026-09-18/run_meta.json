@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-18",
+  "weekday": "周五",
+  "mode": "mcp-gateway",
+  "elapsed_sec": 0,
+  "kept": "N/A",
+  "quality_passed": false,
+  "data_available": false,
+  "sh_index": {
+    "code": "999999",
+    "name": "上证指数",
+    "price": null,
+    "pct": null
+  },
+  "main_line": "数据暂无（TDX MCP 网关不可达）",
+  "main_line_source": "TDX MCP 网关(不可达，未采集)"
+}

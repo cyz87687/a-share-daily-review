@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-21",
+  "weekday": "周一",
+  "mode": "auto",
+  "elapsed_sec": 24.6,
+  "kept": 60,
+  "quality_passed": true,
+  "sh_index": {
+    "code": "999999",
+    "name": "",
+    "price": 3949.91,
+    "pct": 0.9724
+  },
+  "main_line": null,
+  "main_line_source": "block_type==2(宽基/指数)"
+}

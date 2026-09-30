@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-30",
+  "weekday": "周三",
+  "mode": "mcp-gateway",
+  "elapsed_sec": 0,
+  "kept": "N/A",
+  "quality_passed": true,
+  "sh_index": {
+    "code": "999999",
+    "name": "上证指数",
+    "price": 3842.19,
+    "pct": 0.31
+  },
+  "main_line": "创新药/AI制药（阿斯利康20亿美元入股Summit+恒瑞26亿美元授权诺和诺德+莫德纳新高）与人形机器人（襄阳轴承4板）双主线，电力/算电协同、玻璃基板TGV、固态电池、地产（房贷贴息）为辅",
+  "main_line_source": "TDX MCP 网关(手动采集，涨停/连板归纳)"
+}
